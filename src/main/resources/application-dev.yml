@@ -5,10 +5,10 @@ spring:
     username: root
     password: root
 
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql:  true
 
 logging:
   level:
