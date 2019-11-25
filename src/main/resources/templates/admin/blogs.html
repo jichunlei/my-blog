@@ -16,8 +16,8 @@
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">管理后台</h2>
             <a href="#" class="active m-item item m-mobile-hide"><i
-                    class="mini home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
+                    class="mini home icon"></i>博客</a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
             <div class="right m-item m-mobile-hide menu">
                 <div class="ui dropdown  item">
@@ -111,6 +111,7 @@
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}"
                            class="ui mini teal basic button">编辑</a>
                         <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}"
+                           onclick="javascript:return del();"
                            class="ui mini red basic button">删除</a>
                     </td>
                 </tr>
@@ -232,6 +233,16 @@
             recommend: $("[name='recommend']").prop('checked'),
             page: $("[name='page']").val()
         });
+    };
+
+    //删除前的确认
+    function del() {
+        var msg = "您确定要删除吗？";
+        if (confirm(msg) == true) {
+            return true;
+        } else {
+            return false;
+        }
     };
 </script>
 </body>

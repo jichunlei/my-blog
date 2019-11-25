@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -75,7 +76,7 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             //博客标题
-            if (StringUtils.isBlank(blog.getTitle())) {
+            if (StringUtils.isNotBlank(blog.getTitle())) {
                 predicates.add(criteriaBuilder.like(root.get("title"),
                         "%" + blog.getTitle() +
                         "%"));
@@ -105,7 +106,7 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
-        return null;
+        return blogRepository.findAll(pageable);
     }
 
     /**
@@ -182,7 +183,14 @@ public class BlogServiceImpl implements BlogService {
      * @date: 2019/11/24 20:24
      **/
     @Override
+    @Transactional
     public Blog saveBlog(Blog blog) {
+        Date date = new Date();
+        blog.setUpdateTime(date);
+        if (blog.getId() == null) {
+            blog.setCreateTime(date);
+            blog.setViews(0);
+        }
         return blogRepository.save(blog);
     }
 
@@ -196,6 +204,7 @@ public class BlogServiceImpl implements BlogService {
      * @date: 2019/11/24 20:25
      **/
     @Override
+    @Transactional
     public Blog updateBlog(Long id, Blog blog) {
         Blog b = blogRepository.findOne(id);
         if (b == null) {
@@ -215,6 +224,7 @@ public class BlogServiceImpl implements BlogService {
      * @date: 2019/11/24 20:25
      **/
     @Override
+    @Transactional
     public void deleteBlog(Long id) {
         blogRepository.delete(id);
     }

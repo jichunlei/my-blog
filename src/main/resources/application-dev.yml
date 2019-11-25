@@ -14,4 +14,5 @@ logging:
   level:
     root: info
     com.jicl: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
   file: log/blog-dev.log

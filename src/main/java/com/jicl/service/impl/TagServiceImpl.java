@@ -4,6 +4,7 @@ import com.jicl.NotFoundException;
 import com.jicl.dao.TagRepository;
 import com.jicl.pojo.Tag;
 import com.jicl.service.TagService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -153,7 +154,7 @@ public class TagServiceImpl implements TagService {
     //字符串转Long类型的list
     private List<Long> convertToList(String ids) {
         List<Long> list = new ArrayList<>();
-        if (!"".equals(ids) && ids != null) {
+        if (StringUtils.isNotBlank(ids)) {
             String[] idarray = ids.split(",");
             for (int i=0; i < idarray.length;i++) {
                 list.add(new Long(idarray[i]));
