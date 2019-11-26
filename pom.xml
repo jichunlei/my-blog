@@ -40,13 +40,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
+        <!--markdown插件转化成html-->
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark</artifactId>
             <version>0.10.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark-ext-heading-anchor</artifactId>

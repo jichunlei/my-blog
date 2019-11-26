@@ -5,6 +5,7 @@ import com.jicl.dao.BlogRepository;
 import com.jicl.pojo.Blog;
 import com.jicl.pojo.Type;
 import com.jicl.service.BlogService;
+import com.jicl.util.MarkdownUtils;
 import com.jicl.util.MyBeanUtils;
 import com.jicl.vo.BlogQuery;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +58,17 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     public Blog getAndConvert(Long id) {
-        return null;
+        Blog blog = blogRepository.findOne(id);
+        if (blog == null) {
+            throw new NotFoundException("该博客不存在！");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+
+        blogRepository.updateViews(id);
+        return b;
     }
 
     /**
@@ -122,7 +133,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     /**
-     * TODO
+     * 根据关键字查询博客列表
      *
      * @param query    1
      * @param pageable 2
@@ -132,7 +143,7 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
-        return null;
+        return blogRepository.findByQuery(query,pageable);
     }
 
     /**
