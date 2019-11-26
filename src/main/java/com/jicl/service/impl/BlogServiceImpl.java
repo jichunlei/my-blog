@@ -11,15 +11,13 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +136,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     /**
-     * TODO
+     * 查询推荐的博客列表
      *
      * @param size 1
      * @return: java.util.List<com.jicl.pojo.Blog>
@@ -147,7 +145,9 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     public List<Blog> listRecommendBlogTop(Integer size) {
-        return null;
+        Sort sort = new Sort(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = new PageRequest(0, size, sort);
+        return blogRepository.findTop(pageable);
     }
 
     /**
