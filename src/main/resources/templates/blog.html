@@ -890,7 +890,7 @@ h5,h6{font-size:1em;}
             "email": $("[name='email']").val(),
             "content": $("[name='content']").val()
         }, function (responseTxt, statusTxt, xhr) {
-//        $(window).scrollTo($('#comment-container'),500);
+            $(window).scrollTo($('#comment-container'),500);
             clearContent();
         });
     }
