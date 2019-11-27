@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类页面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me.css">
-    <title>分类页</title>
 </head>
 <body>
+
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(2)"
+     class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
-            <a href="#" class="active m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
-                <div class="ui icon input">
-                    <input type="text" placeholder="搜索...">
+                <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                    <input type="text" placeholder="搜索....">
                     <i class="search link icon"></i>
                 </div>
             </div>
         </div>
     </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
 </nav>
-<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-    <i class="sidebar icon"></i>
-</a>
 
 <!--中间内容-->
-<div class="m-container-small m-padded-tb-big">
+<div class="m-container-small m-padded-tb-big animated fadeIn">
     <div class="ui container">
         <!--header-->
         <div class="ui top attached segment">
@@ -41,264 +43,85 @@
                     <h3 class="ui teal header">分类</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block">14</h2> 个
+                    共 <h2 class="ui orange header m-inline-block m-text-thin"
+                          th:text="${#arrays.length(types)}">14</h2> 个
                 </div>
             </div>
         </div>
         <!--分类框-->
         <div class="ui attached segment m-padded-tb-large">
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">清单</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">清单</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">成长</a>
-                <div class="ui basic teal left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-tiny">
-                <a href="#" class="ui basic button">思考与感悟</a>
-                <div class="ui basic teal left pointing label">24</div>
+            <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${types}">
+                <a href="#" th:href="@{/types/{id}(id=${type.id})}" class="ui basic  button"
+                   th:classappend="${type.id==activeTypeId} ? 'teal'"
+                   th:text="${type.name}">思考与感悟</a>
+                <div class="ui basic  left pointing label"
+                     th:classappend="${type.id==activeTypeId} ? 'teal'"
+                     th:text="${#arrays.length(type.blogs)}">24
+                </div>
             </div>
         </div>
+
         <!--博客列表-->
         <div class="ui top attached teal segment">
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
+            <div class="ui padded vertical segment m-padded-tb-large"
+                 th:each="blog : ${page.content}">
+                <div class="ui middle aligned mobile reversed stackable grid">
                     <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}"
+                                                 target="_blank" class="m-black"
+                                                 th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
+                        <p class="m-text" th:text="|${blog.description}......|">
+                            正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
+                        <div class="ui grid">
                             <div class="eleven wide column">
                                 <div class="ui mini horizontal link list">
                                     <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                        <img src="https://unsplash.it/100/100?image=1005"
+                                             th:src="@{${blog.user.avatar}}" alt=""
                                              class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
+                                        <div class="content"><a href="#" class="header"
+                                                                th:text="${blog.user.nickname}">李仁密</a>
+                                        </div>
                                     </div>
                                     <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
+                                        <i class="calendar icon"></i><span
+                                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
                                     </div>
                                     <div class="item">
-                                        <i class="eye icon"></i> 888
+                                        <i class="eye icon"></i> <span
+                                            th:text="${blog.views}">2342</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
+                                <a href="#" target="_blank"
+                                   class="ui teal basic label m-padded-tiny m-text-thin"
+                                   th:text="${blog.type.name}">认知升级</a>
                             </div>
                         </div>
                     </div>
+
                     <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                            <img src="https://unsplash.it/800/450?image=1005"
+                                 th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
                         </a>
                     </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
-                            <div class="eleven wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                             class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
-                                    </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i> 888
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
-                            <div class="eleven wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                             class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
-                                    </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i> 888
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
-                            <div class="eleven wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                             class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
-                                    </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i> 888
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
-                            <div class="eleven wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                             class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
-                                    </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i> 888
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical segment m-padded-tb-large m-mobile-lr-clear">
-                <div class="ui mobile reversed stackable grid">
-                    <div class="eleven wide column">
-                        <h3 class="ui header">SpringBoot搭建自己的个人博客</h3>
-                        <p class="m-text">
-                            SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客,SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客，SpringBoot搭建自己的个人博客</p>
-                        <div class="ui stackable grid">
-                            <div class="eleven wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                             class="ui avatar image">
-                                        <div class="content"><a href="#" class="header">贤子磊</a></div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i> 2019-12-31
-                                    </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i> 888
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny">认知升级</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </div>
+
         <!--分页-->
-        <div class="ui buttom attached segment">
+        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <a href="#" class="ui mini teal basic button">上一页</a>
+                    <a href="#" th:href="@{'/types/'+${activeTypeId}(page=${page.number}-1)}"
+                       th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" class="ui mini teal basic button">下一页</a>
+                    <a href="#" th:href="@{'/types/'+${activeTypeId}(page=${page.number}+1)}"
+                       th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
                 </div>
             </div>
         </div>
@@ -306,13 +129,14 @@
 </div>
 
 <!--底部footer-->
-<footer class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 110px">
+                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt=""
+                             style="width: 110px">
                     </div>
                 </div>
             </div>
@@ -337,11 +161,14 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-2020 xianzilei Designed by xianzilei.</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-2020 xianzilei Designed
+            by xianzilei.</p>
     </div>
 </footer>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
 <script>
     <!--移动端点击图标显示导航-->
     $('.menu.toggle').click(

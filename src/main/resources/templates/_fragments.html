@@ -19,15 +19,20 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i
+            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"
+               th:classappend="${n==1} ? 'active'"><i
                     class="mini home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i
+            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"
+               th:classappend="${n==2} ? 'active'"><i
                     class="mini idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i
+            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"
+               th:classappend="${n==3} ? 'active'"><i
                     class="mini tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"
+               th:classappend="${n==4} ? 'active'"><i
                     class="mini clone icon"></i>归档</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"
+               th:classappend="${n==5} ? 'active'"><i
                     class="mini info icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
                 <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
@@ -59,26 +64,30 @@
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">博客1（story-1）</a>
-                    <a href="#" class="item">博客2（story-2）</a>
-                    <a href="#" class="item">博客3（story-3）</a>
+                <div id="newblog-container">
+                    <div class="ui inverted link list" th:fragment="newblogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"
+                           class="item m-text-thin" th:each="blog : ${newblogs}"
+                           th:text="${blog.title}">用户故事（User Story）</a>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email：1739575190@qq.com</a>
-                    <a href="#" class="item">QQ：1739575190</a>
+                    <a href="#" th:text="#{index.email}" class="item m-text-thin">Email：1739575190@qq.com</a>
+                    <a href="#" th:text="#{index.qq}" class="item m-text-thin">QQ：1739575190</a>
                 </div>
             </div>
             <div class="seven wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">贤子磊的个人博客</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini"
+                   th:text="#{index.blogDescription}">贤子磊的个人博客</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-2020 xianzilei Designed
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-<span
+                th:text="${#dates.year(#dates.createNow())}">2020</span> xianzilei Designed
             by xianzilei.</p>
     </div>
 </footer>
