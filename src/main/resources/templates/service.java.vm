@@ -1,0 +1,20 @@
+/**
+ * @Author :${author}
+ * @Date :${date}
+ * @Description :$!{table.comment}服务层接口
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+
+        /**
+         *  分页查询
+         * @param bootStrapTable
+         * @param ${table.entityPath}
+         * @return
+         */
+        Page<${entity}> selectPage(BootStrapTable<${entity}> bootStrapTable,${entity} ${table.entityPath});
+
+
+
+
+        List<AppCertificate> selectList(${entity} ${table.entityPath});
+        }
