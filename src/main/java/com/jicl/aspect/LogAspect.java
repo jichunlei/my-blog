@@ -20,7 +20,7 @@ import java.util.Arrays;
 @Slf4j
 public class LogAspect {
 
-    @Pointcut("execution(* com.jicl.web.*.*(..))")
+    @Pointcut("execution(* com.jicl.controller.*.*(..))")
     public void log() {
     }
 

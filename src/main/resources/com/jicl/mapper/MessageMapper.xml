@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jicl.mapper.MessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jicl.entity.Message">
+        <id column="message_id" property="messageId" />
+        <result column="message_name" property="messageName" />
+        <result column="message_content" property="messageContent" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>
