@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 导入配置文件 -->
+    <properties resource="application-dev.properties"/>
+
+    <!-- defaultModelType="flat" 设置复合主键时不单独为主键创建实体 -->
+    <context id="MySql" defaultModelType="flat">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，
+        比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 生成的POJO实现java.io.Serializable接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!--注释-->
+        <commentGenerator>
+            <!-- 将数据库中表的字段描述信息添加到注释 -->
+            <property name="addRemarkComments" value="true"/>
+            <!-- 注释里不添加日期 -->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 数据库连接，直接通过${}读取application.properties里的配置 -->
+        <jdbcConnection
+                driverClass="${spring.datasource.driver-class-name}"
+                connectionURL="${spring.datasource.url}"
+                userId="${spring.datasource.username}"
+                password="${spring.datasource.password}"/>
+
+        <!-- 生成POJO对象，并将类放到com.jicl.entity包下 -->
+        <javaModelGenerator targetPackage="com.jicl.entity"
+                            targetProject="src/main/java"></javaModelGenerator>
+        <!-- 生成mapper xml文件，并放到resources下的mapper文件夹下 -->
+        <sqlMapGenerator targetPackage="com.jicl.mapper"
+                         targetProject="src/main/resources"></sqlMapGenerator>
+
+
+        <!-- 生成mapper xml对应dao接口，放到com.jicl.mapper包下-->
+        <javaClientGenerator targetPackage="com.jicl.mapper"
+                             targetProject="src/main/java" type="XMLMAPPER"></javaClientGenerator>
+
+        <!-- table标签可以有多个，至少一个，tableName指定表名，可以使用_和%通配符 -->
+        <table tableName="t_blog">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_blog_tag">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_comment">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_message">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_reply">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_tag">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_type">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+        <table tableName="t_user">
+            <!-- 是否只生成POJO对象 -->
+            <property name="modelOnly" value="false"/>
+            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+        </table>
+    </context>
+</generatorConfiguration>
