@@ -62,7 +62,7 @@
         <!--博客列表-->
         <div class="ui top attached teal segment">
             <div class="ui padded vertical segment m-padded-tb-large"
-                 th:each="blog : ${page.content}">
+                 th:each="blog : ${page.list}">
                 <div class="ui middle aligned mobile reversed stackable grid">
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}"
@@ -117,15 +117,15 @@
             </div>
         </div>
         <!--分页-->
-        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+        <div class="ui bottom attached segment" th:if="${page.pages}>1">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}-1)}"
-                       th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.pageNum}-1)}"
+                       th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}+1)}"
-                       th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.pageNum}+1)}"
+                       th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
                 </div>
             </div>
         </div>

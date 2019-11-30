@@ -24,13 +24,13 @@
                             <h3 class="ui teal header">博客</h3>
                         </div>
                         <div class="right aligned column">
-                            共 <h2 class="ui orange header m-inline-block" th:text="${page.totalElements}">14</h2> 篇
+                            共 <h2 class="ui orange header m-inline-block" th:text="${page.total}">14</h2> 篇
                         </div>
                     </div>
                 </div>
                 <!--content-->
                 <div class="ui attached segment">
-                    <div class="ui padded vertical segment m-padded-tb-large  m-mobile-lr-clear" th:each="blog : ${page.content}">
+                    <div class="ui padded vertical segment m-padded-tb-large  m-mobile-lr-clear" th:each="blog : ${page.list}">
                         <div class="ui mobile reversed stackable grid">
                             <div class="eleven wide column">
                                 <h3 class="ui header" ><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">SpringBoot搭建自己的个人博客</a></h3>
@@ -65,13 +65,13 @@
                     </div>
                 </div>
                 <!--footer-->
-                <div class="ui buttom attached segment" th:if="${page.totalPages}>1">
+                <div class="ui buttom attached segment" th:if="${page.pages}>1">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+                            <a href="#" th:href="@{/(page=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
                         </div>
                         <div class="right aligned column">
-                            <a href="#" th:href="@{/(page=${page.number}+1)}"  th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+                            <a href="#" th:href="@{/(page=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
                         </div>
                     </div>
                 </div>

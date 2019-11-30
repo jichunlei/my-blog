@@ -100,7 +100,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="blog,iterStat : ${page.content}">
+                <tr th:each="blog,iterStat : ${page.list}">
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${blog.title}">刻意练习清单</td>
                     <td th:text="${blog.type.name}">认知升级</td>
@@ -119,11 +119,11 @@
                 <tfoot>
                 <tr>
                     <th colspan="7">
-                        <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
-                            <a onclick="page(this)" th:attr="data-page=${page.number}-1"
-                               class="item" th:unless="${page.first}">上一页</a>
-                            <a onclick="page(this)" th:attr="data-page=${page.number}+1"
-                               class=" item" th:unless="${page.last}">下一页</a>
+                        <div class="ui mini pagination menu" th:if="${page.pages}>1">
+                            <a onclick="page(this)" th:attr="data-page=${page.pageNum}-1"
+                               class="item" th:unless="${page.isFirstPage}">上一页</a>
+                            <a onclick="page(this)" th:attr="data-page=${page.pageNum}+1"
+                               class=" item" th:unless="${page.isLastPage}">下一页</a>
                         </div>
                         <a href="#" th:href="@{/admin/blogs/input}"
                            class="ui mini right floated teal basic button">新增</a>
