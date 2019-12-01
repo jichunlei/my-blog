@@ -254,63 +254,63 @@ public class BlogTagExample {
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdIsNull() {
-            addCriterion("tags_id is null");
+        public Criteria andTagIdIsNull() {
+            addCriterion("tag_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdIsNotNull() {
-            addCriterion("tags_id is not null");
+        public Criteria andTagIdIsNotNull() {
+            addCriterion("tag_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdEqualTo(Integer value) {
-            addCriterion("tags_id =", value, "tagsId");
+        public Criteria andTagIdEqualTo(Integer value) {
+            addCriterion("tag_id =", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdNotEqualTo(Integer value) {
-            addCriterion("tags_id <>", value, "tagsId");
+        public Criteria andTagIdNotEqualTo(Integer value) {
+            addCriterion("tag_id <>", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdGreaterThan(Integer value) {
-            addCriterion("tags_id >", value, "tagsId");
+        public Criteria andTagIdGreaterThan(Integer value) {
+            addCriterion("tag_id >", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("tags_id >=", value, "tagsId");
+        public Criteria andTagIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tag_id >=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdLessThan(Integer value) {
-            addCriterion("tags_id <", value, "tagsId");
+        public Criteria andTagIdLessThan(Integer value) {
+            addCriterion("tag_id <", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdLessThanOrEqualTo(Integer value) {
-            addCriterion("tags_id <=", value, "tagsId");
+        public Criteria andTagIdLessThanOrEqualTo(Integer value) {
+            addCriterion("tag_id <=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdIn(List<Integer> values) {
-            addCriterion("tags_id in", values, "tagsId");
+        public Criteria andTagIdIn(List<Integer> values) {
+            addCriterion("tag_id in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdNotIn(List<Integer> values) {
-            addCriterion("tags_id not in", values, "tagsId");
+        public Criteria andTagIdNotIn(List<Integer> values) {
+            addCriterion("tag_id not in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdBetween(Integer value1, Integer value2) {
-            addCriterion("tags_id between", value1, value2, "tagsId");
+        public Criteria andTagIdBetween(Integer value1, Integer value2) {
+            addCriterion("tag_id between", value1, value2, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagsIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("tags_id not between", value1, value2, "tagsId");
+        public Criteria andTagIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("tag_id not between", value1, value2, "tagId");
             return (Criteria) this;
         }
     }

@@ -22,6 +22,10 @@
 
         <!-- 生成的POJO实现java.io.Serializable接口 -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 整合lombok-->
+        <plugin type="org.mybatis.generator.plugins.LombokPlugin" >
+            <property name="hasLombok" value="true"/>
+        </plugin>
 
         <!--注释-->
         <commentGenerator>
@@ -41,7 +45,7 @@
         <javaModelGenerator targetPackage="com.jicl.entity"
                             targetProject="src/main/java"></javaModelGenerator>
         <!-- 生成mapper xml文件，并放到resources下的mapper文件夹下 -->
-        <sqlMapGenerator targetPackage="com.jicl.mapper"
+        <sqlMapGenerator targetPackage="mapper"
                          targetProject="src/main/resources"></sqlMapGenerator>
 
 

@@ -23,9 +23,9 @@ public class IndexController {
     public String index(Blog blog, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
             "10") Integer pageSize, Model model) {
         model.addAttribute("page", blogService.page(blog, pageNum, pageSize));
-        model.addAttribute("types", "");
-        model.addAttribute("tags", "");
-        model.addAttribute("recommendBlogs", "");
+        model.addAttribute("types", blogService.getTopTypeList(6));
+        model.addAttribute("tags", blogService.getTopTagList(10));
+        model.addAttribute("recommendBlogs", blogService.getRecommendBlogs(8));
         return "hello";
     }
 }

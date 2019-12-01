@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jicl.mapper.BlogExtendMapper">
+    <resultMap id="TopTypeResultMap" type="com.jicl.pojo.TopType" extends="com.jicl.mapper.TypeMapper.BaseResultMap">
+    </resultMap>
+
+
+
+    <!--查询指定数量的top类型的博客数-->
+    <select id="getTopTypeList" parameterType="java.lang.Integer"
+            resultMap="TopTypeResultMap">
+        SELECT
+            a.type_id,
+            b.type_name,
+            COUNT( a.blog_id ) blogNums
+        FROM
+            t_blog a,
+            t_type b
+        WHERE
+            a.type_id = b.type_id
+        GROUP BY
+            a.type_id,
+            b.type_name
+        ORDER BY
+            blogNums DESC,a.type_id ASC
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
+
+    <!--查询指定数量的推荐的博客-->
+    <select id="getRecommendBlogs" parameterType="java.lang.Integer"
+            resultMap="com.jicl.mapper.BlogMapper.BaseResultMap">
+        select
+        <include refid="com.jicl.mapper.BlogMapper.Base_Column_List"/>
+        from t_blog
+        order by blog_views desc
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
+</mapper>

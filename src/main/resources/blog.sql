@@ -39,15 +39,16 @@ CREATE TABLE `t_blog`  (
   `commentabled` bit(1) NOT NULL COMMENT '是否开启评论',
   `blog_comments` int(11) NOT NULL COMMENT '博客评论次数',
   PRIMARY KEY (`blog_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT =
+Dynamic;
 
 -- ----------------------------
--- Table structure for t_blog_tags
+-- Table structure for t_blog_tag
 -- ----------------------------
-DROP TABLE IF EXISTS `t_blog_tags`;
-CREATE TABLE `t_blog_tags`  (
+DROP TABLE IF EXISTS `t_blog_tag`;
+CREATE TABLE `t_blog_tag`  (
   `blog_id` int(11) NOT NULL COMMENT '博客id',
-  `tags_id` int(11) NOT NULL COMMENT '标签id'
+  `tag_id` int(11) NOT NULL COMMENT '标签id'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -63,7 +64,8 @@ CREATE TABLE `t_comment`  (
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   `del_flag` bit(1) NOT NULL COMMENT '删除标识',
   PRIMARY KEY (`comment_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT =
+Dynamic;
 
 -- ----------------------------
 -- Table structure for t_message
@@ -98,7 +100,7 @@ CREATE TABLE `t_tag`  (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `tag_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '标签名',
   PRIMARY KEY (`tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_type
@@ -108,7 +110,7 @@ CREATE TABLE `t_type`  (
   `type_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `type_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '类型名',
   PRIMARY KEY (`type_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user
@@ -131,6 +133,6 @@ CREATE TABLE `t_user`  (
   `update_time` datetime(0) NOT NULL COMMENT '更新时间',
   `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '删除标识',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

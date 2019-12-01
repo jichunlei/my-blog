@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ur container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        用户注册
+                    </div>
+                </h2>
+                <form class="ui large form" method="post" action="#" th:action="@{/user/register}">
+                    <div class="ui  segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="请输入用户名，2~12个字符">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="请输入密码，6~16个字符">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="confirmedPassword"
+                                       placeholder="请输入确认密码">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="请输入昵称，6~16个字符">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="email" placeholder="请输入邮箱">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="telephone" placeholder="请输入手机号">
+                            </div>
+                        </div>
+                        <button class="ui fluid large teal submit button">注 册</button>
+                    </div>
+
+                    <div class="ui error mini message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}"
+                         th:text="${message}">注册失败
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.ui.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入登录用户名'
+                    },
+                    {
+                        type: 'minLength[2]',
+                        prompt: '登录用户名长度应为2~12位'
+                    }
+                    ,
+                    {
+                        type: 'maxLength[12]',
+                        prompt: '登录用户名长度应为2~12位'
+                    }
+                ]
+            },
+            password: {
+                identifier: 'password',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入密码'
+                    },
+                    {
+                        type: 'minLength[6]',
+                        prompt: '密码长度应为6~16位'
+                    },
+                    {
+                        type: 'maxLength[16]',
+                        prompt: '密码长度应为6~16位'
+                    }
+                ]
+            },
+            confirmedPassword: {
+                identifier: 'confirmedPassword',
+                rules: [
+                    {
+                        type: 'match[password]',
+                        prompt: '确认密码与密码输入不一致'
+                    }
+                ]
+            },
+            nickname: {
+                identifier: 'nickname',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入昵称'
+                    },
+                    {
+                        type: 'minLength[2]',
+                        prompt: '昵称长度应为2~10位'
+                    }
+                    ,
+                    {
+                        type: 'maxLength[10]',
+                        prompt: '昵称长度应为2~10位'
+                    }
+                ]
+            },
+            email: {
+                identifier: 'email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入邮箱'
+                    },
+                    {
+                        type: 'email',
+                        prompt: '请输入正确的邮箱地址'
+                    }
+                ]
+            },
+            telephone: {
+                identifier: 'telephone',
+                rules: [
+                    {
+                        type: 'regExp',
+                        value: '/^[1]([3-9])[0-9]{9}$/',
+                        prompt: '请输入正确的联系方式'
+                    }
+                ]
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
