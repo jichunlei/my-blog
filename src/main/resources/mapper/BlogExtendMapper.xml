@@ -36,4 +36,14 @@
         order by blog_views desc
         LIMIT #{topSize,jdbcType=INTEGER}
     </select>
+
+    <!--查询指定数量的最新博客-->
+    <select id="getLastUpdateBlogTop" parameterType="java.lang.Integer"
+            resultMap="com.jicl.mapper.BlogMapper.BaseResultMap">
+        select
+        <include refid="com.jicl.mapper.BlogMapper.Base_Column_List"/>
+        from t_blog
+        order by blog_views desc
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
 </mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jicl.mapper.BlogTagExtendMapper">
-  <resultMap id="TopTagResultMap" type="com.jicl.pojo.TopTag">
+  <resultMap id="TopTagResultMap" extends="com.jicl.mapper.TagMapper.BaseResultMap" type="com.jicl.pojo.TopTag">
   </resultMap>
 
   <select id="getTopTagList" parameterType="java.lang.Integer" resultMap="TopTagResultMap">

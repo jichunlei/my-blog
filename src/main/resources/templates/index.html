@@ -56,7 +56,7 @@
                                     <div class="right aligned five wide column">
                                         <a href="#" target="_blank"
                                            class="ui teal basic label m-padded-tiny m-text-thin"
-                                           th:text="${typeMap['blog.typeId']}">认知升级</a>
+                                           th:text="${typeMap[__${blog.typeId}__]}">认知升级</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,11 +96,11 @@
                     </div>
                     <div class="ui teal segment">
                         <div class="ui fluid vertical menu">
-                            <a href="#" th:href="@{/types/{id}(id=${type.typeId})}" target="_blank" class="item"
+                            <a href="#" th:href="@{/types/{id}(id=${topType.typeId})}" target="_blank" class="item"
                                th:each="topType : ${types}">
-                                <span th:text="${topType.name}">学习日志</span>
+                                <span th:text="${topType.typeName}">学习日志</span>
                                 学习日志
-                                <div class="ui teal basic left pointing label" th:text="${#arrays.length(topType.blogNums)}">13</div>
+                                <div class="ui teal basic left pointing label" th:text="${topType.blogNums}">13</div>
                             </a>
                         </div>
                     </div>
@@ -118,9 +118,9 @@
                         </div>
                     </div>
                     <div class="ui teal segment">
-                        <a href="#" th:href="@{/tags/{id}(id=${tag.tagId})}" target="_blank"
+                        <a href="#" th:href="@{/tags/{id}(id=${topTag.tagId})}" target="_blank"
                            class="ui teal basic left pointing label m-margin-tb-tiny" th:each="topTag : ${tags}">
-                            <span th:text="${topTag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(topTag.blogNums)}">23</div>
+                            <span th:text="${topTag.tagName}">方法论</span> <div class="detail" th:text="${topTag.blogNums}">23</div>
                         </a>
                     </div>
                 </div>

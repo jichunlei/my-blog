@@ -102,4 +102,17 @@ public class BlogServiceImpl implements BlogService {
     public List<TopTag> getTopTagList(Integer topSize) {
         return blogTagExtendMapper.getTopTagList(topSize);
     }
+
+    /**
+     * 功能描述: 获取指定数量的最新博客基本信息
+     *
+     * @param topSize 1
+     * @return java.util.List<com.jicl.entity.Blog>
+     * @author xianzilei
+     * @date 2019/12/2 21:29
+     **/
+    @Override
+    public List<Blog> getLastUpdateBlogTop(Integer topSize) {
+        return blogExtendMapper.getLastUpdateBlogTop(topSize);
+    }
 }

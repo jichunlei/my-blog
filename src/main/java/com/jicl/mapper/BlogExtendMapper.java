@@ -1,6 +1,7 @@
 package com.jicl.mapper;
 
 import com.jicl.entity.Blog;
+import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 
 import java.util.List;
@@ -32,4 +33,14 @@ public interface BlogExtendMapper {
      * @date 2019/12/1 10:44
      **/
     List<Blog> getRecommendBlogs(Integer topSize);
+
+    /**
+     * 功能描述: 查询指定数量的最新的博客
+     *
+     * @param topSize 1
+     * @return java.util.List<com.jicl.entity.Blog>
+     * @author xianzilei
+     * @date 2019/12/2 21:32
+     **/
+    List<Blog> getLastUpdateBlogTop(Integer topSize);
 }

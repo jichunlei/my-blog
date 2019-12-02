@@ -9,6 +9,7 @@ import com.jicl.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,6 +30,17 @@ public class IndexController {
     @Autowired
     private TagService tagService;
 
+    /**
+     * 功能描述: 首页
+     *
+     * @param blog 1
+     * @param pageNum 2
+     * @param pageSize 3
+     * @param model 4
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/2 21:26
+     **/
     @RequestMapping("/")
     public String index(Blog blog, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
             "10") Integer pageSize, Model model) {
@@ -39,5 +51,19 @@ public class IndexController {
         model.addAttribute("typeMap",typeService.getAllTypes());
         model.addAttribute("tagMap",tagService.getAllTags());
         return BlogConstant.INDEX_PAGE;
+    }
+
+    /**
+     * 功能描述: 查询最新博客
+     *
+     * @param model 1
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/2 21:33
+     **/
+    @GetMapping("/footer/newblog")
+    public String newblogs(Model model) {
+        model.addAttribute("newblogs", blogService.getLastUpdateBlogTop(3));
+        return "_fragments :: newblogList";
     }
 }
