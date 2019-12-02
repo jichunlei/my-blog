@@ -1,14 +1,14 @@
 package com.jicl.interceptor;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Auther: xianzilei
- * @Date: 2019/11/24 11:59
- * @Description: 登录拦截器
+ * 登录拦截器
+ *
+ * @author : xianzilei
+ * @date : 2019/12/2 08:33
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
@@ -17,7 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                              HttpServletResponse response,
                              Object handler) throws Exception {
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/user/toLoginPage");
             return false;
         }
         return true;

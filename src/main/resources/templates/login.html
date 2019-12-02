@@ -22,12 +22,12 @@
                     </div>
                 </h2>
 
-                <form class="ui large form" method="post" action="#" th:action="@{/admin/login}">
+                <form class="ui large form" method="post" action="#" th:action="@{/user/login}">
                     <div class="ui  segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="用户名">
+                                <input type="text" name="username" th:value="${username}" placeholder="用户名">
                             </div>
                         </div>
                         <div class="field">

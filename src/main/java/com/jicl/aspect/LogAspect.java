@@ -2,8 +2,10 @@ package com.jicl.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -15,8 +17,8 @@ import java.util.Arrays;
  * @Date: 2019/11/21 21:47
  * @Description: 日志切面类
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Slf4j
 public class LogAspect {
 
