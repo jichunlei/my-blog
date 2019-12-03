@@ -21,6 +21,7 @@
     <result column="appreciation_flag" jdbcType="BIT" property="appreciationFlag" />
     <result column="commentabled" jdbcType="BIT" property="commentabled" />
     <result column="blog_comments" jdbcType="INTEGER" property="blogComments" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jicl.entity.Blog">
     <!--
@@ -102,7 +103,7 @@
     -->
     blog_id, user_id, blog_desc, recommend, share_flag, type_id, create_time, update_time, 
     first_picture_addr, published, blog_title, blog_views, appreciation_flag, commentabled, 
-    blog_comments
+    blog_comments, del_flag
   </sql>
   <sql id="Blob_Column_List">
     <!--
@@ -189,13 +190,13 @@
       create_time, update_time, first_picture_addr, 
       published, blog_title, blog_views, 
       appreciation_flag, commentabled, blog_comments, 
-      blog_content)
+      del_flag, blog_content)
     values (#{blogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{blogDesc,jdbcType=VARCHAR}, 
       #{recommend,jdbcType=BIT}, #{shareFlag,jdbcType=BIT}, #{typeId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{firstPictureAddr,jdbcType=VARCHAR}, 
       #{published,jdbcType=BIT}, #{blogTitle,jdbcType=VARCHAR}, #{blogViews,jdbcType=INTEGER}, 
       #{appreciationFlag,jdbcType=BIT}, #{commentabled,jdbcType=BIT}, #{blogComments,jdbcType=INTEGER}, 
-      #{blogContent,jdbcType=LONGVARCHAR})
+      #{delFlag,jdbcType=BIT}, #{blogContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jicl.entity.Blog">
     <!--
@@ -249,6 +250,9 @@
       <if test="blogComments != null">
         blog_comments,
       </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
       <if test="blogContent != null">
         blog_content,
       </if>
@@ -298,6 +302,9 @@
       </if>
       <if test="blogComments != null">
         #{blogComments,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BIT},
       </if>
       <if test="blogContent != null">
         #{blogContent,jdbcType=LONGVARCHAR},
@@ -366,6 +373,9 @@
       <if test="record.blogComments != null">
         blog_comments = #{record.blogComments,jdbcType=INTEGER},
       </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=BIT},
+      </if>
       <if test="record.blogContent != null">
         blog_content = #{record.blogContent,jdbcType=LONGVARCHAR},
       </if>
@@ -395,6 +405,7 @@
       appreciation_flag = #{record.appreciationFlag,jdbcType=BIT},
       commentabled = #{record.commentabled,jdbcType=BIT},
       blog_comments = #{record.blogComments,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=BIT},
       blog_content = #{record.blogContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -420,7 +431,8 @@
       blog_views = #{record.blogViews,jdbcType=INTEGER},
       appreciation_flag = #{record.appreciationFlag,jdbcType=BIT},
       commentabled = #{record.commentabled,jdbcType=BIT},
-      blog_comments = #{record.blogComments,jdbcType=INTEGER}
+      blog_comments = #{record.blogComments,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -474,6 +486,9 @@
       <if test="blogComments != null">
         blog_comments = #{blogComments,jdbcType=INTEGER},
       </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
       <if test="blogContent != null">
         blog_content = #{blogContent,jdbcType=LONGVARCHAR},
       </if>
@@ -500,6 +515,7 @@
       appreciation_flag = #{appreciationFlag,jdbcType=BIT},
       commentabled = #{commentabled,jdbcType=BIT},
       blog_comments = #{blogComments,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=BIT},
       blog_content = #{blogContent,jdbcType=LONGVARCHAR}
     where blog_id = #{blogId,jdbcType=INTEGER}
   </update>
@@ -522,7 +538,8 @@
       blog_views = #{blogViews,jdbcType=INTEGER},
       appreciation_flag = #{appreciationFlag,jdbcType=BIT},
       commentabled = #{commentabled,jdbcType=BIT},
-      blog_comments = #{blogComments,jdbcType=INTEGER}
+      blog_comments = #{blogComments,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=BIT}
     where blog_id = #{blogId,jdbcType=INTEGER}
   </update>
 </mapper>
