@@ -1,6 +1,5 @@
 package com.jicl.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.jicl.constant.BlogConstant;
 import com.jicl.entity.Blog;
 import com.jicl.service.BlogService;
@@ -43,7 +42,7 @@ public class IndexController {
      **/
     @RequestMapping("/")
     public String index(Blog blog, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
-            "10") Integer pageSize, Model model) {
+            "6") Integer pageSize, Model model) {
         model.addAttribute("page", blogService.page(blog, pageNum, pageSize));
         model.addAttribute("types", blogService.getTopTypeList(6));
         model.addAttribute("tags", blogService.getTopTagList(10));

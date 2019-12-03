@@ -30,11 +30,14 @@
                     class="mini tags icon"></i>标签</a>
             <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"
                th:classappend="${n==4} ? 'active'"><i
-                    class="mini clone icon"></i>归档</a>
+                    class="mini clone icon"></i>历史文章</a>
             <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"
                th:classappend="${n==5} ? 'active'"><i
-                    class="mini info icon"></i>关于我</a>
-            <div class="right m-item item m-mobile-hide">
+                    class="mini envelope icon"></i>留言</a>
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"
+               th:classappend="${n==6} ? 'active'"><i
+                    class="mini bullhorn icon"></i>本站公告</a>
+            <div class="m-item item m-mobile-hide">
                 <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
                         <input type="text" name="query" placeholder="Search...."
@@ -42,6 +45,10 @@
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
+            </div>
+            <div class="right m-item item">
+                <a href="#" th:href="@{/user/toLoginPage}" class="m-item item">登录</a>·
+                <a href="#" th:href="@{/user/toRegisterPage}" class="m-item item">注册</a>
             </div>
         </div>
     </div>
@@ -73,20 +80,20 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系站长</h4>
                 <div class="ui inverted link list">
                     <a href="#" th:text="#{index.email}" class="item m-text-thin">Email：1739575190@qq.com</a>
                     <a href="#" th:text="#{index.qq}" class="item m-text-thin">QQ：1739575190</a>
                 </div>
             </div>
             <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
+                <h4 class="ui inverted header m-text-thin m-text-spaced">小破站简介</h4>
                 <p class="m-text-thin m-text-spaced m-opacity-mini"
                    th:text="#{index.blogDescription}">贤子磊的个人博客</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-<span
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2017-<span
                 th:text="${#dates.year(#dates.createNow())}">2020</span> xianzilei Designed
             by xianzilei.</p>
     </div>

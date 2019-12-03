@@ -1,8 +1,9 @@
 package com.jicl.mapper;
 
 import com.jicl.entity.Blog;
-import com.jicl.pojo.TopTag;
+import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopType;
+import com.jicl.vo.BlogVo;
 
 import java.util.List;
 
@@ -13,6 +14,15 @@ import java.util.List;
  * @date : 2019/12/1 09:49
  */
 public interface BlogExtendMapper {
+
+    /**
+     * 功能描述: 首页展示博客列表
+     *
+     * @return java.util.List<BlogVo>
+     * @author xianzilei
+     * @date 2019/12/3 18:56
+     **/
+    List<BlogVo> page(BlogExample blogExample);
 
     /**
      * 功能描述: 查询指定数量的top类型的博客数

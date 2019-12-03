@@ -1,6 +1,5 @@
 package com.jicl.pojo;
 
-import com.jicl.entity.Type;
 import lombok.Data;
 
 /**

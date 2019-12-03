@@ -60,47 +60,47 @@
             <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
             <domainObjectRenamingRule searchString="^T" replaceString=""/>
         </table>
-        <table tableName="t_blog_tag">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_comment">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_message">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_reply">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_tag">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_type">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
-        <table tableName="t_user">
-            <!-- 是否只生成POJO对象 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
-            <domainObjectRenamingRule searchString="^T" replaceString=""/>
-        </table>
+        <!--<table tableName="t_blog_tag">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_comment">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_message">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_reply">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_tag">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_type">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
+        <!--<table tableName="t_user">-->
+            <!--&lt;!&ndash; 是否只生成POJO对象 &ndash;&gt;-->
+            <!--<property name="modelOnly" value="false"/>-->
+            <!--&lt;!&ndash; 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 &ndash;&gt;-->
+            <!--<domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

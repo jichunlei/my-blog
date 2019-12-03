@@ -38,12 +38,12 @@
                                 <div class="ui grid">
                                     <div class="eleven wide column">
                                         <div class="ui mini horizontal link list">
-                                            <div class="item" th:unless="${session.user==null}">
+                                            <div class="item">
                                                 <img src="https://unsplash.it/100/100?image=1005"
-                                                     th:src="@{${session.user.avatar}}" alt=""
+                                                     th:src="@{${blog.headPortrait}}" alt=""
                                                      class="ui avatar image">
                                                 <div class="content"><a href="#" class="header"
-                                                                        th:text="${session.user.nickname}" >贤子磊</a></div>
+                                                                        th:text="${blog.nickname}" >贤子磊</a></div>
                                             </div>
                                             <div class="item">
                                                 <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
@@ -72,10 +72,10 @@
                 <div class="ui buttom attached segment" th:if="${page.pages}>1">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <a href="#" th:href="@{/(page=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
+                            <a href="#" th:href="@{/(pageNum=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
                         </div>
                         <div class="right aligned column">
-                            <a href="#" th:href="@{/(page=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
+                            <a href="#" th:href="@{/(pageNum=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,6 @@
                             <a href="#" th:href="@{/types/{id}(id=${topType.typeId})}" target="_blank" class="item"
                                th:each="topType : ${types}">
                                 <span th:text="${topType.typeName}">学习日志</span>
-                                学习日志
                                 <div class="ui teal basic left pointing label" th:text="${topType.blogNums}">13</div>
                             </a>
                         </div>
@@ -134,7 +133,7 @@
                     </div>
                 </div>
                 <!--二维码-->
-                <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
+                <h4 class="ui horizontal divider header m-margin-top-large">扫码关注站长</h4>
                 <div class="ui centered card" style="width: 11em">
                     <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt=""
                          class="ui rounded image">

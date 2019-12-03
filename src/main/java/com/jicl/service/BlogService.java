@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.jicl.entity.Blog;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
+import com.jicl.vo.BlogVo;
 
 import java.util.List;
 
@@ -16,16 +17,16 @@ import java.util.List;
 public interface BlogService {
 
     /**
-     * 功能描述: 分页查询博客列表
+     * 功能描述: 分页查询博客信息
      *
      * @param blog 1
      * @param pageNum 2
      * @param pageSize 3
-     * @return com.github.pagehelper.PageInfo<com.jicl.entity.Blog>
+     * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
-     * @date 2019/11/30 10:16
+     * @date 2019/12/3 19:11
      **/
-    PageInfo<Blog> page(Blog blog, Integer pageNum, Integer pageSize);
+    PageInfo<BlogVo> page(Blog blog, Integer pageNum, Integer pageSize);
 
     /**
      * 功能描述: 获取所有博客信息

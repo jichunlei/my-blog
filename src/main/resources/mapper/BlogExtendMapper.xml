@@ -5,7 +5,49 @@
     <resultMap id="TopTypeResultMap" type="com.jicl.pojo.TopType" extends="com.jicl.mapper.TypeMapper.BaseResultMap">
     </resultMap>
 
+    <resultMap id="BlogResultMap" type="com.jicl.vo.BlogVo" extends="com.jicl.mapper.BlogMapper.BaseResultMap">
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    </resultMap>
 
+    <!--首页展示博客信息列表-->
+    <select id="page" resultMap="BlogResultMap">
+        SELECT
+            *
+        FROM
+            (
+              SELECT
+                a.blog_id,
+                a.user_id,
+                a.blog_desc,
+                a.recommend,
+                a.share_flag,
+                a.type_id,
+                a.create_time,
+                a.update_time,
+                a.first_picture_addr,
+                a.published,
+                a.blog_title,
+                a.blog_views,
+                a.appreciation_flag,
+                a.commentabled,
+                a.blog_comments,
+                b.nickname,
+                b.head_portrait
+            FROM
+                t_blog a,
+                t_user b
+            WHERE
+                a.user_id = b.user_id
+                AND a.del_flag = 0
+            ) a
+        <if test="_parameter != null">
+            <include refid="com.jicl.mapper.BlogMapper.Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 
     <!--查询指定数量的top类型的博客数-->
     <select id="getTopTypeList" parameterType="java.lang.Integer"
