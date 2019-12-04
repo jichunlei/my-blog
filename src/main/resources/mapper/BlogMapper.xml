@@ -11,7 +11,7 @@
     <result column="blog_desc" jdbcType="VARCHAR" property="blogDesc" />
     <result column="recommend" jdbcType="BIT" property="recommend" />
     <result column="share_flag" jdbcType="BIT" property="shareFlag" />
-    <result column="type_id" jdbcType="BIGINT" property="typeId" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="first_picture_addr" jdbcType="VARCHAR" property="firstPictureAddr" />
@@ -192,7 +192,7 @@
       appreciation_flag, commentabled, blog_comments, 
       del_flag, blog_content)
     values (#{blogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{blogDesc,jdbcType=VARCHAR}, 
-      #{recommend,jdbcType=BIT}, #{shareFlag,jdbcType=BIT}, #{typeId,jdbcType=BIGINT}, 
+      #{recommend,jdbcType=BIT}, #{shareFlag,jdbcType=BIT}, #{typeId,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{firstPictureAddr,jdbcType=VARCHAR}, 
       #{published,jdbcType=BIT}, #{blogTitle,jdbcType=VARCHAR}, #{blogViews,jdbcType=INTEGER}, 
       #{appreciationFlag,jdbcType=BIT}, #{commentabled,jdbcType=BIT}, #{blogComments,jdbcType=INTEGER}, 
@@ -274,7 +274,7 @@
         #{shareFlag,jdbcType=BIT},
       </if>
       <if test="typeId != null">
-        #{typeId,jdbcType=BIGINT},
+        #{typeId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -344,7 +344,7 @@
         share_flag = #{record.shareFlag,jdbcType=BIT},
       </if>
       <if test="record.typeId != null">
-        type_id = #{record.typeId,jdbcType=BIGINT},
+        type_id = #{record.typeId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -395,7 +395,7 @@
       blog_desc = #{record.blogDesc,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       share_flag = #{record.shareFlag,jdbcType=BIT},
-      type_id = #{record.typeId,jdbcType=BIGINT},
+      type_id = #{record.typeId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       first_picture_addr = #{record.firstPictureAddr,jdbcType=VARCHAR},
@@ -422,7 +422,7 @@
       blog_desc = #{record.blogDesc,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       share_flag = #{record.shareFlag,jdbcType=BIT},
-      type_id = #{record.typeId,jdbcType=BIGINT},
+      type_id = #{record.typeId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       first_picture_addr = #{record.firstPictureAddr,jdbcType=VARCHAR},
@@ -457,7 +457,7 @@
         share_flag = #{shareFlag,jdbcType=BIT},
       </if>
       <if test="typeId != null">
-        type_id = #{typeId,jdbcType=BIGINT},
+        type_id = #{typeId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -505,7 +505,7 @@
       blog_desc = #{blogDesc,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       share_flag = #{shareFlag,jdbcType=BIT},
-      type_id = #{typeId,jdbcType=BIGINT},
+      type_id = #{typeId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       first_picture_addr = #{firstPictureAddr,jdbcType=VARCHAR},
@@ -529,7 +529,7 @@
       blog_desc = #{blogDesc,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       share_flag = #{shareFlag,jdbcType=BIT},
-      type_id = #{typeId,jdbcType=BIGINT},
+      type_id = #{typeId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       first_picture_addr = #{firstPictureAddr,jdbcType=VARCHAR},

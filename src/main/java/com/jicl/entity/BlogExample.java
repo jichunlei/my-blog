@@ -515,52 +515,52 @@ public class BlogExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdEqualTo(Long value) {
+        public Criteria andTypeIdEqualTo(Integer value) {
             addCriterion("type_id =", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdNotEqualTo(Long value) {
+        public Criteria andTypeIdNotEqualTo(Integer value) {
             addCriterion("type_id <>", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdGreaterThan(Long value) {
+        public Criteria andTypeIdGreaterThan(Integer value) {
             addCriterion("type_id >", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andTypeIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("type_id >=", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdLessThan(Long value) {
+        public Criteria andTypeIdLessThan(Integer value) {
             addCriterion("type_id <", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdLessThanOrEqualTo(Long value) {
+        public Criteria andTypeIdLessThanOrEqualTo(Integer value) {
             addCriterion("type_id <=", value, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdIn(List<Long> values) {
+        public Criteria andTypeIdIn(List<Integer> values) {
             addCriterion("type_id in", values, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdNotIn(List<Long> values) {
+        public Criteria andTypeIdNotIn(List<Integer> values) {
             addCriterion("type_id not in", values, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdBetween(Long value1, Long value2) {
+        public Criteria andTypeIdBetween(Integer value1, Integer value2) {
             addCriterion("type_id between", value1, value2, "typeId");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIdNotBetween(Long value1, Long value2) {
+        public Criteria andTypeIdNotBetween(Integer value1, Integer value2) {
             addCriterion("type_id not between", value1, value2, "typeId");
             return (Criteria) this;
         }

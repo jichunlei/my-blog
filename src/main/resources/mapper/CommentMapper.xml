@@ -8,7 +8,7 @@
     -->
     <id column="comment_id" jdbcType="INTEGER" property="commentId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="blog_id" jdbcType="BIGINT" property="blogId" />
+    <result column="blog_id" jdbcType="INTEGER" property="blogId" />
     <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
@@ -176,7 +176,7 @@
     insert into t_comment (comment_id, user_id, blog_id, 
       comment_time, create_time, del_flag, 
       comment_content)
-    values (#{commentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{blogId,jdbcType=BIGINT}, 
+    values (#{commentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{blogId,jdbcType=INTEGER}, 
       #{commentTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT}, 
       #{commentContent,jdbcType=LONGVARCHAR})
   </insert>
@@ -217,7 +217,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="blogId != null">
-        #{blogId,jdbcType=BIGINT},
+        #{blogId,jdbcType=INTEGER},
       </if>
       <if test="commentTime != null">
         #{commentTime,jdbcType=TIMESTAMP},
@@ -257,7 +257,7 @@
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.blogId != null">
-        blog_id = #{record.blogId,jdbcType=BIGINT},
+        blog_id = #{record.blogId,jdbcType=INTEGER},
       </if>
       <if test="record.commentTime != null">
         comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
@@ -284,7 +284,7 @@
     update t_comment
     set comment_id = #{record.commentId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      blog_id = #{record.blogId,jdbcType=BIGINT},
+      blog_id = #{record.blogId,jdbcType=INTEGER},
       comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       del_flag = #{record.delFlag,jdbcType=BIT},
@@ -301,7 +301,7 @@
     update t_comment
     set comment_id = #{record.commentId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      blog_id = #{record.blogId,jdbcType=BIGINT},
+      blog_id = #{record.blogId,jdbcType=INTEGER},
       comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       del_flag = #{record.delFlag,jdbcType=BIT}
@@ -320,7 +320,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="blogId != null">
-        blog_id = #{blogId,jdbcType=BIGINT},
+        blog_id = #{blogId,jdbcType=INTEGER},
       </if>
       <if test="commentTime != null">
         comment_time = #{commentTime,jdbcType=TIMESTAMP},
@@ -344,7 +344,7 @@
     -->
     update t_comment
     set user_id = #{userId,jdbcType=INTEGER},
-      blog_id = #{blogId,jdbcType=BIGINT},
+      blog_id = #{blogId,jdbcType=INTEGER},
       comment_time = #{commentTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       del_flag = #{delFlag,jdbcType=BIT},
@@ -358,7 +358,7 @@
     -->
     update t_comment
     set user_id = #{userId,jdbcType=INTEGER},
-      blog_id = #{blogId,jdbcType=BIGINT},
+      blog_id = #{blogId,jdbcType=INTEGER},
       comment_time = #{commentTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       del_flag = #{delFlag,jdbcType=BIT}

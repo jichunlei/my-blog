@@ -2,6 +2,8 @@ package com.jicl.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -12,6 +14,7 @@ import lombok.Data;
  * @mbg.generated do_not_delete_during_merge
  */
 @Data
+@Builder
 public class Message implements Serializable {
     /**
      * Database Column Remarks:
@@ -22,7 +25,7 @@ public class Message implements Serializable {
      *
      * @mbg.generated
      */
-    private Long messageId;
+    private Integer messageId;
 
     /**
      * Database Column Remarks:

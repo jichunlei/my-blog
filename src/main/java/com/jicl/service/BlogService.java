@@ -2,6 +2,7 @@ package com.jicl.service;
 
 import com.github.pagehelper.PageInfo;
 import com.jicl.entity.Blog;
+import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.vo.BlogVo;
@@ -19,14 +20,14 @@ public interface BlogService {
     /**
      * 功能描述: 分页查询博客信息
      *
-     * @param searchKey 1
-     * @param pageNum 2
-     * @param pageSize 3
+     * @param blogExample 1
+     * @param pageNum     2
+     * @param pageSize    3
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
-     * @date 2019/12/3 19:11
+     * @date 2019/12/4 22:10
      **/
-    PageInfo<BlogVo> page(String searchKey, Integer pageNum, Integer pageSize);
+    PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum, Integer pageSize);
 
     /**
      * 功能描述: 获取所有博客信息

@@ -54,16 +54,10 @@
             resultMap="TopTypeResultMap">
         SELECT
             a.type_id,
-            b.type_name,
-            COUNT( a.blog_id ) blogNums
+            a.type_name,
+            ( SELECT count( b.type_id ) FROM t_blog b WHERE a.type_id = b.type_id ) blogNums
         FROM
-            t_blog a,
-            t_type b
-        WHERE
-            a.type_id = b.type_id
-        GROUP BY
-            a.type_id,
-            b.type_name
+            t_type a
         ORDER BY
             blogNums DESC,a.type_id ASC
         LIMIT #{topSize,jdbcType=INTEGER}

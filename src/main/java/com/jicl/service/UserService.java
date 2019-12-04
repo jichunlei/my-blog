@@ -4,8 +4,6 @@ import com.jicl.dto.LoginDto;
 import com.jicl.dto.RegisterDto;
 import com.jicl.entity.User;
 
-import javax.jws.soap.SOAPBinding;
-
 /**
  * 用户管理服务层接口
  *

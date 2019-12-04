@@ -11,7 +11,6 @@ import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
 import com.jicl.vo.BlogVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,21 +37,17 @@ public class BlogServiceImpl implements BlogService {
     /**
      * 功能描述: 分页查询博客信息
      *
-     * @param blog 1
-     * @param pageNum 2
-     * @param pageSize 3
+     * @param blogExample 1
+     * @param pageNum     2
+     * @param pageSize    3
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
-     * @date 2019/12/3 19:11
+     * @date 2019/12/4 22:10
      **/
     @Override
-    public PageInfo<BlogVo> page(String searchKey, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        BlogExample blogExample = new BlogExample();
-        if(StringUtils.isNotBlank(searchKey)){
-            blogExample.createCriteria().andBlogTitleLike("%"+searchKey+"%");
-        }
-        blogExample.setOrderByClause("blog_views desc");
+    public PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum,
+                                 Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "blog_views desc");
         List<BlogVo> list = blogExtendMapper.page(blogExample);
         return PageInfo.of(list);
     }

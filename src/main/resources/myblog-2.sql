@@ -31,35 +31,36 @@ CREATE TABLE `t_blog`  (
   `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   `first_picture_addr` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '首图地址',
-  `published` bit(1) NOT NULL,
+  `published` bit(1) NOT NULL COMMENT '是否发布：0-草稿，1-发布',
   `blog_title` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '博客标题',
   `blog_content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '博客内容',
   `blog_views` int(11) NOT NULL COMMENT '博客浏览次数',
   `appreciation_flag` bit(1) NOT NULL COMMENT '是否开启赞赏',
   `commentabled` bit(1) NOT NULL COMMENT '是否开启评论',
   `blog_comments` int(11) NOT NULL COMMENT '博客评论次数',
+  `del_flag` bit(1) NOT NULL COMMENT '删除标识',
   PRIMARY KEY (`blog_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_blog
 -- ----------------------------
-INSERT INTO `t_blog` VALUES (1, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title1', '111', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (2, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title2', '222', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (3, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title3', '333', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (4, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title4', '444', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (5, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title5', '555', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (6, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title6', '666', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (7, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title7', '777', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (8, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title8', '888', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (9, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title9', '999', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (10, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (11, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (12, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (13, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titled', 'ddd', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (14, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlee', 'eee', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (15, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlef', 'fff', 1, b'1', b'1', 1);
-INSERT INTO `t_blog` VALUES (16, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1);
+INSERT INTO `t_blog` VALUES (1, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title1', '111', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (2, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title2', '222', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (3, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title3', '333', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (4, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title4', '444', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (5, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title5', '555', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (6, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title6', '666', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (7, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title7', '777', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (8, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title8', '888', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (9, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title9', '999', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (10, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (11, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (12, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (13, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titled', 'ddd', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (14, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlee', 'eee', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (15, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlef', 'fff', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (16, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1,0);
 
 -- ----------------------------
 -- Table structure for t_blog_tag
