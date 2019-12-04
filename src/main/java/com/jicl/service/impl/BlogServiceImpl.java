@@ -11,6 +11,7 @@ import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
 import com.jicl.vo.BlogVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +46,12 @@ public class BlogServiceImpl implements BlogService {
      * @date 2019/12/3 19:11
      **/
     @Override
-    public PageInfo<BlogVo> page(Blog blog, Integer pageNum, Integer pageSize) {
+    public PageInfo<BlogVo> page(String searchKey, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         BlogExample blogExample = new BlogExample();
+        if(StringUtils.isNotBlank(searchKey)){
+            blogExample.createCriteria().andBlogTitleLike("%"+searchKey+"%");
+        }
         blogExample.setOrderByClause("blog_views desc");
         List<BlogVo> list = blogExtendMapper.page(blogExample);
         return PageInfo.of(list);

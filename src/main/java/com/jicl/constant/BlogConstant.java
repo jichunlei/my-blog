@@ -7,9 +7,7 @@ package com.jicl.constant;
  * @date : 2019/12/1 17:40
  */
 public interface BlogConstant {
-    /**
-     * 默认头像
-     */
+
     String DEFAULT_HEAD_PORTRAIT="/images/avatar.png";
 
     /**
@@ -26,4 +24,9 @@ public interface BlogConstant {
      * 登录页面
      */
     String LOGIN_PAGE="login";
+
+    /**
+     * 搜索页面
+     */
+    String SEARCH_PAGE="search";
 }

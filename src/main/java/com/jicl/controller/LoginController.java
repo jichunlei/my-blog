@@ -55,8 +55,7 @@ public class LoginController {
             userService.updateLoginInfo(user,request.getRemoteAddr());
             user.setPassword(null);
             session.setAttribute("user",user);
-//            return BlogConstant.INDEX_PAGE;
-            return "hello";
+            return "redirect:/";
         } else {
             attributes.addFlashAttribute("username", loginDto.getUsername());
             attributes.addFlashAttribute("message", "用户名或密码错误");

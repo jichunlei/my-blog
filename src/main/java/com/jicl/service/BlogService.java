@@ -19,14 +19,14 @@ public interface BlogService {
     /**
      * 功能描述: 分页查询博客信息
      *
-     * @param blog 1
+     * @param searchKey 1
      * @param pageNum 2
      * @param pageSize 3
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
      * @date 2019/12/3 19:11
      **/
-    PageInfo<BlogVo> page(Blog blog, Integer pageNum, Integer pageSize);
+    PageInfo<BlogVo> page(String searchKey, Integer pageNum, Integer pageSize);
 
     /**
      * 功能描述: 获取所有博客信息

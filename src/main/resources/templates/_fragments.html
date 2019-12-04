@@ -40,15 +40,29 @@
             <div class="m-item item m-mobile-hide">
                 <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
-                        <input type="text" name="query" placeholder="Search...."
-                               th:value="${query}">
+                        <input type="text" name="searchKey" placeholder="输入标题关键字"
+                               th:value="${searchKey}">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
             </div>
-            <div class="right m-item item">
+            <div class="right m-item m-mobile-hide item" th:if="${session.user==null}">
                 <a href="#" th:href="@{/user/toLoginPage}" class="m-item item">登录</a>·
                 <a href="#" th:href="@{/user/toRegisterPage}" class="m-item item">注册</a>
+            </div>
+            <div class="right m-item m-mobile-hide menu" th:unless=="${session.user==null}">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" th:src="@{${session.user.headPortrait}}"
+                             src="https://unsplash.it/100/100?image=1005">
+                        <span th:text="${session.user.nickname}">贤子磊</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/user/logout}" class="item">个人中心</a>
+                        <a href="#" th:href="@{/user/logout}" class="item">注销</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -109,6 +123,8 @@
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js"
             th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../../static/lib/editormd/editormd.min.js"
+            th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script>
         $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
     </script>
