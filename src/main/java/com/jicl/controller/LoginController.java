@@ -6,6 +6,7 @@ import com.jicl.entity.User;
 import com.jicl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,5 +62,19 @@ public class LoginController {
             attributes.addFlashAttribute("message", "用户名或密码错误");
             return "redirect:/user/toLoginPage";
         }
+    }
+
+    /**
+     * 功能描述: 注销功能
+     *
+     * @param session 1
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/4 19:09
+     **/
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+        return "redirect:/";
     }
 }
