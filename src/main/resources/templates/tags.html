@@ -51,11 +51,11 @@
         </div>
         <!--分类框-->
         <div class="ui attached segment m-padded-tb-large">
-            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"
+            <a href="#" th:href="@{/tags/{id}(id=${tag.tagId})}"
                class="ui basic left pointing large label m-margin-tb-tiny"
-               th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tags}">
-                <span th:text="${tag.name}">方法论</span>
-                <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+               th:classappend="${tag.tagId==activeTagId} ? 'teal'" th:each="tag : ${tags}">
+                <span th:text="${tag.tagName}">方法论</span>
+                <div class="detail" th:text="${tag.blogNums}">23</div>
             </a>
         </div>
 
@@ -65,10 +65,10 @@
                  th:each="blog : ${page.list}">
                 <div class="ui middle aligned mobile reversed stackable grid">
                     <div class="eleven wide column">
-                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}"
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}"
                                                  target="_blank" class="m-black"
-                                                 th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
-                        <p class="m-text" th:text="|${blog.description}......|">
+                                                 th:text="${blog.blogTitle}">你真的理解什么是财富自由吗?</a></h3>
+                        <p class="m-text" th:text="|${blog.blogDesc}......|">
                             正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
                         <div class="ui grid">
                             <div class="row">
@@ -76,10 +76,10 @@
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
                                             <img src="https://unsplash.it/100/100?image=1005"
-                                                 th:src="@{${blog.user.avatar}}" alt=""
+                                                 th:src="@{${blog.headPortrait}}" alt=""
                                                  class="ui avatar image">
                                             <div class="content"><a href="#" class="header"
-                                                                    th:text="${blog.user.nickname}">李仁密</a>
+                                                                    th:text="${blog.nickname}">李仁密</a>
                                             </div>
                                         </div>
                                         <div class="item">
@@ -87,21 +87,21 @@
                                                 th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
                                         </div>
                                         <div class="item">
-                                            <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
+                                            <i class="eye icon"></i> <span th:text="${blog.blogViews}">2342</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="right aligned five wide column">
                                     <a href="#" target="_blank"
                                        class="ui teal basic label m-padded-tiny m-text-thin"
-                                       th:text="${blog.type.name}">认知升级</a>
+                                       th:text="${typeMap[__${blog.typeId}__]}">认知升级</a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="column">
-                                    <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"
+                                    <a href="#" th:href="@{/tags/{id}(id=${tag.tagId})}"
                                        class="ui  basic left pointing label m-padded-mini m-text-thin"
-                                       th:classappend="${tag.id==activeTagId} ? 'teal'"
+                                       th:classappend="${tag.tagId==activeTagId} ? 'teal'"
                                        th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</a>
                                 </div>
                             </div>

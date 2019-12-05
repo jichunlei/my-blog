@@ -565,6 +565,76 @@ public class BlogExample {
             return (Criteria) this;
         }
 
+        public Criteria andTagIdStrIsNull() {
+            addCriterion("tag_id_str is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrIsNotNull() {
+            addCriterion("tag_id_str is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrEqualTo(String value) {
+            addCriterion("tag_id_str =", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrNotEqualTo(String value) {
+            addCriterion("tag_id_str <>", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrGreaterThan(String value) {
+            addCriterion("tag_id_str >", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrGreaterThanOrEqualTo(String value) {
+            addCriterion("tag_id_str >=", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrLessThan(String value) {
+            addCriterion("tag_id_str <", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrLessThanOrEqualTo(String value) {
+            addCriterion("tag_id_str <=", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrLike(String value) {
+            addCriterion("tag_id_str like", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrNotLike(String value) {
+            addCriterion("tag_id_str not like", value, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrIn(List<String> values) {
+            addCriterion("tag_id_str in", values, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrNotIn(List<String> values) {
+            addCriterion("tag_id_str not in", values, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrBetween(String value1, String value2) {
+            addCriterion("tag_id_str between", value1, value2, "tagIdStr");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdStrNotBetween(String value1, String value2) {
+            addCriterion("tag_id_str not between", value1, value2, "tagIdStr");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

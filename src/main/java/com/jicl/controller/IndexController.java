@@ -45,12 +45,13 @@ public class IndexController {
     public String index(@RequestParam(defaultValue = "1") Integer pageNum,
                         @RequestParam(defaultValue =
                                 "6") Integer pageSize, Model model) {
-        model.addAttribute("page", blogService.page(null, pageNum, pageSize));
+        BlogExample blogExample = new BlogExample();
+        blogExample.setOrderByClause("blog_views desc");
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         model.addAttribute("types", blogService.getTopTypeList(6));
         model.addAttribute("tags", blogService.getTopTagList(10));
         model.addAttribute("recommendBlogs", blogService.getRecommendBlogs(8));
         model.addAttribute("typeMap", typeService.getAllTypes());
-//        model.addAttribute("tagMap",tagService.getAllTags());
         return BlogConstant.INDEX_PAGE;
     }
 
@@ -83,11 +84,11 @@ public class IndexController {
     public String search(String searchKey, @RequestParam(defaultValue = "1") Integer pageNum,
                          @RequestParam(defaultValue =
                                  "6") Integer pageSize, Model model) {
-        BlogExample blogExample = null;
+        BlogExample blogExample = new BlogExample();
         if (StringUtils.isNotBlank(searchKey)) {
-            blogExample = new BlogExample();
             blogExample.createCriteria().andBlogTitleLike("%" + searchKey + "%");
         }
+        blogExample.setOrderByClause("blog_views desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("searchKey", searchKey);

@@ -1,5 +1,7 @@
 package com.jicl.controller;
 
+import com.jicl.constant.BlogConstant;
+import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
 import com.jicl.service.TypeService;
@@ -19,13 +21,24 @@ import java.util.List;
  * @date : 2019/11/30 12:07
  */
 @Controller
-public class TypeController {
+public class TypeShowController {
     @Autowired
     private TypeService typeService;
 
     @Autowired
     private BlogService blogService;
 
+    /**
+     * 功能描述: 类型页
+     *
+     * @param pageNum 1
+     * @param pageSize 2
+     * @param id 3
+     * @param model 4
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/5 19:44
+     **/
     @GetMapping("/types/{id}")
     public String types(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
             "6") Integer pageSize, @PathVariable Integer id, Model model) {
@@ -34,8 +47,12 @@ public class TypeController {
             id = types.get(0).getTypeId();
         }
         model.addAttribute("types", types);
-//        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
+        BlogExample blogExample = new BlogExample();
+        blogExample.createCriteria().andTypeIdEqualTo(id);
+        blogExample.setOrderByClause("blog_views desc");
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("activeTypeId", id);
-        return "types";
+        return BlogConstant.TYPES_PAGE;
     }
 }

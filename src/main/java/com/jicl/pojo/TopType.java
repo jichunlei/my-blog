@@ -1,9 +1,7 @@
 package com.jicl.pojo;
 
-import com.jicl.entity.Type;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 首页类型排行榜
@@ -13,8 +11,16 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Builder
-@EqualsAndHashCode
-public class TopType extends Type {
+public class TopType {
+    /**
+     * 类型id
+     */
+    private Integer typeId;
+
+    /**
+     * 类型名
+     */
+    private String typeName;
     /**
      * 类型下对应的博客数目
      */

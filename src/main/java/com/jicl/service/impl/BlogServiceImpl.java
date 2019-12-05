@@ -47,7 +47,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum,
                                  Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize, "blog_views desc");
+        PageHelper.startPage(pageNum, pageSize);
         List<BlogVo> list = blogExtendMapper.page(blogExample);
         return PageInfo.of(list);
     }

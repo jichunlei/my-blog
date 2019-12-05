@@ -29,4 +29,14 @@ public interface BlogConstant {
      * 搜索页面
      */
     String SEARCH_PAGE="search";
+
+    /**
+     * 博客类型页面
+     */
+    String TYPES_PAGE="types";
+
+    /**
+     * 博客标签页面
+     */
+    String TAGS_PAGE="tags";
 }
