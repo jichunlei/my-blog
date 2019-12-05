@@ -1,8 +1,11 @@
 package com.jicl.vo;
 
 import com.jicl.entity.Blog;
+import com.jicl.entity.Tag;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 
 /**
@@ -23,4 +26,9 @@ public class BlogVo extends Blog {
      * 博客作者头像
      */
     private String headPortrait;
+
+    /**
+     * 博客标签列表
+     */
+    private List<String> tags;
 }

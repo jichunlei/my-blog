@@ -14,7 +14,6 @@ import java.util.Date;
  * @mbg.generated do_not_delete_during_merge
  */
 @Data
-@Builder
 public class Blog implements Serializable {
     /**
      * Database Column Remarks:
