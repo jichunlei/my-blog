@@ -56,7 +56,7 @@
                    th:text="${type.typeName}">思考与感悟</a>
                 <div class="ui basic  left pointing label"
                      th:classappend="${type.typeId==activeTypeId} ? 'teal'"
-                     th:text="${#arrays.length(type.blogNums)}">24
+                     th:text="${type.blogNums}">24
                 </div>
             </div>
         </div>
@@ -116,11 +116,11 @@
         <div class="ui bottom attached segment" th:if="${page.pages}>1">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <a href="#" th:href="@{'/types/'+${activeTypeId}(page=${page.pageNum}-1)}"
+                    <a href="#" th:href="@{'/types/'+${activeTypeId}(pageNum=${page.pageNum}-1)}"
                        th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" th:href="@{'/types/'+${activeTypeId}(page=${page.pageNum}+1)}"
+                    <a href="#" th:href="@{'/types/'+${activeTypeId}(pageNum=${page.pageNum}+1)}"
                        th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
                 </div>
             </div>
