@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
+import com.jicl.entity.BlogTagExample;
 import com.jicl.mapper.BlogExtendMapper;
 import com.jicl.mapper.BlogMapper;
 import com.jicl.mapper.BlogTagExtendMapper;
+import com.jicl.mapper.BlogTagMapper;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
@@ -34,6 +36,9 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogTagExtendMapper blogTagExtendMapper;
 
+    @Autowired
+    private BlogTagMapper blogTagMapper;
+
     /**
      * 功能描述: 分页查询博客信息
      *
@@ -49,6 +54,11 @@ public class BlogServiceImpl implements BlogService {
                                  Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<BlogVo> list = blogExtendMapper.page(blogExample);
+        for (BlogVo blogVo : list) {
+            BlogTagExample blogTagExample = new BlogTagExample();
+            blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
+            blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
+        }
         return PageInfo.of(list);
     }
 

@@ -22,6 +22,7 @@
                 a.blog_desc,
                 a.recommend,
                 a.share_flag,
+                a.tag_id_str,
                 a.type_id,
                 a.create_time,
                 a.update_time,

@@ -102,15 +102,15 @@
                                     <a href="#" th:href="@{/tags/{id}(id=${tag.tagId})}"
                                        class="ui  basic left pointing label m-padded-mini m-text-thin"
                                        th:classappend="${tag.tagId==activeTagId} ? 'teal'"
-                                       th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</a>
+                                       th:each="tag : ${blog.tags}" th:text="${tagMap[__${tag.tagId}__]}">方法论</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="five wide column">
-                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank">
                             <img src="https://unsplash.it/800/450?image=1005"
-                                 th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+                                 th:src="@{${blog.firstPictureAddr}}" alt="" class="ui rounded image">
                         </a>
                     </div>
                 </div>
@@ -180,6 +180,11 @@
             $('.m-item').toggleClass('m-mobile-hide');
         }
     );
+
+    //鼠标悬停头像弹出菜单
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
 </script>
 </body>
 </html>

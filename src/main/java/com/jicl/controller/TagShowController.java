@@ -5,6 +5,7 @@ import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopTag;
 import com.jicl.service.BlogService;
 import com.jicl.service.TagService;
+import com.jicl.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,9 @@ public class TagShowController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private TypeService typeService;
 
     /**
      * 功能描述: 标签页
@@ -53,6 +57,7 @@ public class TagShowController {
         blogExample.setOrderByClause("blog_views desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         model.addAttribute("activeTagId", id);
+        model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("tagMap", tagService.getAllTags());
         return BlogConstant.TAGS_PAGE;
     }

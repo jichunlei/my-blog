@@ -1,8 +1,7 @@
 package com.jicl.vo;
 
 import com.jicl.entity.Blog;
-import com.jicl.entity.Tag;
-import lombok.Builder;
+import com.jicl.entity.BlogTag;
 import lombok.Data;
 
 import java.util.List;
@@ -30,5 +29,5 @@ public class BlogVo extends Blog {
     /**
      * 博客标签列表
      */
-    private List<String> tags;
+    private List<BlogTag> tags;
 }

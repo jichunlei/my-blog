@@ -11,11 +11,23 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 01/12/2019 20:50:36
+ Date: 05/12/2019 22:32:37
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for t_announcement
+-- ----------------------------
+DROP TABLE IF EXISTS `t_announcement`;
+CREATE TABLE `t_announcement`  (
+  `annc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公告id，主键',
+  `annc_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '公告标题',
+  `annc_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '公告内容',
+  `top_flag` bit(1) NOT NULL COMMENT '是否置顶',
+  PRIMARY KEY (`annc_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_blog
@@ -27,11 +39,12 @@ CREATE TABLE `t_blog`  (
   `blog_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '博客描述',
   `recommend` bit(1) NOT NULL COMMENT '是否推荐',
   `share_flag` bit(1) NOT NULL COMMENT '转载声明是否开启',
-  `type_id` bigint(20) DEFAULT NULL COMMENT '博客类型',
+  `type_id` int(11) DEFAULT NULL COMMENT '博客类型',
+  `tag_id_str` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '博客标签字符串，格式：-1-2-3-4-5-',
   `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   `first_picture_addr` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '首图地址',
-  `published` bit(1) NOT NULL COMMENT '是否发布：0-草稿，1-发布',
+  `published` bit(1) NOT NULL,
   `blog_title` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '博客标题',
   `blog_content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '博客内容',
   `blog_views` int(11) NOT NULL COMMENT '博客浏览次数',
@@ -45,49 +58,51 @@ CREATE TABLE `t_blog`  (
 -- ----------------------------
 -- Records of t_blog
 -- ----------------------------
-INSERT INTO `t_blog` VALUES (1, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title1', '111', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (2, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title2', '222', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (3, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title3', '333', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (4, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title4', '444', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (5, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title5', '555', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (6, 1, '1', b'1', b'1', 4, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title6', '666', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (7, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title7', '777', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (8, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title8', '888', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (9, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'title9', '999', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (10, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (11, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (12, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (13, 1, '1', b'1', b'1', 2, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titled', 'ddd', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (14, 1, '1', b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlee', 'eee', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (15, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titlef', 'fff', 1, b'1', b'1', 1,0);
-INSERT INTO `t_blog` VALUES (16, 1, '1', b'1', b'1', 3, '2019-12-01 10:15:21', '2019-12-01 10:15:25', '1', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1,0);
+INSERT INTO `t_blog` VALUES (1, 1, 'Nginx是一款轻量级的Web服务器、反向代理服务器，由于它的内存占用少，启动极快，高并发能力强，在互联网项目中广泛应用。本文就带大家来全面了解Nginx的使用', b'1', b'1', 1, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title1', '111', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (2, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title2', '222', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (3, 1, '1', b'1', b'1', 3, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title3', '333', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (4, 1, '1', b'1', b'1', 4, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title4', '444', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (5, 1, '1', b'1', b'1', 4, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title5', '555', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (6, 1, '1', b'1', b'1', 4, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title6', '666', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (7, 1, '1', b'1', b'1', 1, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title7', '777', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (8, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title8', '888', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (9, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'title9', '999', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (10, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (11, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (12, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (13, 1, '1', b'1', b'1', 2, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titled', 'ddd', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (14, 1, '1', b'1', b'1', 1, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titlee', 'eee', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (15, 1, '1', b'1', b'1', 3, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titlef', 'fff', 1, b'1', b'1', 1, b'0');
+INSERT INTO `t_blog` VALUES (16, 1, '1', b'1', b'1', 3, '-1-2-3-4-5-', '2019-12-01 10:15:21', '2019-12-01 10:15:25', 'https://picsum.photos/800/450', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1, b'0');
 
 -- ----------------------------
 -- Table structure for t_blog_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `t_blog_tag`;
 CREATE TABLE `t_blog_tag`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `blog_id` int(11) NOT NULL COMMENT '博客id',
-  `tag_id` int(11) NOT NULL COMMENT '标签id'
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+  `tag_id` int(11) NOT NULL COMMENT '标签id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_blog_tag
 -- ----------------------------
-INSERT INTO `t_blog_tag` VALUES (1, 1);
-INSERT INTO `t_blog_tag` VALUES (1, 2);
-INSERT INTO `t_blog_tag` VALUES (2, 1);
-INSERT INTO `t_blog_tag` VALUES (2, 3);
-INSERT INTO `t_blog_tag` VALUES (2, 4);
-INSERT INTO `t_blog_tag` VALUES (2, 5);
-INSERT INTO `t_blog_tag` VALUES (2, 3);
-INSERT INTO `t_blog_tag` VALUES (3, 5);
-INSERT INTO `t_blog_tag` VALUES (3, 4);
-INSERT INTO `t_blog_tag` VALUES (4, 2);
-INSERT INTO `t_blog_tag` VALUES (1, 3);
-INSERT INTO `t_blog_tag` VALUES (1, 4);
-INSERT INTO `t_blog_tag` VALUES (2, 4);
-INSERT INTO `t_blog_tag` VALUES (4, 4);
+INSERT INTO `t_blog_tag` VALUES (1, 1, 1);
+INSERT INTO `t_blog_tag` VALUES (2, 1, 2);
+INSERT INTO `t_blog_tag` VALUES (3, 2, 1);
+INSERT INTO `t_blog_tag` VALUES (4, 2, 3);
+INSERT INTO `t_blog_tag` VALUES (5, 2, 4);
+INSERT INTO `t_blog_tag` VALUES (6, 2, 5);
+INSERT INTO `t_blog_tag` VALUES (7, 2, 3);
+INSERT INTO `t_blog_tag` VALUES (8, 3, 5);
+INSERT INTO `t_blog_tag` VALUES (9, 3, 4);
+INSERT INTO `t_blog_tag` VALUES (10, 4, 2);
+INSERT INTO `t_blog_tag` VALUES (11, 1, 3);
+INSERT INTO `t_blog_tag` VALUES (12, 1, 4);
+INSERT INTO `t_blog_tag` VALUES (13, 2, 4);
+INSERT INTO `t_blog_tag` VALUES (14, 4, 4);
 
 -- ----------------------------
 -- Table structure for t_comment
@@ -97,7 +112,7 @@ CREATE TABLE `t_comment`  (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论id',
   `comment_content` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '评论内容',
   `user_id` int(11) NOT NULL COMMENT '评论用户id',
-  `blog_id` bigint(20) NOT NULL COMMENT '评论的博客id',
+  `blog_id` int(11) NOT NULL COMMENT '评论的博客id',
   `comment_time` datetime(0) NOT NULL COMMENT '评论时间',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   `del_flag` bit(1) NOT NULL COMMENT '删除标识',
@@ -109,12 +124,12 @@ CREATE TABLE `t_comment`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message`  (
-  `message_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `message_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `message_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '游客保存为IP地址，用户保存为用户编号',
   `message_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '留言内容',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`message_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_reply
@@ -127,7 +142,7 @@ CREATE TABLE `t_reply`  (
   `reply_time` datetime(0) NOT NULL COMMENT '回复时间',
   `replied_user_id` int(11) DEFAULT NULL COMMENT '被回复的用户id',
   PRIMARY KEY (`reply_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_tag
@@ -194,10 +209,10 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (2, 'xianzilei', '贤子磊', 'e10adc3949ba59abbe56e057f20f883e', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:35:40', '2019-12-01 18:35:40', '0:0:0:0:0:0:0:1', '2019-12-01 18:35:40', '2019-12-01 18:35:40', '0');
+INSERT INTO `t_user` VALUES (1, 'xianzilei22', '贤子磊22', '9dd1cbdaec89487b1ba9583f8aa26198', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:41:37', '2019-12-01 18:41:37', '0:0:0:0:0:0:0:1', '2019-12-01 18:41:37', '2019-12-01 18:41:37', '0');
+INSERT INTO `t_user` VALUES (2, 'xianzilei', '贤子磊', 'e10adc3949ba59abbe56e057f20f883e', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:35:40', '2019-12-04 20:46:04', '0:0:0:0:0:0:0:1', '2019-12-01 18:35:40', '2019-12-01 18:35:40', '0');
 INSERT INTO `t_user` VALUES (3, 'xianzilei', '贤子磊', 'e10adc3949ba59abbe56e057f20f883e', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:36:46', '2019-12-01 18:36:46', '0:0:0:0:0:0:0:1', '2019-12-01 18:36:46', '2019-12-01 18:36:46', '0');
 INSERT INTO `t_user` VALUES (4, 'xianzilei11', '贤子磊11', '5aacb803e626ef128c0dc23c52e829d8', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:38:23', '2019-12-01 18:38:23', '0:0:0:0:0:0:0:1', '2019-12-01 18:38:23', '2019-12-01 18:38:23', '0');
-INSERT INTO `t_user` VALUES (5, 'xianzilei22', '贤子磊22', '9dd1cbdaec89487b1ba9583f8aa26198', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:41:37', '2019-12-01 18:41:37', '0:0:0:0:0:0:0:1', '2019-12-01 18:41:37', '2019-12-01 18:41:37', '0');
 INSERT INTO `t_user` VALUES (6, 'jichunlei', '贤子磊23132', '052a1a3c0142ad636571f88ea2506eac', '4', '1', '17854212902', '282991723@qq.com', '/images/avatar.png', '2019-12-01 18:45:27', '2019-12-01 18:45:27', '0:0:0:0:0:0:0:1', '2019-12-01 18:45:27', '2019-12-01 18:45:27', '0');
 
 SET FOREIGN_KEY_CHECKS = 1;
