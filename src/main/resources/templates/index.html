@@ -16,7 +16,7 @@
     <div class="ui container">
         <div class="ui stackable grid">
             <!--左边博客列表-->
-            <div class="eleven wide column">
+            <div class="twelve wide column">
                 <!--header-->
                 <div class="ui top attached segment">
                     <div class="ui middle aligned two column grid">
@@ -69,19 +69,64 @@
                     </div>
                 </div>
                 <!--footer-->
-                <div class="ui buttom attached segment" th:if="${page.pages}>1">
-                    <div class="ui middle aligned two column grid">
-                        <div class="column">
-                            <a href="#" th:href="@{/(pageNum=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
-                        </div>
-                        <div class="right aligned column">
-                            <a href="#" th:href="@{/(pageNum=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
-                        </div>
+                <!--<div class="ui buttom attached segment" th:if="${page.pages}>1">-->
+                    <!--<div class="ui middle aligned two column grid">-->
+                        <!--<div class="column">-->
+                            <!--<a href="#" th:href="@{/(pageNum=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>-->
+                        <!--</div>-->
+                        <!--<div class="right aligned column">-->
+                            <!--<a href="#" th:href="@{/(pageNum=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--分页组件-->
+                <div class="ui attached center aligned segment">
+                    <div class="ui pagination menu">
+                        <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+                           th:href="@{/(pageNum=${page.navigateFirstPage})}">
+                            首页
+                        </a>
+                        <a class="item" th:unless="${page.isFirstPage}"
+                           th:href="@{/(pageNum=${page.prePage})}">
+                            上一页
+                        </a>
+                        <a class="item">
+                            第<h3 class="ui orange header m-inline-block m-text-thin"
+                                 th:text="${page.getPageNum()}">8</h3>页
+                        </a>
+                        <a class="item" th:unless="${page.isLastPage}"
+                           th:href="@{/(pageNum=${page.nextPage})}">
+                            下一页
+                        </a>
+                        <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+                           th:href="@{/(pageNum=${page.navigateLastPage})}">
+                            尾页
+                        </a>
+                        <a class="item">
+                            共<h3 class="ui red header m-inline-block m-text-thin"
+                                 th:text="${page.pages}">8</h3>页
+                        </a>
+                        <a class="item">
+                            共<h3 class="ui red header m-inline-block m-text-thin"
+                                 th:text="${page.total}">8</h3>条
+                        </a>
+                        <form name="page" class="right item" action="#" th:action="@{/}"
+                              method="get" target="_blank">
+                            <div class="ui right labeled input">
+                                <div class="ui basic label">Go</div>
+                                <input type="text" name="pageNum" placeholder=".." style="width: 80px;">
+                                <div class="ui basic label">页</div>
+                                <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                                  class="right arrow icon"></i></button>
+                            </div>
+                        </form>
                     </div>
+                    <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+                    <input type="hidden" id="last" th:value="${page.pages}"/>
                 </div>
             </div>
             <!--右边top-->
-            <div class="five wide column">
+            <div class="four wide column">
                 <!--分类-->
                 <div class="ui segments">
                     <div class="ui secondary segment">

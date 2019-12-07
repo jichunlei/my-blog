@@ -79,7 +79,7 @@
                                                  th:src="@{${blog.headPortrait}}" alt=""
                                                  class="ui avatar image">
                                             <div class="content"><a href="#" class="header"
-                                                                    th:text="${blog.nickname}">李仁密</a>
+                                                                    th:text="${blog.nickname}">计春磊</a>
                                             </div>
                                         </div>
                                         <div class="item">
@@ -116,19 +116,52 @@
                 </div>
             </div>
         </div>
-        <!--分页-->
-        <div class="ui bottom attached segment" th:if="${page.pages}>1">
-            <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <a href="#" th:href="@{'/tags/'+${activeTagId}(pageNum=${page.pageNum}-1)}"
-                       th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
+    </div>
+
+    <!--分页组件-->
+    <div class="ui attached center aligned segment">
+        <div class="ui pagination menu">
+            <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.navigateFirstPage})}">
+                首页
+            </a>
+            <a class="item" th:unless="${page.isFirstPage}"
+               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.prePage})}">
+                上一页
+            </a>
+            <a class="item">
+                第<h3 class="ui orange header m-inline-block m-text-thin"
+                     th:text="${page.getPageNum()}">8</h3>页
+            </a>
+            <a class="item" th:unless="${page.isLastPage}"
+               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.nextPage})}">
+                下一页
+            </a>
+            <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.navigateLastPage})}">
+                尾页
+            </a>
+            <a class="item">
+                共<h3 class="ui red header m-inline-block m-text-thin"
+                     th:text="${page.pages}">8</h3>页
+            </a>
+            <a class="item">
+                共<h3 class="ui red header m-inline-block m-text-thin"
+                     th:text="${page.total}">8</h3>条数据
+            </a>
+            <form name="page" class="right item" action="#" th:action="@{'/tags/'+${activeTagId}}"
+                  method="get" target="_blank">
+                <div class="ui right labeled input">
+                    <div class="ui basic label">Go</div>
+                    <input type="text" name="pageNum" placeholder="..." style="width: 80px;">
+                    <div class="ui basic label">页</div>
+                    <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                      class="right arrow icon"></i></button>
                 </div>
-                <div class="right aligned column">
-                    <a href="#" th:href="@{'/tags/'+${activeTagId}(pageNum=${page.pageNum}+1)}"
-                       th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
-                </div>
-            </div>
+            </form>
         </div>
+        <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+        <input type="hidden" id="last" th:value="${page.pages}"/>
     </div>
 </div>
 
@@ -183,7 +216,29 @@
 
     //鼠标悬停头像弹出菜单
     $('.ui.dropdown').dropdown({
-        on : 'hover'
+        on: 'hover'
+    });
+
+    $(function () {
+        pageNum = $("#first").val();
+        lastPage = $("#last").val();
+        if (lastPage == pageNum) {
+
+            $('.la').removeAttr('href');//去掉a标签中的href属性
+            $('.la').removeAttr('onclick');//去掉a标签中的onclick事件
+        } else {
+            if (pageNum == 1) {
+                $('.f').removeAttr('href');//去掉a标签中的href属性
+                $('.f').removeAttr('onclick');//去掉a标签中的onclick事件
+
+            } else if (pageNum != 1) {
+                $('.f').attr('', 'href');//添加a标签中的href属性
+                $('.f').attr('', 'onclick');//添加a标签中的onclick事件)
+            }
+            $('.la').attr('', 'href');//添加a标签中的href属性
+            $('.la').attr('', 'onclick');//添加a标签中的onclick事件)
+
+        }
     });
 </script>
 </body>

@@ -112,18 +112,50 @@
             </div>
         </div>
 
-        <!--分页-->
-        <div class="ui bottom attached segment" th:if="${page.pages}>1">
-            <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <a href="#" th:href="@{'/types/'+${activeTypeId}(pageNum=${page.pageNum}-1)}"
-                       th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>
-                </div>
-                <div class="right aligned column">
-                    <a href="#" th:href="@{'/types/'+${activeTypeId}(pageNum=${page.pageNum}+1)}"
-                       th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>
-                </div>
+        <!--分页组件-->
+        <div class="ui attached center aligned segment">
+            <div class="ui pagination menu">
+                <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+                   th:href="@{'/types/'+${activeTypeId}(pageNum=${page.navigateFirstPage})}">
+                    首页
+                </a>
+                <a class="item" th:unless="${page.isFirstPage}"
+                   th:href="@{'/types/'+${activeTypeId}(pageNum=${page.prePage})}">
+                    上一页
+                </a>
+                <a class="item">
+                    第<h3 class="ui orange header m-inline-block m-text-thin"
+                         th:text="${page.getPageNum()}">8</h3>页
+                </a>
+                <a class="item" th:unless="${page.isLastPage}"
+                   th:href="@{'/types/'+${activeTypeId}(pageNum=${page.nextPage})}">
+                    下一页
+                </a>
+                <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+                   th:href="@{'/types/'+${activeTypeId}(pageNum=${page.navigateLastPage})}">
+                    尾页
+                </a>
+                <a class="item">
+                    共<h3 class="ui red header m-inline-block m-text-thin"
+                         th:text="${page.pages}">8</h3>页
+                </a>
+                <a class="item">
+                    共<h3 class="ui red header m-inline-block m-text-thin"
+                         th:text="${page.total}">8</h3>条数据
+                </a>
+                <form name="page" class="right item" action="#" th:action="@{'/types/'+${activeTypeId}}"
+                      method="get" target="_blank">
+                    <div class="ui right labeled input">
+                        <div class="ui basic label">Go</div>
+                        <input type="text" name="pageNum" placeholder="..." style="width: 80px;">
+                        <div class="ui basic label">页</div>
+                        <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                          class="right arrow icon"></i></button>
+                    </div>
+                </form>
             </div>
+            <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+            <input type="hidden" id="last" th:value="${page.pages}"/>
         </div>
     </div>
 </div>
