@@ -495,6 +495,66 @@ public class CommentExample {
             return (Criteria) this;
         }
 
+        public Criteria andUpdateTimeIsNull() {
+            addCriterion("update_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNotNull() {
+            addCriterion("update_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeEqualTo(Date value) {
+            addCriterion("update_time =", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotEqualTo(Date value) {
+            addCriterion("update_time <>", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThan(Date value) {
+            addCriterion("update_time >", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("update_time >=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThan(Date value) {
+            addCriterion("update_time <", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("update_time <=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIn(List<Date> values) {
+            addCriterion("update_time in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotIn(List<Date> values) {
+            addCriterion("update_time not in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("update_time between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
         public Criteria andDelFlagIsNull() {
             addCriterion("del_flag is null");
             return (Criteria) this;
@@ -552,6 +612,66 @@ public class CommentExample {
 
         public Criteria andDelFlagNotBetween(Boolean value1, Boolean value2) {
             addCriterion("del_flag not between", value1, value2, "delFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIsNull() {
+            addCriterion("del_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIsNotNull() {
+            addCriterion("del_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeEqualTo(Date value) {
+            addCriterion("del_time =", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotEqualTo(Date value) {
+            addCriterion("del_time <>", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeGreaterThan(Date value) {
+            addCriterion("del_time >", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("del_time >=", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeLessThan(Date value) {
+            addCriterion("del_time <", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeLessThanOrEqualTo(Date value) {
+            addCriterion("del_time <=", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIn(List<Date> values) {
+            addCriterion("del_time in", values, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotIn(List<Date> values) {
+            addCriterion("del_time not in", values, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeBetween(Date value1, Date value2) {
+            addCriterion("del_time between", value1, value2, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotBetween(Date value1, Date value2) {
+            addCriterion("del_time not between", value1, value2, "delTime");
             return (Criteria) this;
         }
     }

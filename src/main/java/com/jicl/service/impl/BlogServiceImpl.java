@@ -125,4 +125,21 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> getLastUpdateBlogTop(Integer topSize) {
         return blogExtendMapper.getLastUpdateBlogTop(topSize);
     }
+
+    /**
+     * 功能描述: 获取博客详情
+     *
+     * @param blogId 1
+     * @return com.jicl.vo.BlogVo
+     * @author xianzilei
+     * @date 2019/12/9 17:53
+     **/
+    @Override
+    public BlogVo getBlogDeatil(Integer blogId) {
+        BlogVo blogVo = blogExtendMapper.getBlogDeatil(blogId);
+        BlogTagExample blogTagExample = new BlogTagExample();
+        blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
+        blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
+        return blogVo;
+    }
 }

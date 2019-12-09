@@ -1,8 +1,6 @@
 package com.jicl.entity;
 
 import java.io.Serializable;
-
-import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -13,7 +11,6 @@ import lombok.Data;
  * @mbg.generated do_not_delete_during_merge
  */
 @Data
-@Builder
 public class BlogTag implements Serializable {
     /**
      * Database Column Remarks:

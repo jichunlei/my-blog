@@ -1135,63 +1135,113 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagEqualTo(String value) {
+        public Criteria andDelFlagEqualTo(Boolean value) {
             addCriterion("del_flag =", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagNotEqualTo(String value) {
+        public Criteria andDelFlagNotEqualTo(Boolean value) {
             addCriterion("del_flag <>", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagGreaterThan(String value) {
+        public Criteria andDelFlagGreaterThan(Boolean value) {
             addCriterion("del_flag >", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagGreaterThanOrEqualTo(String value) {
+        public Criteria andDelFlagGreaterThanOrEqualTo(Boolean value) {
             addCriterion("del_flag >=", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagLessThan(String value) {
+        public Criteria andDelFlagLessThan(Boolean value) {
             addCriterion("del_flag <", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagLessThanOrEqualTo(String value) {
+        public Criteria andDelFlagLessThanOrEqualTo(Boolean value) {
             addCriterion("del_flag <=", value, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagLike(String value) {
-            addCriterion("del_flag like", value, "delFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDelFlagNotLike(String value) {
-            addCriterion("del_flag not like", value, "delFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDelFlagIn(List<String> values) {
+        public Criteria andDelFlagIn(List<Boolean> values) {
             addCriterion("del_flag in", values, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagNotIn(List<String> values) {
+        public Criteria andDelFlagNotIn(List<Boolean> values) {
             addCriterion("del_flag not in", values, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagBetween(String value1, String value2) {
+        public Criteria andDelFlagBetween(Boolean value1, Boolean value2) {
             addCriterion("del_flag between", value1, value2, "delFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDelFlagNotBetween(String value1, String value2) {
+        public Criteria andDelFlagNotBetween(Boolean value1, Boolean value2) {
             addCriterion("del_flag not between", value1, value2, "delFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIsNull() {
+            addCriterion("del_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIsNotNull() {
+            addCriterion("del_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeEqualTo(Date value) {
+            addCriterion("del_time =", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotEqualTo(Date value) {
+            addCriterion("del_time <>", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeGreaterThan(Date value) {
+            addCriterion("del_time >", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("del_time >=", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeLessThan(Date value) {
+            addCriterion("del_time <", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeLessThanOrEqualTo(Date value) {
+            addCriterion("del_time <=", value, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeIn(List<Date> values) {
+            addCriterion("del_time in", values, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotIn(List<Date> values) {
+            addCriterion("del_time not in", values, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeBetween(Date value1, Date value2) {
+            addCriterion("del_time between", value1, value2, "delTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelTimeNotBetween(Date value1, Date value2) {
+            addCriterion("del_time not between", value1, value2, "delTime");
             return (Criteria) this;
         }
     }

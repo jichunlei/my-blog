@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jicl.mapper.ReplyExtendMapper">
+    <resultMap id="BaseResultMap" type="com.jicl.pojo.ReplyExtend"
+               extends="com.jicl.mapper.ReplyMapper.ResultMapWithBLOBs">
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+        <result column="repliedNickname" jdbcType="VARCHAR" property="repliedNickname"/>
+        <result column="repliedHeadPortrait" jdbcType="VARCHAR" property="repliedHeadPortrait"/>
+    </resultMap>
+
+    <!--获取回复列表-->
+    <select id="getReplys" resultType="com.jicl.pojo.ReplyExtend">
+        SELECT
+            a.reply_id,
+            a.comment_id,
+            a.reply_content,
+            a.user_id,
+            a.replied_user_id,
+            a.reply_time,
+            b.nickname,
+            b.head_portrait,
+            c.nickname repliedNickname,
+            c.head_portrait repliedHeadPortrait
+        FROM
+            t_reply a
+                LEFT JOIN t_user b ON a.user_id = b.user_id
+                LEFT JOIN t_user c ON a.replied_user_id = c.user_id
+        WHERE
+            a.del_flag = '0'
+          AND a.comment_id =#{commentId}
+    </select>
+
+
+</mapper>

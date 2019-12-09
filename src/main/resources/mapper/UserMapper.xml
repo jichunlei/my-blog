@@ -11,7 +11,7 @@
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="user_role" jdbcType="VARCHAR" property="userRole" />
-    <result column="user_status" jdbcType="CHAR" property="userStatus" />
+    <result column="user_status" jdbcType="VARCHAR" property="userStatus" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
@@ -20,7 +20,8 @@
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="del_time" jdbcType="TIMESTAMP" property="delTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -95,7 +96,7 @@
     -->
     user_id, username, nickname, password, user_role, user_status, telephone, email, 
     head_portrait, register_time, last_login_time, last_login_ip, create_time, update_time, 
-    del_flag
+    del_flag, del_time
   </sql>
   <select id="selectByExample" parameterType="com.jicl.entity.UserExample" resultMap="BaseResultMap">
     <!--
@@ -152,14 +153,14 @@
       password, user_role, user_status, 
       telephone, email, head_portrait, 
       register_time, last_login_time, last_login_ip, 
-      create_time, update_time, del_flag
-      )
+      create_time, update_time, del_flag, 
+      del_time)
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{userStatus,jdbcType=CHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}, 
       #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT}, 
+      #{delTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.jicl.entity.User">
     <!--
@@ -213,6 +214,9 @@
       <if test="delFlag != null">
         del_flag,
       </if>
+      <if test="delTime != null">
+        del_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -231,7 +235,7 @@
         #{userRole,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null">
-        #{userStatus,jdbcType=CHAR},
+        #{userStatus,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
@@ -258,7 +262,10 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delFlag != null">
-        #{delFlag,jdbcType=CHAR},
+        #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="delTime != null">
+        #{delTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -295,7 +302,7 @@
         user_role = #{record.userRole,jdbcType=VARCHAR},
       </if>
       <if test="record.userStatus != null">
-        user_status = #{record.userStatus,jdbcType=CHAR},
+        user_status = #{record.userStatus,jdbcType=VARCHAR},
       </if>
       <if test="record.telephone != null">
         telephone = #{record.telephone,jdbcType=VARCHAR},
@@ -322,7 +329,10 @@
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.delFlag != null">
-        del_flag = #{record.delFlag,jdbcType=CHAR},
+        del_flag = #{record.delFlag,jdbcType=BIT},
+      </if>
+      <if test="record.delTime != null">
+        del_time = #{record.delTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -340,7 +350,7 @@
       nickname = #{record.nickname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       user_role = #{record.userRole,jdbcType=VARCHAR},
-      user_status = #{record.userStatus,jdbcType=CHAR},
+      user_status = #{record.userStatus,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
@@ -349,7 +359,8 @@
       last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      del_flag = #{record.delFlag,jdbcType=CHAR}
+      del_flag = #{record.delFlag,jdbcType=BIT},
+      del_time = #{record.delTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -374,7 +385,7 @@
         user_role = #{userRole,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null">
-        user_status = #{userStatus,jdbcType=CHAR},
+        user_status = #{userStatus,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
@@ -401,7 +412,10 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=CHAR},
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="delTime != null">
+        del_time = #{delTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
@@ -416,7 +430,7 @@
       nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       user_role = #{userRole,jdbcType=VARCHAR},
-      user_status = #{userStatus,jdbcType=CHAR},
+      user_status = #{userStatus,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       head_portrait = #{headPortrait,jdbcType=VARCHAR},
@@ -425,7 +439,8 @@
       last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      del_flag = #{delFlag,jdbcType=CHAR}
+      del_flag = #{delFlag,jdbcType=BIT},
+      del_time = #{delTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

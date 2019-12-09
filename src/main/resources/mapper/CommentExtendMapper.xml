@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jicl.mapper.CommentExtendMapper">
+
+    <resultMap id="BaseResultMap" type="com.jicl.pojo.CommentExtend"
+               extends="com.jicl.mapper.CommentMapper.ResultMapWithBLOBs">
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+    </resultMap>
+
+    <!--获取评论信息列表-->
+    <select id="getComments" resultMap="BaseResultMap">
+      SELECT
+            a.comment_id,
+            a.comment_content,
+            a.user_id,
+            a.blog_id,
+            a.comment_time,
+            b.nickname,
+            b.head_portrait
+        FROM
+            t_comment a,
+            t_user b
+        WHERE
+            a.user_id = b.user_id
+            AND a.del_flag = '0'
+            AND a.blog_id = #{blogId};
+    </select>
+</mapper>

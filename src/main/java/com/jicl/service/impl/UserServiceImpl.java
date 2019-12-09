@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 .registerTime(now)
                 .lastLoginTime(now)
                 .createTime(now)
-                .updateTime(now).delFlag("0")
+                .updateTime(now).delFlag(false)
                 .build();
         userMapper.insertSelective(user);
     }
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUser(LoginDto loginDto) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(loginDto.getUsername()).andPasswordEqualTo(MD5Utils.code(loginDto.getPassword())).andDelFlagEqualTo("0");
+        userExample.createCriteria().andUsernameEqualTo(loginDto.getUsername()).andPasswordEqualTo(MD5Utils.code(loginDto.getPassword())).andDelFlagEqualTo(false);
         List<User> list = userMapper.selectByExample(userExample);
         if (CollectionUtils.isEmpty(list)) {
             return null;

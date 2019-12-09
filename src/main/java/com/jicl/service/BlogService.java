@@ -77,4 +77,14 @@ public interface BlogService {
      * @date 2019/12/2 21:29
      **/
     List<Blog> getLastUpdateBlogTop(Integer topSize);
+
+    /**
+     * 功能描述: 博客详情查看
+     *
+     * @param blogId 1
+     * @return com.jicl.vo.BlogVo
+     * @author xianzilei
+     * @date 2019/12/9 17:53
+     **/
+    BlogVo getBlogDeatil(Integer blogId);
 }

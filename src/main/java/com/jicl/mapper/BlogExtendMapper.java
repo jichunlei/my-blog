@@ -53,4 +53,14 @@ public interface BlogExtendMapper {
      * @date 2019/12/2 21:32
      **/
     List<Blog> getLastUpdateBlogTop(Integer topSize);
+
+    /**
+     * 功能描述: 博客详情查看
+     *
+     * @param blogId 1
+     * @return com.jicl.vo.BlogVo
+     * @author xianzilei
+     * @date 2019/12/9 17:58
+     **/
+    BlogVo getBlogDeatil(Integer blogId);
 }

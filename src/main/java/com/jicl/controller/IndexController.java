@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @Auther: xianzilei
- * @Date: 2019/11/30 09:28
- * @Description: 首页控制器
+ * 首页控制器
+ *
+ * @author xianzilei
+ * @date 2019/11/30 09:28
  */
 @Controller
 public class IndexController {
