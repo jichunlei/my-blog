@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
         for (CommentExtend commentExtend : commentExtends) {
             List<ReplyExtend> replyExtendList = replyExtendMapper.getReplys(commentExtend.getCommentId());
             commentExtend.setReplyNums(replyExtendList.size());
-            commentExtend.setReplyExtendList(replyExtendList);
+            commentExtend.setReplyList(replyExtendList);
         }
         return commentExtends;
     }

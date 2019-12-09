@@ -142,4 +142,17 @@ public class BlogServiceImpl implements BlogService {
         blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
         return blogVo;
     }
+
+    /**
+     * 功能描述: 单条查询博客基本信息
+     *
+     * @param blogId 1
+     * @return com.jicl.entity.Blog
+     * @author xianzilei
+     * @date 2019/12/9 21:47
+     **/
+    @Override
+    public Blog findOne(Integer blogId) {
+        return blogMapper.selectByPrimaryKey(blogId);
+    }
 }

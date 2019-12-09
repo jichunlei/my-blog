@@ -10,7 +10,7 @@
     </resultMap>
 
     <!--获取回复列表-->
-    <select id="getReplys" resultType="com.jicl.pojo.ReplyExtend">
+    <select id="getReplys" resultMap="BaseResultMap">
         SELECT
             a.reply_id,
             a.comment_id,

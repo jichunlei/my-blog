@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 09/12/2019 19:27:49
+ Date: 09/12/2019 19:55:25
 */
 
 SET NAMES utf8mb4;
@@ -64,22 +64,22 @@ CREATE TABLE `t_blog`  (
 -- ----------------------------
 -- Records of t_blog
 -- ----------------------------
-INSERT INTO `t_blog` VALUES (1, 1, '1', 'Nginx是一款轻量级的Web服务器、反向代理服务器，由于它的内存占用少，启动极快，高并发能力强，在互联网项目中广泛应用。本文就带大家来全面了解Nginx的使用', b'1', b'1', 1, '-1-2-3-4-', 'https://picsum.photos/800/450', b'1', 'title1', '111', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (2, 1, '1', '1', b'1', b'1', 2, '-1-3-4-5-', 'https://picsum.photos/800/450', b'1', 'title2', '222', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (3, 1, '2', '1', b'1', b'1', 3, '-4-5-', 'https://picsum.photos/800/450', b'1', 'title3', '333', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (4, 1, '2', '1', b'1', b'1', 4, '-2-4-', 'https://picsum.photos/800/450', b'1', 'title4', '444', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (5, 1, '1', '1', b'1', b'1', 4, '-1-', 'https://picsum.photos/800/450', b'1', 'title5', '555', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (6, 1, '1', '1', b'1', b'1', 4, '-1-', 'https://picsum.photos/800/450', b'1', 'title6', '666', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (7, 1, '2', '1', b'1', b'1', 1, '-1-', 'https://picsum.photos/800/450', b'1', 'title7', '777', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (8, 1, '2', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'title8', '888', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (9, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'title9', '999', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (10, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (11, 1, '3', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (12, 1, '3', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (13, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titled', 'ddd', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (14, 1, '2', '1', b'1', b'1', 1, '-1-', 'https://picsum.photos/800/450', b'1', 'titlee', 'eee', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (15, 1, '3', '1', b'1', b'1', 3, '-1-', 'https://picsum.photos/800/450', b'1', 'titlef', 'fff', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
-INSERT INTO `t_blog` VALUES (16, 1, '3', '1', b'1', b'1', 3, '-1-', 'https://picsum.photos/800/450', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1, '2019-12-01 10:15:21', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (1, 1, '1', 'Nginx是一款轻量级的Web服务器、反向代理服务器，由于它的内存占用少，启动极快，高并发能力强，在互联网项目中广泛应用。本文就带大家来全面了解Nginx的使用', b'1', b'1', 1, '-1-2-3-4-', 'https://picsum.photos/800/450', b'1', 'title1', '111', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (2, 1, '1', '1', b'1', b'1', 2, '-1-3-4-5-', 'https://picsum.photos/800/450', b'1', 'title2', '222', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (3, 1, '2', '1', b'1', b'1', 3, '-4-5-', 'https://picsum.photos/800/450', b'1', 'title3', '333', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (4, 1, '2', '1', b'1', b'1', 4, '-2-4-', 'https://picsum.photos/800/450', b'1', 'title4', '444', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (5, 1, '1', '1', b'1', b'1', 4, '-1-', 'https://picsum.photos/800/450', b'1', 'title5', '555', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (6, 1, '1', '1', b'1', b'1', 4, '-1-', 'https://picsum.photos/800/450', b'1', 'title6', '666', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (7, 1, '2', '1', b'1', b'1', 1, '-1-', 'https://picsum.photos/800/450', b'1', 'title7', '777', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (8, 1, '2', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'title8', '888', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (9, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'title9', '999', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (10, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titlea', 'aaa', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (11, 1, '3', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titleb', 'bbb', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (12, 1, '3', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titlec', 'ccc', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (13, 1, '1', '1', b'1', b'1', 2, '-1-', 'https://picsum.photos/800/450', b'1', 'titled', 'ddd', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (14, 1, '2', '1', b'1', b'1', 1, '-1-', 'https://picsum.photos/800/450', b'1', 'titlee', 'eee', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (15, 1, '3', '1', b'1', b'1', 3, '-1-', 'https://picsum.photos/800/450', b'1', 'titlef', 'fff', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
+INSERT INTO `t_blog` VALUES (16, 1, '3', '1', b'1', b'1', 3, '-1-', 'https://picsum.photos/800/450', b'1', 'titleg', 'ggg', 1, b'1', b'1', 1, '2019-12-09 19:36:19', '2019-12-01 10:15:25', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_blog_tag
@@ -140,8 +140,8 @@ CREATE TABLE `t_comment`  (
 -- ----------------------------
 -- Records of t_comment
 -- ----------------------------
-INSERT INTO `t_comment` VALUES (1, '哈哈哈哈1', 1, 1, '2019-12-09 15:03:57', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_comment` VALUES (2, '哈哈哈哈1', 2, 1, '2019-12-09 15:04:26', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
+INSERT INTO `t_comment` VALUES (1, '哈哈哈哈1', 1, 1, '2019-12-09 15:03:57', '2019-12-09 19:51:32', '2019-12-09 19:51:32', b'0', NULL);
+INSERT INTO `t_comment` VALUES (2, '哈哈哈哈1', 2, 1, '2019-12-09 15:04:26', '2019-12-09 19:51:32', '2019-12-09 19:51:32', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_message
@@ -179,8 +179,8 @@ CREATE TABLE `t_reply`  (
 -- ----------------------------
 -- Records of t_reply
 -- ----------------------------
-INSERT INTO `t_reply` VALUES (1, 1, '回复1', 1, '2019-12-09 15:11:06', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_reply` VALUES (2, 1, '回复2', 1, '2019-12-09 15:11:24', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
+INSERT INTO `t_reply` VALUES (1, 1, '回复1', 1, '2019-12-09 15:11:06', 1, '2019-12-09 19:51:32', '2019-12-09 19:51:32', b'0', NULL);
+INSERT INTO `t_reply` VALUES (2, 1, '回复2', 1, '2019-12-09 15:11:24', 2, '2019-12-09 19:51:32', '2019-12-09 19:51:32', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_tag
@@ -194,17 +194,17 @@ CREATE TABLE `t_tag`  (
   `del_flag` bit(1) NOT NULL COMMENT '删除标志：1-删除 0-未删除',
   `del_time` datetime(0) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_tag
 -- ----------------------------
-INSERT INTO `t_tag` VALUES (1, '1111', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_tag` VALUES (2, '2222', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_tag` VALUES (3, '3333', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_tag` VALUES (4, '4444', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_tag` VALUES (5, '5555', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_tag` VALUES (6, '6666', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
+INSERT INTO `t_tag` VALUES (1, '1111', '2019-12-09 19:50:56', '2019-12-09 19:51:32', b'0', NULL);
+INSERT INTO `t_tag` VALUES (2, '2222', '2019-12-09 19:51:00', '2019-12-09 19:51:35', b'0', NULL);
+INSERT INTO `t_tag` VALUES (3, '3333', '2019-12-09 19:51:03', '2019-12-09 19:51:38', b'0', NULL);
+INSERT INTO `t_tag` VALUES (4, '4444', '2019-12-09 19:51:05', '2019-12-09 19:51:40', b'0', NULL);
+INSERT INTO `t_tag` VALUES (5, '5555', '2019-12-09 19:51:07', '2019-12-09 19:51:43', b'0', NULL);
+INSERT INTO `t_tag` VALUES (6, '6666', '2019-12-09 19:51:10', '2019-12-09 19:51:46', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_type
@@ -223,11 +223,11 @@ CREATE TABLE `t_type`  (
 -- ----------------------------
 -- Records of t_type
 -- ----------------------------
-INSERT INTO `t_type` VALUES (1, '1111', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_type` VALUES (2, '2222', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_type` VALUES (3, '3333', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_type` VALUES (4, '4444', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
-INSERT INTO `t_type` VALUES (5, '5555', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', NULL);
+INSERT INTO `t_type` VALUES (1, '1111', '2019-12-09 19:37:49', '2019-12-09 19:38:02', b'0', NULL);
+INSERT INTO `t_type` VALUES (2, '2222', '2019-12-09 19:37:52', '2019-12-09 19:38:07', b'0', NULL);
+INSERT INTO `t_type` VALUES (3, '3333', '2019-12-09 19:37:54', '2019-12-09 19:38:09', b'0', NULL);
+INSERT INTO `t_type` VALUES (4, '4444', '2019-12-09 19:37:57', '2019-12-09 19:38:11', b'0', NULL);
+INSERT INTO `t_type` VALUES (5, '5555', '2019-12-09 19:37:59', '2019-12-09 19:38:14', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_user

@@ -1,5 +1,6 @@
 package com.jicl.controller;
 
+import com.jicl.service.BlogService;
 import com.jicl.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private BlogService blogService;
     /**
      * 功能描述: 获取评论信息
      *
@@ -33,6 +37,7 @@ public class CommentController {
                               @RequestParam(defaultValue =
                                       "6") Integer pageSize, Model model) {
         model.addAttribute("comments", commentService.getComments(blogId,pageNum,pageSize));
+        model.addAttribute("blogUserId", blogService.findOne(blogId).getUserId());
         return "blog :: commentList";
     }
 }

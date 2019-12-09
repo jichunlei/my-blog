@@ -68,17 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <!--footer-->
-                <!--<div class="ui buttom attached segment" th:if="${page.pages}>1">-->
-                    <!--<div class="ui middle aligned two column grid">-->
-                        <!--<div class="column">-->
-                            <!--<a href="#" th:href="@{/(pageNum=${page.pageNum}-1)}"  th:unless="${page.isFirstPage}" class="ui mini teal basic button">上一页</a>-->
-                        <!--</div>-->
-                        <!--<div class="right aligned column">-->
-                            <!--<a href="#" th:href="@{/(pageNum=${page.pageNum}+1)}"  th:unless="${page.isLastPage}" class="ui mini teal basic button">下一页</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+
                 <!--分页组件-->
                 <div class="ui attached center aligned segment">
                     <div class="ui pagination menu">
@@ -114,7 +104,8 @@
                               method="get" target="_blank">
                             <div class="ui right labeled input">
                                 <div class="ui basic label">Go</div>
-                                <input type="text" name="pageNum" placeholder=".." style="width: 80px;">
+                                <input type="text" name="pageNum" placeholder="页码..."
+                                       style="width: 80px;">
                                 <div class="ui basic label">页</div>
                                 <button class="ui icon button"><i onclick="document.forms['page'].submit()"
                                                                   class="right arrow icon"></i></button>

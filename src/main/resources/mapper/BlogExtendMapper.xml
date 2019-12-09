@@ -5,7 +5,7 @@
     <resultMap id="TopTypeResultMap" type="com.jicl.pojo.TopType" extends="com.jicl.mapper.TypeMapper.BaseResultMap">
     </resultMap>
 
-    <resultMap id="BlogResultMap" type="com.jicl.vo.BlogVo" extends="com.jicl.mapper.BlogMapper.BaseResultMap">
+    <resultMap id="BlogResultMap" type="com.jicl.vo.BlogVo" extends="com.jicl.mapper.BlogMapper.ResultMapWithBLOBs">
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
     </resultMap>

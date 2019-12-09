@@ -535,10 +535,12 @@ h5,h6{font-size:1em;}
             <div class="eleven wide column">
                 <ui class="list">
                     <li>作者：<span th:text="${blog.nickname}">计春磊</span><a href="#"
-                                                                         th:href="@{/about}" target="_blank">（联系作者）</a>
+                                                                         th:href="@{/about}"
+                                                                         target="_blank">（联系作者）</a>
                     </li>
                     <li>发表时间：<span
-                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2017-10-02 09:08</span></li>
+                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2017-10-02 09:08</span>
+                    </li>
                     <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
                     <li>公众号转载：请在文末添加作者公众号二维码</li>
                 </ui>
@@ -565,22 +567,23 @@ h5,h6{font-size:1em;}
                             <a class="author">
                                 <span th:text="${comment.nickname}">Matt</span>
                                 <div class="ui mini basic teal left pointing label m-padded-mini"
-                                     th:if="${comment.userId}==${blog.userId}">博主
+                                     th:if="${comment.userId}==${blogUserId}">博主
                                 </div>
                             </a>
                             <div class="metadata">
                                 <span class="date"
                                       th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                             </div>
-                            <div class="text" th:text="${comment.content}">
+                            <div class="text" th:text="${comment.commentContent}">
                                 How artistic!
                             </div>
                             <div class="actions">
                                 <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                   th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"
+                                   th:attr="data-commentid=${comment.commentId},data-commentnickname=${comment.nickname}"
                                    onclick="reply(this)">回复</a>
                                 <a class="reply" th:unless="${comment.replyNums}==0"
-                                   onclick="viewReply(this)">查看回复(${comment.replyNums})</a>
+                                   onclick="viewReply(this)" th:text="|查看回复(${comment.replyNums})|">
+                                    查看回复(8)</a>
                             </div>
                         </div>
                         <div class="comments" th:if="${#arrays.length(comment.replyList)}>0">
@@ -593,7 +596,7 @@ h5,h6{font-size:1em;}
                                     <a class="author">
                                         <span th:text="${reply.nickname}">小红</span>
                                         <div class="ui mini basic teal left pointing label m-padded-mini"
-                                             th:if="${reply.userId}==${blog.userId}">博主
+                                             th:if="${reply.userId}==${blogUserId}">博主
                                         </div>
                                         &nbsp;<span th:text="|@ ${reply.repliedNickname}|"
                                                     class="m-teal">@ 小白</span>
@@ -608,7 +611,7 @@ h5,h6{font-size:1em;}
                                     <div class="actions">
                                         <a class="reply" data-commentid="1"
                                            data-commentnickname="Matt"
-                                           th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}"
+                                           th:attr="data-commentid=${reply.replyId},data-commentnickname=${reply.nickname}"
                                            onclick="reply(this)">回复</a>
                                     </div>
                                 </div>
@@ -682,18 +685,18 @@ h5,h6{font-size:1em;}
             </div>
             <div class="fields">
                 <!--<div class="field m-mobile-wide m-margin-bottom-small">-->
-                    <!--<div class="ui left icon input">-->
-                        <!--<i class="user icon"></i>-->
-                        <!--<input type="text" name="nickname" placeholder="姓名"-->
-                               <!--th:value="${session.user}!=null ? ${session.user.nickname}">-->
-                    <!--</div>-->
+                <!--<div class="ui left icon input">-->
+                <!--<i class="user icon"></i>-->
+                <!--<input type="text" name="nickname" placeholder="姓名"-->
+                <!--th:value="${session.user}!=null ? ${session.user.nickname}">-->
+                <!--</div>-->
                 <!--</div>-->
                 <!--<div class="field m-mobile-wide m-margin-bottom-small">-->
-                    <!--<div class="ui left icon input">-->
-                        <!--<i class="mail icon"></i>-->
-                        <!--<input type="text" name="email" placeholder="邮箱"-->
-                               <!--th:value="${session.user}!=null ? ${session.user.email}">-->
-                    <!--</div>-->
+                <!--<div class="ui left icon input">-->
+                <!--<i class="mail icon"></i>-->
+                <!--<input type="text" name="email" placeholder="邮箱"-->
+                <!--th:value="${session.user}!=null ? ${session.user.email}">-->
+                <!--</div>-->
                 <!--</div>-->
                 <div class="field  m-margin-bottom-small m-mobile-wide">
                     <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide">
@@ -814,7 +817,7 @@ h5,h6{font-size:1em;}
 
     //生成二维码插件
     var serurl = /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
-    var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
+    var url = /*[[@{/blog/{id}(id=${blog.blogId})}]]*/"";
     var qrcode = new QRCode("qrcode", {
         text: serurl + url,
         width: 110,
@@ -872,7 +875,7 @@ h5,h6{font-size:1em;}
     });
 
     $(function () {
-        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
+        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.blogId})}]]*/"comments/6");
     });
 
 
@@ -890,7 +893,7 @@ h5,h6{font-size:1em;}
     function postData() {
         $("#comment-container").load(/*[[@{/comments}]]*/"", {
             "parentComment.id": $("[name='parentComment.id']").val(),
-            "blog.id": $("[name='blog.id']").val(),
+            "blog.blogId": $("[name='blog.blogId']").val(),
             "nickname": $("[name='nickname']").val(),
             "email": $("[name='email']").val(),
             "content": $("[name='content']").val()

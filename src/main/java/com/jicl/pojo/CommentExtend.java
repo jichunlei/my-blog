@@ -28,5 +28,5 @@ public class CommentExtend extends Comment {
     /**
      * 回复列表
      */
-    private List<ReplyExtend> replyExtendList;
+    private List<ReplyExtend> replyList;
 }

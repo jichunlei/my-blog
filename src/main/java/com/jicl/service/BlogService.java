@@ -87,4 +87,14 @@ public interface BlogService {
      * @date 2019/12/9 17:53
      **/
     BlogVo getBlogDeatil(Integer blogId);
+
+    /**
+     * 功能描述: 单条查询博客基本信息
+     *
+     * @param blogId 1
+     * @return java.lang.Object
+     * @author xianzilei
+     * @date 2019/12/9 21:46
+     **/
+    Blog findOne(Integer blogId);
 }
