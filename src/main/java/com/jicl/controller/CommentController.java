@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 评论控制层
@@ -39,5 +42,18 @@ public class CommentController {
         model.addAttribute("comments", commentService.getComments(blogId,pageNum,pageSize));
         model.addAttribute("blogUserId", blogService.findOne(blogId).getUserId());
         return "blog :: commentList";
+    }
+
+    @PostMapping("/comments")
+    public String addComments(Integer blogId, HttpSession session) {
+//        User user = (User) session.getAttribute("user");
+//        if (user != null) {
+//            comment.setAvatar(user.getAvatar());
+//            comment.setAdminComment(true);
+//        } else {
+//            comment.setAvatar(avatar);
+//        }
+//        commentService.saveComment(comment);
+        return "redirect:/comments/" + blogId;
     }
 }

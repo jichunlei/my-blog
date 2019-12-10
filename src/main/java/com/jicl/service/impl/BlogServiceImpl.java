@@ -12,9 +12,11 @@ import com.jicl.mapper.BlogTagMapper;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
+import com.jicl.util.MarkdownUtils;
 import com.jicl.vo.BlogVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -135,12 +137,34 @@ public class BlogServiceImpl implements BlogService {
      * @date 2019/12/9 17:53
      **/
     @Override
-    public BlogVo getBlogDeatil(Integer blogId) {
+    @Transactional
+    public BlogVo getBlogDetail(Integer blogId) {
+        //查询博客详情
         BlogVo blogVo = blogExtendMapper.getBlogDeatil(blogId);
+        //将markdown内容转换成html
+        blogVo.setBlogContent(MarkdownUtils.markdownToHtmlExtensions(blogVo.getBlogContent()));
+        //查询博客的标签列表
         BlogTagExample blogTagExample = new BlogTagExample();
         blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
         blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
+        UpdateBlogViews(blogId, blogVo.getBlogViews());
         return blogVo;
+    }
+
+    /**
+     * 功能描述: 更新博客访问量
+     *
+     * @param blogId 1
+     * @param updateBlogViews 2
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/10 8:41
+     **/
+    private void UpdateBlogViews(Integer blogId, Integer updateBlogViews) {
+        Blog blog = new Blog();
+        blog.setBlogViews(updateBlogViews);
+        blog.setBlogId(blogId);
+        blogMapper.updateByPrimaryKeySelective(blog);
     }
 
     /**

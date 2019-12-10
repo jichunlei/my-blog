@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../static/lib/prism/prism.css">
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
     <link rel="stylesheet" href="../static/css/me.css">
-    <title>博客详情页</title>
+    <title th:text="${blog.blogTitle}">博客详情页</title>
 </head>
 <body>
 <!--导航-->
@@ -37,7 +37,7 @@
 </nav>
 
 <!--中间内容-->
-<div id="waypoint" class="m-container-small m-padded-tb-big animated fadeIn">
+<div id="waypoint" class="m-container m-padded-tb-big animated fadeIn">
     <div class="ui container">
         <!--头部-->
         <div class="ui top attached segment">
@@ -536,7 +536,7 @@ h5,h6{font-size:1em;}
                 <ui class="list">
                     <li>作者：<span th:text="${blog.nickname}">计春磊</span><a href="#"
                                                                          th:href="@{/about}"
-                                                                         target="_blank">（联系作者）</a>
+                                                                         target="_blank">（查看TA的主页）</a>
                     </li>
                     <li>发表时间：<span
                             th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2017-10-02 09:08</span>
@@ -553,11 +553,27 @@ h5,h6{font-size:1em;}
     </div>
     <!--留言区域-->
     <div class="ui bottom attached segment" th:if="${blog.commentabled}">
-        <!--留言区域列表-->
+        <!--评论框-->
+        <div id="comment-form" class="ui teal form">
+            <div class="ui threaded comments" style="max-width: 100%;">
+                <h3 class="ui dividing header">评论</h3>
+            <input type="hidden" name="blog.blogId" th:value="${blog.blogId}">
+            <input type="hidden" name="parentComment.id" value="-1">
+            <div class="field">
+                <textarea name="content" placeholder="想对作者说点什么..."></textarea>
+            </div>
+            <div class="fields">
+                <div class="field  m-margin-bottom-small m-mobile-wide">
+                    <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide">
+                        <i class="edit icon"></i>发布
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--历史评论列表-->
         <div id="comment-container" class="ui teal segment">
             <div th:fragment="commentList">
                 <div class="ui threaded comments" style="max-width: 100%;">
-                    <h3 class="ui dividing header">评论</h3>
                     <div class="comment" th:each="comment : ${comments}">
                         <a class="avatar">
                             <img src="https://unsplash.it/100/100?image=1005"
@@ -572,7 +588,7 @@ h5,h6{font-size:1em;}
                             </a>
                             <div class="metadata">
                                 <span class="date"
-                                      th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                      th:text="${#dates.format(comment.commentTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                             </div>
                             <div class="text" th:text="${comment.commentContent}">
                                 How artistic!
@@ -580,10 +596,10 @@ h5,h6{font-size:1em;}
                             <div class="actions">
                                 <a class="reply" data-commentid="1" data-commentnickname="Matt"
                                    th:attr="data-commentid=${comment.commentId},data-commentnickname=${comment.nickname}"
-                                   onclick="reply(this)">回复</a>
-                                <a class="reply" th:unless="${comment.replyNums}==0"
-                                   onclick="viewReply(this)" th:text="|查看回复(${comment.replyNums})|">
-                                    查看回复(8)</a>
+                                   onclick="showReplyForm(this)">回复</a>
+                                <!--<a class="reply" th:unless="${comment.replyNums}==0"-->
+                                <!--onclick="viewReply(this)" th:text="|查看回复(${comment.replyNums})|">-->
+                                <!--查看回复(8)</a>-->
                             </div>
                         </div>
                         <div class="comments" th:if="${#arrays.length(comment.replyList)}>0">
@@ -611,8 +627,8 @@ h5,h6{font-size:1em;}
                                     <div class="actions">
                                         <a class="reply" data-commentid="1"
                                            data-commentnickname="Matt"
-                                           th:attr="data-commentid=${reply.replyId},data-commentnickname=${reply.nickname}"
-                                           onclick="reply(this)">回复</a>
+                                           th:attr="data-commentid=${reply.commentId},data-commentnickname=${reply.nickname}"
+                                           onclick="showReplyForm(this)">回复</a>
                                     </div>
                                 </div>
                             </div>
@@ -677,35 +693,6 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
         </div>
-        <div id="comment-form" class="ui form">
-            <input type="hidden" name="blog.id" th:value="${blog.blogId}">
-            <input type="hidden" name="parentComment.id" value="-1">
-            <div class="field">
-                <textarea name="content" placeholder="想对作者说点什么..."></textarea>
-            </div>
-            <div class="fields">
-                <!--<div class="field m-mobile-wide m-margin-bottom-small">-->
-                <!--<div class="ui left icon input">-->
-                <!--<i class="user icon"></i>-->
-                <!--<input type="text" name="nickname" placeholder="姓名"-->
-                <!--th:value="${session.user}!=null ? ${session.user.nickname}">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="field m-mobile-wide m-margin-bottom-small">-->
-                <!--<div class="ui left icon input">-->
-                <!--<i class="mail icon"></i>-->
-                <!--<input type="text" name="email" placeholder="邮箱"-->
-                <!--th:value="${session.user}!=null ? ${session.user.email}">-->
-                <!--</div>-->
-                <!--</div>-->
-                <div class="field  m-margin-bottom-small m-mobile-wide">
-                    <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide">
-                        <i class="edit icon"></i>发布
-                    </button>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>
 </div>
@@ -713,7 +700,7 @@ h5,h6{font-size:1em;}
 <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
     <div class="ui vertical icon buttons ">
         <button type="button" class="ui toc teal button">目录</button>
-        <a href="#comment-container" class="ui teal button">留言</a>
+        <a href="#comment-container" class="ui teal button">评论</a>
         <button class="ui wechat icon button"><i class="weixin icon"></i></button>
         <div id="toTop-button" class="ui icon button"><i class="chevron up icon"></i></div>
     </div>
@@ -856,20 +843,6 @@ h5,h6{font-size:1em;}
                     prompt: '请输入评论内容'
                 }
                 ]
-            },
-            content: {
-                identifier: 'nickname',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入你的大名'
-                }]
-            },
-            type: {
-                identifier: 'email',
-                rules: [{
-                    type: 'email',
-                    prompt: '请填写正确的邮箱地址'
-                }]
             }
         }
     });
@@ -883,19 +856,17 @@ h5,h6{font-size:1em;}
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
-            postData();
+            addComment();
         } else {
             console.log('校验失败');
         }
 
     });
 
-    function postData() {
+    function addComment() {
         $("#comment-container").load(/*[[@{/comments}]]*/"", {
             "parentComment.id": $("[name='parentComment.id']").val(),
-            "blog.blogId": $("[name='blog.blogId']").val(),
-            "nickname": $("[name='nickname']").val(),
-            "email": $("[name='email']").val(),
+            "blogId": $("[name='blog.blogId']").val(),
             "content": $("[name='content']").val()
         }, function (responseTxt, statusTxt, xhr) {
             $(window).scrollTo($('#comment-container'), 500);
@@ -910,13 +881,34 @@ h5,h6{font-size:1em;}
     }
 
 
-    function reply(obj) {
-        var commentId = $(obj).data('commentid');
-        var commentNickname = $(obj).data('commentnickname');
-        $("[name='content']").attr("placeholder", "@" + commentNickname).focus();
-        $("[name='parentComment.id']").val(commentId);
-        $(window).scrollTo($('#comment-form'), 500);
+    function showReplyForm(obj) {
+        if ($(obj).text()=='回复') {
+            var commentNickname = $(obj).data('commentnickname');
+            //关闭其余的回复框
+            $('#reply-form').remove();
+            //恢复其余的回复标签
+            $('.reply').text("回复")
+            $(obj).parent().append(
+                "<div id='reply-form' class='ui form'>" +
+                "<div class='field'>" +
+                "<textarea style='width:700px; height:50px' name='replyContent' placeholder='想对作者说点什么...' ></textarea>" +
+                "</div>" +
+                "<div class='fields'>" +
+                "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
+                "<button id='commentpost-btn' type='button' class='ui teal button m-mobile-wide'>" +
+                "<i class='edit icon'></i>提交 " +
+                "</button>" +
+                "</div>" +
+                "</div>" +
+                "</div>");
+            $("[name='replyContent']").attr("placeholder", "@" + commentNickname).focus();
+            $(obj).text("取消回复")
+        } else {
+            $('#reply-form').remove();
+            $(obj).text("回复")
+        }
     }
+
 
 
 </script>
