@@ -562,12 +562,14 @@ h5,h6{font-size:1em;}
                     <textarea th:unless="${session.user==null}" name="content" style="height:80px"
                               placeholder="想对作者说点什么..."></textarea>
                     <div th:if="${session.user==null}">您需要<a
-                            href="#" th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}">登录</a>后才可以评论
+                            href="#"
+                            th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}">登录</a>后才可以评论
                     </div>
                 </div>
                 <div class="fields">
                     <div class="field  m-margin-bottom-small m-mobile-wide">
-                        <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide">
+                        <button id="commentpost-btn" type="button"
+                                class="ui teal button m-mobile-wide">
                             <i class="edit icon"></i>发布
                         </button>
                     </div>
@@ -648,289 +650,255 @@ h5,h6{font-size:1em;}
             </div>
         </div>
     </div>
+</div>
 
-    <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
-        <div class="ui vertical icon buttons ">
-            <button type="button" class="ui toc teal button">目录</button>
-            <a href="#comment-form" class="ui teal button">评论</a>
-            <button class="ui wechat icon button"><i class="weixin icon"></i></button>
-            <div id="toTop-button" class="ui icon button"><i class="chevron up icon"></i></div>
-        </div>
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="ui vertical icon buttons ">
+        <button type="button" class="ui toc teal button">目录</button>
+        <a href="#comment-form" class="ui teal button">评论</a>
+        <button class="ui wechat icon button"><i class="weixin icon"></i></button>
+        <div id="toTop-button" class="ui icon button"><i class="chevron up icon"></i></div>
     </div>
+</div>
 
-    <!--生成目录-->
-    <div class="ui toc-container flowing popup transition hidden" style="width: 250px!important;">
-        <ol class="js-toc">
+<!--生成目录-->
+<div class="ui toc-container flowing popup transition hidden" style="width: 250px!important;">
+    <ol class="js-toc">
 
-        </ol>
-    </div>
+    </ol>
+</div>
 
-    <!--微信二维码-->
-    <div id="qrcode" class="ui wechat-qr flowing popup transition hidden m-padded-mini"
-         style="width: 130px !important;">
-        <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 110px">-->
-    </div>
+<!--微信二维码-->
+<div id="qrcode" class="ui wechat-qr flowing popup transition hidden m-padded-mini"
+     style="width: 130px !important;">
+    <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 110px">-->
+</div>
 
-    <!--底部footer-->
-    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
-        <div class="ui center aligned container">
-            <div class="ui inverted divided stackable grid">
-                <div class="three wide column">
-                    <div class="ui inverted link list">
-                        <div class="item">
-                            <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}"
-                                 class="ui rounded image" alt="" style="width: 110px">
-                        </div>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">博客1（story-1）</a>
-                        <a href="#" class="item">博客2（story-2）</a>
-                        <a href="#" class="item">博客3（story-3）</a>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">Email：1739575190@qq.com</a>
-                        <a href="#" class="item">QQ：1739575190</a>
-                    </div>
-                </div>
-                <div class="seven wide column">
-                    <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                    <p class="m-text-thin m-text-spaced m-opacity-mini">贤子磊的个人博客</p>
-                </div>
-            </div>
-            <div class="ui inverted section divider"></div>
-            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019-2020 xianzilei Designed
-                by xianzilei.</p>
-        </div>
-    </footer>
+<!--底部footer（引用_fragments中的footer）-->
+<footer th:replace="_fragments :: footer"/>
 
-    <!--下面这种注释法在HTML中是注释，但是在thymeleaf中不是注释，可以被识别-->
-    <!--/*/<th:block th:replace="_fragments :: script">/*/-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-    <script src="../static/lib/prism/prism.js"></script>
-    <script src="../static/lib/tocbot/tocbot.min.js"></script>
-    <script src="../static/lib/qrcode/qrcode.min.js"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
-    <!--/*/</th:block>/*/-->
-    <script th:inline="javascript">
-        <!--移动端点击图标显示导航-->
-        $('.menu.toggle').click(
-            function () {
-                $('.m-item').toggleClass('m-mobile-hide');
+<!--下面这种注释法在HTML中是注释，但是在thymeleaf中不是注释，可以被识别-->
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+<script src="../static/lib/prism/prism.js"></script>
+<script src="../static/lib/tocbot/tocbot.min.js"></script>
+<script src="../static/lib/qrcode/qrcode.min.js"></script>
+<script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
+<!--/*/</th:block>/*/-->
+<script th:inline="javascript">
+    <!--移动端点击图标显示导航-->
+    $('.menu.toggle').click(
+        function () {
+            $('.m-item').toggleClass('m-mobile-hide');
+        }
+    );
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    // 点击赞赏按钮显示二维码
+    $('#payButton').popup({
+        popup: $('.payQR.popup'),
+        on: 'click',
+        position: 'bottom center'
+    });
+    //tocbot初始化
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+
+    $('.toc.button').popup({
+        popup: $('.toc-container.popup'),
+        on: 'click',
+        position: 'left center'
+    });
+
+    //显示微信二维码
+    $('.wechat').popup({
+        popup: $('.wechat-qr'),
+        position: 'left center'
+    });
+
+    //生成二维码插件
+    var serurl = /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
+    var url = /*[[@{/blog/{id}(id=${blog.blogId})}]]*/"";
+    var qrcode = new QRCode("qrcode", {
+        text: serurl + url,
+        width: 110,
+        height: 110,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
+    //平滑滚动
+    $('#toTop-button').click(function () {
+        $(window).scrollTo(0, 500);
+    });
+
+    //滚动检测，根据waypoint来隐藏或显示toolbar
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function (direction) {
+            if (direction == 'down') {
+                $('#toolbar').show(100);
+            } else {
+                $('#toolbar').hide(500);
             }
-        );
+            console.log('Scrolled to waypoint!  ' + direction);
+        }
+    });
 
-        $('.ui.dropdown').dropdown({
-            on: 'hover'
-        });
 
-        // 点击赞赏按钮显示二维码
-        $('#payButton').popup({
-            popup: $('.payQR.popup'),
-            on: 'click',
-            position: 'bottom center'
-        });
-        //tocbot初始化
-        tocbot.init({
-            // Where to render the table of contents.
-            tocSelector: '.js-toc',
-            // Where to grab the headings to build the table of contents.
-            contentSelector: '.js-toc-content',
-            // Which headings to grab inside of the contentSelector element.
-            headingSelector: 'h1, h2, h3',
-        });
-
-        $('.toc.button').popup({
-            popup: $('.toc-container.popup'),
-            on: 'click',
-            position: 'left center'
-        });
-
-        //显示微信二维码
-        $('.wechat').popup({
-            popup: $('.wechat-qr'),
-            position: 'left center'
-        });
-
-        //生成二维码插件
-        var serurl = /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
-        var url = /*[[@{/blog/{id}(id=${blog.blogId})}]]*/"";
-        var qrcode = new QRCode("qrcode", {
-            text: serurl + url,
-            width: 110,
-            height: 110,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-
-        //平滑滚动
-        $('#toTop-button').click(function () {
-            $(window).scrollTo(0, 500);
-        });
-
-        //滚动检测，根据waypoint来隐藏或显示toolbar
-        var waypoint = new Waypoint({
-            element: document.getElementById('waypoint'),
-            handler: function (direction) {
-                if (direction == 'down') {
-                    $('#toolbar').show(100);
-                } else {
-                    $('#toolbar').hide(500);
+    //评论表单验证
+    $('.ui.form').form({
+        fields: {
+            title: {
+                identifier: 'content',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入评论内容'
                 }
-                console.log('Scrolled to waypoint!  ' + direction);
-            }
-        });
-
-
-        //评论表单验证
-        $('.ui.form').form({
-            fields: {
-                title: {
-                    identifier: 'content',
-                    rules: [{
-                        type: 'empty',
-                        prompt: '请输入评论内容'
-                    }
-                    ]
-                }
-            }
-        });
-
-        //加载评论信息区域
-        $(function () {
-            $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.blogId})}]]*/"comments/6");
-            $("#replyList").hide();//隐藏
-        });
-
-        //新增评论
-        $('#commentpost-btn').click(function () {
-            var boo = $('.ui.form').form('validate form');
-            if (boo) {
-                console.log('校验成功');
-                addComment();
-            } else {
-                console.log('校验失败');
-            }
-
-        });
-
-        //评论提交
-        function addComment() {
-            $("#comment-container").load(/*[[@{/comments}]]*/"", {
-                "blogId": $("[name='blog.blogId']").val(),
-                "content": $("[name='content']").val()
-            }, function (responseTxt, statusTxt, xhr) {
-                $(window).scrollTo($('#comment-container'), 500);
-                clearContent();
-            });
-        }
-
-        //清除评论框信息
-        function clearContent() {
-            $("[name='content']").val('');
-            $("[name='content']").attr("placeholder", "请输入评论信息...");
-        }
-
-        //展示回复框
-        function showReplyForm(obj) {
-            if ($(obj).text() == '回复') {
-                var commentId = $(obj).data('commentid');
-                var commentNickname = $(obj).data('commentnickname');
-                var repliedUserId = $(obj).data('replieduserid');
-                //关闭其余的回复框
-                $('#reply-form').remove();
-                //恢复其余的回复标签
-                $('.reply').text("回复");
-                $(obj).parent().append(
-                    "<div id='reply-form' class='ui form'>" +
-                    "<input type='hidden' name='parentCommentId' value='"+commentId+"'>" +
-                    "<input type='hidden' name='repliedUserId' value='"+repliedUserId+"'>" +
-                    "<div class='field'>" +
-                    "<textarea style='width:700px; height:50px' name='replyContent' placeholder='想对作者说点什么...' ></textarea>" +
-                    "</div>" +
-                    "<div class='fields'>" +
-                    "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
-                    "<button id='replypost-btn' type='button' onclick='addReply()' class='ui teal button m-mobile-wide'>" +
-                    "<i class='edit icon'></i>提交 " +
-                    "</button>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>");
-                $("[name='replyContent']").attr("placeholder", "@" + commentNickname).focus();
-                $(obj).text("取消回复")
-            } else {
-                $('#reply-form').remove();
-                $(obj).text("回复")
+                ]
             }
         }
+    });
 
-        //查看回复
-        function viewReply(obj) {
-            var replyNums = $(obj).data('commentreplynums');
-            var replyText = '查看回复(' + replyNums + ')';
-            if ($(obj).text() == replyText) {
-                $(obj).parents('.tools').nextAll('#replyList').show();//显示
-                $(obj).text('收起回复');
-            } else {
-                //关闭其余的回复框
-                $('#reply-form').remove();
-                //恢复其余的回复标签
-                $('.reply').text("回复");
-                $(obj).parents('.tools').nextAll('#replyList').hide();//隐藏
-                $(obj).text(replyText);
-            }
+    //加载评论信息区域
+    $(function () {
+        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.blogId})}]]*/"comments/6");
+        $("#replyList").hide();//隐藏
+    });
+
+    //新增评论
+    $('#commentpost-btn').click(function () {
+        var boo = $('.ui.form').form('validate form');
+        if (boo) {
+            console.log('校验成功');
+            addComment();
+        } else {
+            console.log('校验失败');
         }
 
-        //新增回复
-        $('#replypost-btn').click(function () {
-            var boo = $('.ui.form').form('validate form');
-            if (boo) {
-                console.log('校验成功');
-                addReply();
-            } else {
-                console.log('校验失败');
-            }
+    });
 
+    //评论提交
+    function addComment() {
+        $("#comment-container").load(/*[[@{/comments}]]*/"", {
+            "blogId": $("[name='blog.blogId']").val(),
+            "content": $("[name='content']").val()
+        }, function (responseTxt, statusTxt, xhr) {
+            $(window).scrollTo($('#comment-container'), 500);
+            clearContent();
         });
+    }
 
-        //回复提交
+    //清除评论框信息
+    function clearContent() {
+        $("[name='content']").val('');
+        $("[name='content']").attr("placeholder", "请输入评论信息...");
+    }
+
+    //展示回复框
+    function showReplyForm(obj) {
+        if ($(obj).text() == '回复') {
+            var commentId = $(obj).data('commentid');
+            var commentNickname = $(obj).data('commentnickname');
+            var repliedUserId = $(obj).data('replieduserid');
+            //关闭其余的回复框
+            $('#reply-form').remove();
+            //恢复其余的回复标签
+            $('.reply').text("回复");
+            $(obj).parent().append(
+                "<div id='reply-form' class='ui form'>" +
+                "<input type='hidden' name='parentCommentId' value='" + commentId + "'>" +
+                "<input type='hidden' name='repliedUserId' value='" + repliedUserId + "'>" +
+                "<div class='field'>" +
+                "<textarea style='width:700px; height:50px' name='replyContent' placeholder='想对作者说点什么...' ></textarea>" +
+                "</div>" +
+                "<div class='fields'>" +
+                "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
+                "<button id='replypost-btn' type='button' onclick='addReply()' class='ui teal button m-mobile-wide'>" +
+                "<i class='edit icon'></i>提交 " +
+                "</button>" +
+                "</div>" +
+                "</div>" +
+                "</div>");
+            $("[name='replyContent']").attr("placeholder", "@" + commentNickname).focus();
+            $(obj).text("取消回复")
+        } else {
+            $('#reply-form').remove();
+            $(obj).text("回复")
+        }
+    }
+
+    //查看回复
+    function viewReply(obj) {
+        var replyNums = $(obj).data('commentreplynums');
+        var replyText = '查看回复(' + replyNums + ')';
+        if ($(obj).text() == replyText) {
+            $(obj).parent().parent().nextAll('#replyList').show();//显示
+            $(obj).text('收起回复');
+        } else {
+            //关闭其余的回复框
+            $('#reply-form').remove();
+            //恢复其余的回复标签
+            $('.reply').text("回复");
+            $(obj).parent().parent().nextAll('#replyList').hide();//隐藏
+            $(obj).text(replyText);
+        }
+    }
+
+    //新增回复
+    $('#replypost-btn').click(function () {
+        var boo = $('.ui.form').form('validate form');
+        if (boo) {
+            console.log('校验成功');
+            addReply();
+        } else {
+            console.log('校验失败');
+        }
+
+    });
+
+    //回复提交
+    // function addReply() {
+    //     $.ajax({
+    //         type: 'post',
+    //         dataType: 'text',
+    //         url: '/replys',
+    //         data: {
+    //             "commentId": $("[name='parentCommentId']").val(),
+    //             "blogId": $("[name='blog.blogId']").val(),
+    //             "content": $("[name='replyContent']").val(),
+    //             "repliedUserId": $("[name='repliedUserId']").val()
+    //         },
+    //         cache: false,
+    //         async: true,
+    //         success: function (data) {
+    //             $("#comment-container").load(data);
+    //         }
+    //     });
+    // }
         function addReply() {
-            $.ajax({
-                type: 'post',
-                dataType: 'text',
-                url: '/replys',
-                data: {
-                    "commentId": $("[name='parentCommentId']").val(),
-                    "blogId": $("[name='blog.blogId']").val(),
-                    "content": $("[name='replyContent']").val(),
-                    "repliedUserId": $("[name='repliedUserId']").val()
-                },
-                cache: false,
-                async: true,
-                success: function () {
-                }
+            $("#comment-container").load(/*[[@{/replys}]]*/"", {
+                "commentId": $("[name='parentCommentId']").val(),
+                "blogId": $("[name='blog.blogId']").val(),
+                "content": $("[name='replyContent']").val(),
+                "repliedUserId": $("[name='repliedUserId']").val()
             });
-
-            // $("#comment-container").load(/*[[@{/replys}]]*/"", {
-            //     "commentId": $("[name='parentCommentId']").val(),
-            //     "blogId": $("[name='blog.blogId']").val(),
-            //     "content": $("[name='replyContent']").val(),
-            //     "repliedUserId": $("[name='repliedUserId']").val()
-            // }, function (responseTxt, statusTxt, xhr) {
-            //     $('#reply-form').remove();
-            //     $(window).scrollTo($('#comment-container'), 500);
-            // });
         }
 
 
-    </script>
+
+</script>
 </body>
 </html>
