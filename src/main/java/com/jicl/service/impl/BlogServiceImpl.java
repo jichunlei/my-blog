@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.entity.BlogTagExample;
+import com.jicl.exception.NotFoundException;
 import com.jicl.mapper.BlogExtendMapper;
 import com.jicl.mapper.BlogMapper;
 import com.jicl.mapper.BlogTagExtendMapper;
@@ -137,7 +138,7 @@ public class BlogServiceImpl implements BlogService {
      * @date 2019/12/9 17:53
      **/
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public BlogVo getBlogDetail(Integer blogId) {
         //查询博客详情
         BlogVo blogVo = blogExtendMapper.getBlogDeatil(blogId);
@@ -147,14 +148,14 @@ public class BlogServiceImpl implements BlogService {
         BlogTagExample blogTagExample = new BlogTagExample();
         blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
         blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
-        UpdateBlogViews(blogId, blogVo.getBlogViews());
+        UpdateBlogViews(blogId, blogVo.getBlogViews() + 1);
         return blogVo;
     }
 
     /**
      * 功能描述: 更新博客访问量
      *
-     * @param blogId 1
+     * @param blogId          1
      * @param updateBlogViews 2
      * @return void
      * @author xianzilei
@@ -178,5 +179,24 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog findOne(Integer blogId) {
         return blogMapper.selectByPrimaryKey(blogId);
+    }
+
+    /**
+     * 功能描述: 根据博客的评论数
+     *
+     * @param blogId 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/11 16:26
+     **/
+    @Override
+    public void updateBlogComments(Integer blogId) {
+        Blog blog = blogMapper.selectByPrimaryKey(blogId);
+        if (blog == null) {
+            throw new NotFoundException("博客信息不存在！");
+        }
+        blog.setBlogId(blogId);
+        blog.setBlogComments(blog.getBlogComments() + 1);
+        blogMapper.updateByPrimaryKeySelective(blog);
     }
 }

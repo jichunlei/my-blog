@@ -97,4 +97,14 @@ public interface BlogService {
      * @date 2019/12/9 21:46
      **/
     Blog findOne(Integer blogId);
+
+    /**
+     * 功能描述: 根据博客的评论数
+     *
+     * @param blogId 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/11 16:25
+     **/
+    void updateBlogComments(Integer blogId);
 }

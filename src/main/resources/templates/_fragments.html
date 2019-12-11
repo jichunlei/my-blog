@@ -47,7 +47,8 @@
                 </form>
             </div>
             <div class="right m-item m-mobile-hide item" th:if="${session.user==null}">
-                <a href="#" th:href="@{/user/toLoginPage}" class="m-item item">登录</a>·
+                <a href="#" th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}"
+                   class="m-item item">登录</a>·
                 <a href="#" th:href="@{/user/toRegisterPage}" class="m-item item">注册</a>
             </div>
             <div class="right m-item m-mobile-hide menu" th:unless=="${session.user==null}">

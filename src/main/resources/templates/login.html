@@ -23,6 +23,7 @@
                 </h2>
 
                 <form class="ui large form" method="post" action="#" th:action="@{/user/login}">
+                    <input name="path" th:value="${path}" type="hidden">
                     <div class="ui  segment">
                         <div class="field">
                             <div class="ui left icon input">
