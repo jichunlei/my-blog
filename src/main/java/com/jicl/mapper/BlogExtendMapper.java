@@ -4,6 +4,7 @@ import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopType;
 import com.jicl.vo.BlogVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -63,4 +64,23 @@ public interface BlogExtendMapper {
      * @date 2019/12/9 17:58
      **/
     BlogVo getBlogDeatil(Integer blogId);
+
+    /**
+     * 功能描述: 查询博客包含的年份
+     *
+     * @return java.util.List<java.lang.String>
+     * @author xianzilei
+     * @date 2019/12/12 13:58
+     **/
+    List<String> findGroupYear();
+
+    /**
+     * 功能描述: 根据年份查询博客数据
+     *
+     * @param year 1
+     * @return java.util.List<com.jicl.entity.Blog>
+     * @author xianzilei
+     * @date 2019/12/12 14:11
+     **/
+    List<Blog> findByYear(@Param("year") String year);
 }

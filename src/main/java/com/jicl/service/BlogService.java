@@ -8,6 +8,7 @@ import com.jicl.pojo.TopType;
 import com.jicl.vo.BlogVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客管理服务实现类
@@ -107,4 +108,22 @@ public interface BlogService {
      * @date 2019/12/11 16:25
      **/
     void updateBlogComments(Integer blogId);
+
+    /**
+     * 功能描述: 博客归档
+     *
+     * @return java.util.Map<java.lang.String,java.util.List<com.jicl.entity.Blog>>
+     * @author xianzilei
+     * @date 2019/12/12 13:43
+     **/
+    Map<String, List<Blog>> archiveBlog();
+
+    /**
+     * 功能描述: 查询博客总数
+     *
+     * @return java.lang.Long
+     * @author xianzilei
+     * @date 2019/12/12 13:56
+     **/
+    Long countBlog();
 }

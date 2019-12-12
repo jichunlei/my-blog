@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>归档</title>
+    <title>历史文章</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me.css">
 </head>
@@ -35,7 +35,7 @@
 </nav>
 
 <!--中间内容-->
-<div class="m-container-small m-padded-tb-big" style="height: 800px!important;">
+<div class="m-container-small m-padded-tb-big" >
     <div class="ui container">
         <!--header-->
         <div class="ui top attached padded segment">
@@ -54,40 +54,18 @@
         <th:block th:each="item : ${archiveMap}">
             <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
             <div class="ui fluid vertical menu">
-                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item"
+                <a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank" class="item"
                    th:each="blog : ${item.value}">
-          <span>
-            <i class="mini teal circle icon"></i><span th:text="${blog.title}">关于刻意练习的清单</span>
-            <div class="ui teal basic left pointing label m-padded-mini "
-                 th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月03</div>
-          </span>
+                 <span>
+                    <i class="mini teal circle icon"></i><span th:text="${blog.blogTitle}">关于刻意练习的清单</span>
+                    <div class="ui teal basic left pointing label m-padded-mini "
+                         th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月03
+                    </div>
+                 </span>
                     <div class="ui orange basic left pointing label m-padded-mini "
-                         th:text="${blog.flag}">原创
+                         th:text="${blog.blogFlag}">原创
                     </div>
                 </a>
-                <!--/*-->
-                <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意练习的清单
-            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
-          </span>
-                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
-                </a>
-                <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意练习的清单
-            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
-          </span>
-                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
-                </a>
-                <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意练习的清单
-            <div class="ui teal basic left pointing label m-padded-mini ">9月03</div>
-          </span>
-                    <div class="ui orange basic left pointing label m-padded-mini ">原创</div>
-                </a>
-                <!--*/-->
             </div>
         </th:block>
     </div>

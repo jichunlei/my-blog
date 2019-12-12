@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客管理服务实现类
@@ -198,5 +200,34 @@ public class BlogServiceImpl implements BlogService {
         blog.setBlogId(blogId);
         blog.setBlogComments(blog.getBlogComments() + 1);
         blogMapper.updateByPrimaryKeySelective(blog);
+    }
+
+    /**
+     * 功能描述: 博客归档
+     *
+     * @return java.util.Map<java.lang.String, java.util.List < com.jicl.entity.Blog>>
+     * @author xianzilei
+     * @date 2019/12/12 13:55
+     **/
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years = blogExtendMapper.findGroupYear();
+        Map<String, List<Blog>> map = new HashMap<>(years.size());
+        for (String year : years) {
+            map.put(year, blogExtendMapper.findByYear(year));
+        }
+        return map;
+    }
+
+    /**
+     * 功能描述: 查询博客总数
+     *
+     * @return java.lang.Long
+     * @author xianzilei
+     * @date 2019/12/12 13:57
+     **/
+    @Override
+    public Long countBlog() {
+        return blogMapper.countByExample(null);
     }
 }

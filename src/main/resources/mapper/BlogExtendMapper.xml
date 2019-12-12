@@ -53,14 +53,11 @@
     <!--查询指定数量的top类型的博客数-->
     <select id="getTopTypeList" parameterType="java.lang.Integer"
             resultMap="TopTypeResultMap">
-        SELECT
-            a.type_id,
-            a.type_name,
-            ( SELECT count( b.type_id ) FROM t_blog b WHERE a.type_id = b.type_id ) blogNums
-        FROM
-            t_type a
-        ORDER BY
-            blogNums DESC,a.type_id ASC
+        SELECT a.type_id,
+               a.type_name,
+               (SELECT count(b.type_id) FROM t_blog b WHERE a.type_id = b.type_id) blogNums
+        FROM t_type a
+        ORDER BY blogNums DESC, a.type_id ASC
         LIMIT #{topSize,jdbcType=INTEGER}
     </select>
 
@@ -86,33 +83,50 @@
 
     <!--博客详情查看-->
     <select id="getBlogDeatil" resultMap="BlogResultMap">
-          SELECT
-            a.blog_id,
-            a.user_id,
-            a.blog_desc,
-            a.recommend,
-            a.share_flag,
-            a.tag_id_str,
-            a.type_id,
-            a.create_time,
-            a.update_time,
-            a.first_picture_addr,
-            a.published,
-            a.blog_title,
-            a.blog_views,
-            a.appreciation_flag,
-            a.commentabled,
-            a.blog_comments,
-            a.blog_content,
-            a.blog_flag,
-            b.nickname,
-            b.head_portrait
+        SELECT a.blog_id,
+               a.user_id,
+               a.blog_desc,
+               a.recommend,
+               a.share_flag,
+               a.tag_id_str,
+               a.type_id,
+               a.create_time,
+               a.update_time,
+               a.first_picture_addr,
+               a.published,
+               a.blog_title,
+               a.blog_views,
+               a.appreciation_flag,
+               a.commentabled,
+               a.blog_comments,
+               a.blog_content,
+               a.blog_flag,
+               b.nickname,
+               b.head_portrait
+        FROM t_blog a,
+             t_user b
+        WHERE a.user_id = b.user_id
+          AND a.del_flag = 0
+          AND a.blog_id = #{blogId}
+    </select>
+
+    <!--查询博客包含的年份-->
+    <select id="findGroupYear" resultType="java.lang.String">
+        SELECT
+            date_format( update_time, '%Y' ) YEAR
         FROM
-            t_blog a,
-            t_user b
-        WHERE
-            a.user_id = b.user_id
-            AND a.del_flag = 0
-            AND a.blog_id=#{blogId}
+            t_blog
+        GROUP BY
+            date_format( update_time, '%Y' )
+        ORDER BY
+            YEAR DESC
+    </select>
+
+    <!--根据年份查询博客数据-->
+    <select id="findByYear" resultMap="com.jicl.mapper.BlogMapper.BaseResultMap">
+        select
+        <include refid="com.jicl.mapper.BlogMapper.Base_Column_List" />
+        from t_blog
+        where date_format( update_time, '%Y' )=#{year}
     </select>
 </mapper>
