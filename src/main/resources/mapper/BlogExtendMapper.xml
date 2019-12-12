@@ -104,6 +104,7 @@
             a.commentabled,
             a.blog_comments,
             a.blog_content,
+            a.blog_flag,
             b.nickname,
             b.head_portrait
         FROM

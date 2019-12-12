@@ -599,7 +599,8 @@ h5,h6{font-size:1em;}
                                     How artistic!
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                    <a class="reply" th:unless="${session.user==null}" data-commentid="1"
+                                       data-commentnickname="Matt"
                                        th:attr="data-commentid=${comment.commentId},
                                        data-commentnickname=${comment.nickname},
                                        data-replieduserid=${comment.userId}"
@@ -634,7 +635,7 @@ h5,h6{font-size:1em;}
                                             How artistic!
                                         </div>
                                         <div class="actions">
-                                            <a class="reply" data-commentid="1"
+                                            <a class="reply" th:unless="${session.user==null}" data-commentid="1"
                                                data-commentnickname="Matt"
                                                th:attr="data-commentid=${reply.commentId},
                                                data-commentnickname=${reply.nickname},
@@ -870,35 +871,14 @@ h5,h6{font-size:1em;}
     });
 
     //回复提交
-    // function addReply() {
-    //     $.ajax({
-    //         type: 'post',
-    //         dataType: 'text',
-    //         url: '/replys',
-    //         data: {
-    //             "commentId": $("[name='parentCommentId']").val(),
-    //             "blogId": $("[name='blog.blogId']").val(),
-    //             "content": $("[name='replyContent']").val(),
-    //             "repliedUserId": $("[name='repliedUserId']").val()
-    //         },
-    //         cache: false,
-    //         async: true,
-    //         success: function (data) {
-    //             $("#comment-container").load(data);
-    //         }
-    //     });
-    // }
-        function addReply() {
-            $("#comment-container").load(/*[[@{/replys}]]*/"", {
-                "commentId": $("[name='parentCommentId']").val(),
-                "blogId": $("[name='blog.blogId']").val(),
-                "content": $("[name='replyContent']").val(),
-                "repliedUserId": $("[name='repliedUserId']").val()
-            });
-        }
-
-
-
+    function addReply() {
+        $("#comment-container").load(/*[[@{/replys}]]*/"", {
+            "commentId": $("[name='parentCommentId']").val(),
+            "blogId": $("[name='blog.blogId']").val(),
+            "content": $("[name='replyContent']").val(),
+            "repliedUserId": $("[name='repliedUserId']").val()
+        });
+    }
 </script>
 </body>
 </html>
