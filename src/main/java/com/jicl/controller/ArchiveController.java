@@ -1,5 +1,6 @@
 package com.jicl.controller;
 
+import com.jicl.constant.BlogConstant;
 import com.jicl.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,6 @@ public class ArchiveController {
     public String archives(Model model) {
         model.addAttribute("archiveMap", blogService.archiveBlog());
         model.addAttribute("blogCount", blogService.countBlog());
-        return "archives";
+        return BlogConstant.ARCHIVES_PAGE;
     }
 }

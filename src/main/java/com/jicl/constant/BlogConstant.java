@@ -39,4 +39,15 @@ public interface BlogConstant {
      * 博客标签页面
      */
     String TAGS_PAGE="tags";
+
+    /**
+     * 博客留言页面
+     */
+    String MESSAGE_PAGE="messages";
+
+    /**
+     * 博客归档页面
+     */
+    String ARCHIVES_PAGE="archives";
+
 }

@@ -22,10 +22,10 @@ public class ReplyController {
 
     @PostMapping("/replys")
     public String addReplys(Integer commentId, Integer blogId, String content,
-                            Integer repliedUserId, HttpSession session) {
+                            Integer repliedUserId, String replyType,HttpSession session) {
         User user = (User) session.getAttribute("user");
         //新增评论
-        replyService.addReplys(commentId, blogId, content, user,repliedUserId);
+        replyService.addReplys(commentId, blogId, content, user,repliedUserId,replyType);
         return "redirect:/comments/" + blogId;
     }
 }

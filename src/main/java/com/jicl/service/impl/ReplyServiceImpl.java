@@ -53,18 +53,21 @@ public class ReplyServiceImpl implements ReplyService {
      * @param content       3
      * @param user          4
      * @param repliedUserId
+     * @param replyType
      * @return void
      * @author xianzilei
      * @date 2019/12/11 19:48
      **/
     @Override
-    public void addReplys(Integer commentId, Integer blogId, String content, User user, Integer repliedUserId) {
+    public void addReplys(Integer commentId, Integer blogId, String content, User user, Integer repliedUserId,
+                          String replyType) {
         Reply reply = new Reply();
         reply.setCommentId(commentId);
         reply.setReplyContent(content);
         reply.setUserId(user.getUserId());
         Date date = new Date();
         reply.setRepliedUserId(repliedUserId);
+        reply.setReplyType(replyType);
         reply.setReplyTime(date);
         reply.setCreateTime(date);
         reply.setUpdateTime(date);

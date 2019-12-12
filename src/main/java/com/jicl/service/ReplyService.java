@@ -32,9 +32,10 @@ public interface ReplyService {
      * @param content 3
      * @param user 4
      * @param repliedUserId
+     * @param replyType
      * @return void
      * @author xianzilei
      * @date 2019/12/11 19:47
      **/
-    void addReplys(Integer commentId, Integer blogId, String content, User user, Integer repliedUserId);
+    void addReplys(Integer commentId, Integer blogId, String content, User user, Integer repliedUserId, String replyType);
 }

@@ -28,6 +28,7 @@
                 LEFT JOIN t_user c ON a.replied_user_id = c.user_id
         WHERE
             a.del_flag = '0'
+          AND a.reply_type='01'
           AND a.comment_id =#{commentId}
     </select>
 

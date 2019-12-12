@@ -495,6 +495,76 @@ public class ReplyExample {
             return (Criteria) this;
         }
 
+        public Criteria andReplyTypeIsNull() {
+            addCriterion("reply_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeIsNotNull() {
+            addCriterion("reply_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeEqualTo(String value) {
+            addCriterion("reply_type =", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotEqualTo(String value) {
+            addCriterion("reply_type <>", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeGreaterThan(String value) {
+            addCriterion("reply_type >", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("reply_type >=", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeLessThan(String value) {
+            addCriterion("reply_type <", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeLessThanOrEqualTo(String value) {
+            addCriterion("reply_type <=", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeLike(String value) {
+            addCriterion("reply_type like", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotLike(String value) {
+            addCriterion("reply_type not like", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeIn(List<String> values) {
+            addCriterion("reply_type in", values, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotIn(List<String> values) {
+            addCriterion("reply_type not in", values, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeBetween(String value1, String value2) {
+            addCriterion("reply_type between", value1, value2, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotBetween(String value1, String value2) {
+            addCriterion("reply_type not between", value1, value2, "replyType");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
