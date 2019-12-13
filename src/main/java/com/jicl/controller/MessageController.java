@@ -27,11 +27,11 @@ public class MessageController {
      * @author xianzilei
      * @date 2019/12/12 18:42
      **/
-    @RequestMapping("/message")
+    @RequestMapping("/messages")
     public String toMessagePage(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                 Model model) {
-        model.addAttribute("messages", messageService.page(pageNum, pageSize));
+        model.addAttribute("page", messageService.page(pageNum, pageSize));
         return BlogConstant.MESSAGE_PAGE;
 
     }

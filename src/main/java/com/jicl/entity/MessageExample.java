@@ -385,6 +385,136 @@ public class MessageExample {
             return (Criteria) this;
         }
 
+        public Criteria andRepliedUserIdIsNull() {
+            addCriterion("replied_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdIsNotNull() {
+            addCriterion("replied_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdEqualTo(Integer value) {
+            addCriterion("replied_user_id =", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdNotEqualTo(Integer value) {
+            addCriterion("replied_user_id <>", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdGreaterThan(Integer value) {
+            addCriterion("replied_user_id >", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("replied_user_id >=", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdLessThan(Integer value) {
+            addCriterion("replied_user_id <", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("replied_user_id <=", value, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdIn(List<Integer> values) {
+            addCriterion("replied_user_id in", values, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdNotIn(List<Integer> values) {
+            addCriterion("replied_user_id not in", values, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("replied_user_id between", value1, value2, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("replied_user_id not between", value1, value2, "repliedUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameIsNull() {
+            addCriterion("replied_user_nickname is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameIsNotNull() {
+            addCriterion("replied_user_nickname is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameEqualTo(String value) {
+            addCriterion("replied_user_nickname =", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameNotEqualTo(String value) {
+            addCriterion("replied_user_nickname <>", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameGreaterThan(String value) {
+            addCriterion("replied_user_nickname >", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameGreaterThanOrEqualTo(String value) {
+            addCriterion("replied_user_nickname >=", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameLessThan(String value) {
+            addCriterion("replied_user_nickname <", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameLessThanOrEqualTo(String value) {
+            addCriterion("replied_user_nickname <=", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameLike(String value) {
+            addCriterion("replied_user_nickname like", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameNotLike(String value) {
+            addCriterion("replied_user_nickname not like", value, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameIn(List<String> values) {
+            addCriterion("replied_user_nickname in", values, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameNotIn(List<String> values) {
+            addCriterion("replied_user_nickname not in", values, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameBetween(String value1, String value2) {
+            addCriterion("replied_user_nickname between", value1, value2, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andRepliedUserNicknameNotBetween(String value1, String value2) {
+            addCriterion("replied_user_nickname not between", value1, value2, "repliedUserNickname");
+            return (Criteria) this;
+        }
+
         public Criteria andMessageEmailIsNull() {
             addCriterion("message_email is null");
             return (Criteria) this;
@@ -452,6 +582,136 @@ public class MessageExample {
 
         public Criteria andMessageEmailNotBetween(String value1, String value2) {
             addCriterion("message_email not between", value1, value2, "messageEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelIsNull() {
+            addCriterion("message_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelIsNotNull() {
+            addCriterion("message_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelEqualTo(String value) {
+            addCriterion("message_level =", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelNotEqualTo(String value) {
+            addCriterion("message_level <>", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelGreaterThan(String value) {
+            addCriterion("message_level >", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelGreaterThanOrEqualTo(String value) {
+            addCriterion("message_level >=", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelLessThan(String value) {
+            addCriterion("message_level <", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelLessThanOrEqualTo(String value) {
+            addCriterion("message_level <=", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelLike(String value) {
+            addCriterion("message_level like", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelNotLike(String value) {
+            addCriterion("message_level not like", value, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelIn(List<String> values) {
+            addCriterion("message_level in", values, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelNotIn(List<String> values) {
+            addCriterion("message_level not in", values, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelBetween(String value1, String value2) {
+            addCriterion("message_level between", value1, value2, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andMessageLevelNotBetween(String value1, String value2) {
+            addCriterion("message_level not between", value1, value2, "messageLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdIsNull() {
+            addCriterion("parent_message_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdIsNotNull() {
+            addCriterion("parent_message_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdEqualTo(Integer value) {
+            addCriterion("parent_message_id =", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdNotEqualTo(Integer value) {
+            addCriterion("parent_message_id <>", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdGreaterThan(Integer value) {
+            addCriterion("parent_message_id >", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("parent_message_id >=", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdLessThan(Integer value) {
+            addCriterion("parent_message_id <", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdLessThanOrEqualTo(Integer value) {
+            addCriterion("parent_message_id <=", value, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdIn(List<Integer> values) {
+            addCriterion("parent_message_id in", values, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdNotIn(List<Integer> values) {
+            addCriterion("parent_message_id not in", values, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdBetween(Integer value1, Integer value2) {
+            addCriterion("parent_message_id between", value1, value2, "parentMessageId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentMessageIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("parent_message_id not between", value1, value2, "parentMessageId");
             return (Criteria) this;
         }
 

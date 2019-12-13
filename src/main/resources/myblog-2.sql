@@ -225,22 +225,23 @@ VALUES (2, '哈哈哈哈1', 2, 1, '2019-12-09 15:04:26', '2019-12-09 19:51:32', 
 -- ----------------------------
 -- Table structure for t_message
 -- ----------------------------
-DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message`
 (
   `message_id`            int(11)                          NOT NULL AUTO_INCREMENT COMMENT '主键',
   `message_user_id`       int(11)                          NOT NULL COMMENT '存储已经登录的用户id，否则为0',
   `message_nickname`      varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '留言者昵称',
+  `replied_user_id`       int(11)                          DEFAULT NULL COMMENT '被回复id，一级留言为空，二级留言游客为0',
+  `replied_user_nickname` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '被回复昵称，一级留言为空',
   `message_email`         varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '留言者邮箱',
-  `message_head_portrait` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '留言者头像',
   `message_content`       text COLLATE utf8mb4_bin         NOT NULL COMMENT '留言内容',
+  `message_level`         varchar(2) COLLATE utf8mb4_bin   NOT NULL COMMENT '留言等级：1-留言，2-对留言的回复',
+  `parent_message_id`     int(11)                          NOT NULL COMMENT '父留言id，没有上层为0',
   `create_time`           datetime                         NOT NULL COMMENT '创建时间',
   `update_time`           datetime                         NOT NULL COMMENT '更新时间',
   `del_flag`              bit(1)                           NOT NULL COMMENT '删除标志：1-删除 0-未删除',
-  `del_time`              datetime DEFAULT NULL COMMENT '删除时间',
+  `del_time`              datetime                         DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`message_id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin
   ROW_FORMAT = DYNAMIC;
@@ -251,16 +252,15 @@ CREATE TABLE `t_message`
 DROP TABLE IF EXISTS `t_reply`;
 CREATE TABLE `t_reply`
 (
-  `reply_id`        int(11)                                              NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `comment_id`      int(11)                                              NOT NULL COMMENT '评论id',
-  `reply_content`   text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin       NOT NULL COMMENT '回复内容',
-  `user_id`         int(11)                                              NOT NULL COMMENT '回复的用户id',
-  `reply_time`      datetime(0)                                          NOT NULL COMMENT '回复时间',
-  `replied_user_id` int(11)                                              NOT NULL COMMENT '被回复的用户id',
-  `reply_type`      varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '回复类型：1-对评论的回复，2-对留言的回复',
-  `create_time`     datetime(0)                                          NOT NULL COMMENT '创建时间',
-  `update_time`     datetime(0)                                          NOT NULL COMMENT '更新时间',
-  `del_flag`        bit(1)                                               NOT NULL COMMENT '删除标志：1-删除 0-未删除',
+  `reply_id`        int(11)                                        NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `comment_id`      int(11)                                        NOT NULL COMMENT '评论id',
+  `reply_content`   text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '回复内容',
+  `user_id`         int(11)                                        NOT NULL COMMENT '回复的用户id',
+  `reply_time`      datetime(0)                                    NOT NULL COMMENT '回复时间',
+  `replied_user_id` int(11)                                        NOT NULL COMMENT '被回复的用户id',
+  `create_time`     datetime(0)                                    NOT NULL COMMENT '创建时间',
+  `update_time`     datetime(0)                                    NOT NULL COMMENT '更新时间',
+  `del_flag`        bit(1)                                         NOT NULL COMMENT '删除标志：1-删除 0-未删除',
   `del_time`        datetime(0) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`reply_id`) USING BTREE
 ) ENGINE = InnoDB

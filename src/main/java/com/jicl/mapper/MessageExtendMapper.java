@@ -1,5 +1,6 @@
 package com.jicl.mapper;
 
+import com.jicl.entity.MessageExample;
 import com.jicl.pojo.MessageExtend;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface MessageExtendMapper {
      * @author xianzilei
      * @date 2019/12/12 19:02
      **/
-    List<MessageExtend> page();
+    List<MessageExtend> page(MessageExample messageExample);
 }

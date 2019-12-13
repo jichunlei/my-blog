@@ -67,7 +67,6 @@ public class ReplyServiceImpl implements ReplyService {
         reply.setUserId(user.getUserId());
         Date date = new Date();
         reply.setRepliedUserId(repliedUserId);
-        reply.setReplyType(replyType);
         reply.setReplyTime(date);
         reply.setCreateTime(date);
         reply.setUpdateTime(date);

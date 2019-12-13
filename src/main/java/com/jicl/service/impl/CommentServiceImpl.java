@@ -58,9 +58,9 @@ public class CommentServiceImpl implements CommentService {
     /**
      * 功能描述: 新增评论信息
      *
-     * @param blogId 1
+     * @param blogId  1
      * @param content 2
-     * @param user 3
+     * @param user    3
      * @return void
      * @author xianzilei
      * @date 2019/12/11 19:25
@@ -68,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addComments(Integer blogId, String content, User user) {
         //新增评论信息
-        Comment comment=new Comment();
+        Comment comment = new Comment();
         comment.setCommentContent(content);
         comment.setUserId(user.getUserId());
         comment.setBlogId(blogId);

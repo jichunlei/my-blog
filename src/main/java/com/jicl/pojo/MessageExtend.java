@@ -14,19 +14,11 @@ import java.util.List;
 @Data
 public class MessageExtend extends Message {
     /**
-     * 留言者昵称
-     */
-    private String nickname;
-    /**
-     * 留言者头像
-     */
-    private String headPortrait;
-    /**
      * 留言的回复数
      */
     private long replyNums;
     /**
      * 回复列表
      */
-    private List<ReplyExtend> replyList;
+    private List<Message> replyList;
 }

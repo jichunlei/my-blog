@@ -41,98 +41,105 @@
         <div class="ui bottom attached segment">
             <div id="comment-form" class="ui teal form">
                 <!--留言板-->
-                <div class="ui threaded comments" style="max-width: 100%;">
-                    <h2 class="ui dividing teal header">留言</h2>
-                    <div class="field">
-                    <textarea th:unless="${session.user==null}" name="content" style="height:80px"
+                <h2 class="ui dividing teal header">留言</h2>
+                <div class="field">
+                    <textarea name="content" style="height:80px"
                               placeholder="想对站长说点什么..."></textarea>
+                </div>
+                <div class="fields">
+                    <div class="field m-mobile-wide m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="nickname" placeholder="昵称(必填)"
+                                   th:value="${session.user}!=null ? ${session.user.nickname}">
+                        </div>
                     </div>
-                    <div class="fields">
-                        <div class="field m-mobile-wide m-margin-bottom-small">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" name="nickname" placeholder="昵称(必填)"
-                                       th:value="${session.user}!=null ? ${session.user.nickname}">
-                            </div>
+                    <div class="field m-mobile-wide m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="email" placeholder="邮箱(必填)"
+                                   th:value="${session.user}!=null ? ${session.user.email}">
                         </div>
-                        <div class="field m-mobile-wide m-margin-bottom-small">
-                            <div class="ui left icon input">
-                                <i class="mail icon"></i>
-                                <input type="text" name="email" placeholder="邮箱(必填)" th:value="${session.user}!=null ? ${session.user.email}">
-                            </div>
-                        </div>
-                        <div class="field  m-margin-bottom-small m-mobile-wide">
-                            <button id="messagepost-btn" type="button" class="ui teal button m-mobile-wide"><i
-                                    class="edit icon"></i>提交</button>
-                        </div>
+                    </div>
+                    <div class="field m-margin-bottom-small m-mobile-wide">
+                        <button id="messagepost-btn" type="button" class="ui teal button m-mobile-wide"><i
+                                class="edit icon"></i>提交
+                        </button>
                     </div>
                 </div>
-                <!--历史留言列表-->
-                <div id="message-container" class="ui teal segment">
-                    <div th:fragment="messageList">
-                        <div class="ui threaded comments" style="max-width: 100%;">
-                            <div class="comment" th:each="message : ${messages}">
-                                <a class="avatar">
-                                    <img src="https://unsplash.it/100/100?image=1005"
-                                         th:src="@{${message.headPortrait}}">
+            </div>
+            <!--历史留言列表-->
+            <div id="message-container" class="ui teal segment">
+                <div th:fragment="messageList">
+                    <div class="ui threaded comments" style="max-width: 100%;">
+                        <div class="comment" th:each="message : ${page.list}">
+                            <a class="avatar">
+                                <img src="https://unsplash.it/100/100?image=1005"
+                                     th:src="@{/images/avatar.png}">
+                            </a>
+                            <div class="content">
+                                <a class="author">
+                                    <span th:text="${message.messageNickname}">Matt</span>
+                                    <div class="ui mini basic teal left pointing label m-padded-mini"
+                                         th:if="${message.messageUserId}==1">站长
+                                    </div>
                                 </a>
-                                <div class="content">
-                                    <a class="author">
-                                        <span th:text="${message.nickname}">Matt</span>
-                                        <div class="ui mini basic teal left pointing label m-padded-mini"
-                                             th:if="${message.userId}==1">站长
-                                        </div>
-                                    </a>
-                                    <div class="metadata">
-                                <span class="date"
-                                      th:text="${#dates.format(comment.commentTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                    </div>
-                                    <div class="text" th:text="${message.messageContent}">
-                                        How artistic!
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply"  data-commentid="1" data-commentnickname="Matt"
-                                           th:attr="data-messageid=${message.messageId},
-                                       data-messagenickname=${message.nickname},
-                                       data-replieduserid=${message.userId}"
-                                           onclick="showReplyForm(this)">回复</a>
-                                        <a class="viewReply" th:unless="${message.replyNums}==0"
-                                           th:attr="data-messageid=${message.messageId},data-messagereplynums=${message.replyNums}"
-                                           onclick="viewReply(this)"
-                                           th:text="|查看回复(${message.replyNums})|">查看回复(8)</a>
-                                    </div>
-                                </div>
-                                <div id="replyList" style="display: none" class="comments"
-                                     th:if="${#arrays.length(message.replyList)}>0">
-                                    <div class="comment" th:each="reply : ${message.replyList}">
-                                        <a class="avatar">
-                                            <img src="https://unsplash.it/100/100?image=1005"
-                                                 th:src="@{${reply.headPortrait}}">
-                                        </a>
-                                        <div class="content">
-                                            <a class="author">
-                                                <span th:text="${reply.nickname}">小红</span>
-                                                <div class="ui mini basic teal left pointing label m-padded-mini"
-                                                     th:if="${reply.userId}==1">博主
-                                                </div>
-                                                &nbsp;<span th:text="|@ ${reply.repliedNickname}|"
-                                                            class="m-teal">@ 小白</span>
-                                            </a>
-                                            <div class="metadata">
+                                <div class="metadata">
                                         <span class="date"
-                                              th:text="${#dates.format(reply.replyTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                              th:text="${#dates.format(message.createTime,'yyyy-MM-dd HH:mm')}">Today at
+                                            5:42PM
+                                        </span>
+                                </div>
+                                <div class="text" th:text="${message.messageContent}">
+                                    How artistic!
+                                </div>
+                                <div class="actions">
+                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                       th:attr="data-messageid=${message.messageId},
+                                       data-messagenickname=${message.messageNickname},
+                                       data-replieduserid=${message.messageUserId},
+                                        data-sessionuserid=${session.user}!=null ? ${session.user.nickname},
+                                        data-sessionuseremail=${session.user}!=null ? ${session.user.email}"
+                                       onclick="showReplyForm(this)">回复</a>
+                                    <a class="viewReply" th:unless="${message.replyNums}==0"
+                                       th:attr="data-messageid=${message.messageId},data-messagereplynums=${message.replyNums}"
+                                       onclick="viewReply(this)"
+                                       th:text="|查看回复(${message.replyNums})|">查看回复(8)</a>
+                                </div>
+                            </div>
+                            <div id="replyList" style="display: none" class="comments"
+                                 th:if="${message.replyNums}>0">
+                                <div class="comment" th:each="reply : ${message.replyList}">
+                                    <a class="avatar">
+                                        <img src="https://unsplash.it/100/100?image=1005"
+                                             th:src="@{/images/avatar.png}">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">
+                                            <span th:text="${reply.messageNickname}">小红</span>
+                                            <div class="ui mini basic teal left pointing label m-padded-mini"
+                                                 th:if="${reply.messageUserId}==1">站长
                                             </div>
-                                            <div class="text" th:text="${reply.replyContent}">
-                                                How artistic!
-                                            </div>
-                                            <div class="actions">
-                                                <a class="reply" th:unless="${session.user==null}" data-commentid="1"
-                                                   data-commentnickname="Matt"
-                                                   th:attr="data-messageid=${reply.messageId},
-                                               data-messagenickname=${reply.nickname},
-                                               data-replieduserid=${reply.userId}"
-                                                   onclick="showReplyForm(this)">回复</a>
-                                            </div>
+                                            &nbsp;<span th:text="|@ ${reply.repliedUserNickname}|"
+                                                        class="m-teal">@ 小白</span>
+                                        </a>
+                                        <div class="metadata">
+                                        <span class="date"
+                                              th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at
+                                            5:42PM</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.messageContent}">
+                                            How artistic!
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply" data-commentid="1"
+                                               data-commentnickname="Matt"
+                                               th:attr="data-messageid=${reply.messageId},
+                                               data-messagenickname=${reply.messageNickname},
+                                               data-replieduserid=${reply.messageUserId},
+                                        data-sessionuserid=${session.user}!=null ? ${session.user.nickname},
+                                        data-sessionuseremail=${session.user}!=null ? ${session.user.email}"
+                                               onclick="showReplyForm(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>
@@ -140,52 +147,52 @@
                         </div>
                     </div>
                 </div>
-                <!--分页组件-->
-                <div class="ui attached center aligned segment" th:if="${#arrays.length(messages)}>10">
-                    <div class="ui pagination menu">
-                        <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
-                           th:href="@{/messages(pageNum=${page.navigateFirstPage})}">
-                            首页
-                        </a>
-                        <a class="item" th:unless="${page.isFirstPage}"
-                           th:href="@{/messages(pageNum=${page.prePage})}">
-                            上一页
-                        </a>
-                        <a class="item">
-                            第<h3 class="ui orange header m-inline-block m-text-thin"
-                                 th:text="${page.getPageNum()}">8</h3>页
-                        </a>
-                        <a class="item" th:unless="${page.isLastPage}"
-                           th:href="@{/messages(pageNum=${page.nextPage})}">
-                            下一页
-                        </a>
-                        <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
-                           th:href="@{/messages(pageNum=${page.navigateLastPage})}">
-                            尾页
-                        </a>
-                        <a class="item">
-                            共<h3 class="ui red header m-inline-block m-text-thin"
-                                 th:text="${page.pages}">8</h3>页
-                        </a>
-                        <a class="item">
-                            共<h3 class="ui red header m-inline-block m-text-thin"
-                                 th:text="${page.total}">8</h3>条
-                        </a>
-                        <form name="page" class="right item" action="#" th:action="@{/messages}"
-                              method="get" target="_blank">
-                            <div class="ui right labeled input">
-                                <div class="ui basic label">Go</div>
-                                <input type="text" name="pageNum" placeholder="页码..."
-                                       style="width: 80px;">
-                                <div class="ui basic label">页</div>
-                                <button class="ui icon button"><i onclick="document.forms['page'].submit()"
-                                                                  class="right arrow icon"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                    <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
-                    <input type="hidden" id="last" th:value="${page.pages}"/>
+            </div>
+            <!--分页组件-->
+            <div class="ui attached center aligned segment" th:if="${#arrays.length(page.list)}>10">
+                <div class="ui pagination menu">
+                    <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+                       th:href="@{/messages(pageNum=${page.navigateFirstPage})}">
+                        首页
+                    </a>
+                    <a class="item" th:unless="${page.isFirstPage}"
+                       th:href="@{/messages(pageNum=${page.prePage})}">
+                        上一页
+                    </a>
+                    <a class="item">
+                        第<h3 class="ui orange header m-inline-block m-text-thin"
+                             th:text="${page.getPageNum()}">8</h3>页
+                    </a>
+                    <a class="item" th:unless="${page.isLastPage}"
+                       th:href="@{/messages(pageNum=${page.nextPage})}">
+                        下一页
+                    </a>
+                    <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+                       th:href="@{/messages(pageNum=${page.navigateLastPage})}">
+                        尾页
+                    </a>
+                    <a class="item">
+                        共<h3 class="ui red header m-inline-block m-text-thin"
+                             th:text="${page.pages}">8</h3>页
+                    </a>
+                    <a class="item">
+                        共<h3 class="ui red header m-inline-block m-text-thin"
+                             th:text="${page.total}">8</h3>条
+                    </a>
+                    <form name="page" class="right item" action="#" th:action="@{/messages}"
+                          method="get" target="_blank">
+                        <div class="ui right labeled input">
+                            <div class="ui basic label">Go</div>
+                            <input type="text" name="pageNum" placeholder="页码..."
+                                   style="width: 80px;">
+                            <div class="ui basic label">页</div>
+                            <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                              class="right arrow icon"></i></button>
+                        </div>
+                    </form>
                 </div>
+                <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+                <input type="hidden" id="last" th:value="${page.pages}"/>
             </div>
         </div>
     </div>
@@ -206,10 +213,14 @@
         }
     );
 
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
     //留言表单验证
     $('.ui.form').form({
         fields: {
-            title: {
+            content: {
                 identifier: 'content',
                 rules: [{
                     type: 'empty',
@@ -217,14 +228,14 @@
                 }
                 ]
             },
-            content: {
+            nickname: {
                 identifier: 'nickname',
                 rules: [{
                     type: 'empty',
                     prompt: '请输入你的大名'
                 }]
             },
-            type: {
+            email: {
                 identifier: 'email',
                 rules: [{
                     type: 'email',
@@ -234,21 +245,48 @@
         }
     });
 
+    //留言表单验证
+    // $('#reply-form').form({
+    //     fields: {
+    //         replyContent: {
+    //             identifier: 'replyContent',
+    //             rules: [{
+    //                 type: 'empty',
+    //                 prompt: '请输入留言内容'
+    //             }
+    //             ]
+    //         },
+    //         replyUserNickname: {
+    //             identifier: 'replyUserNickname',
+    //             rules: [{
+    //                 type: 'empty',
+    //                 prompt: '请输入你的大名'
+    //             }]
+    //         },
+    //         replyUserEmail: {
+    //             identifier: 'replyUserEmail',
+    //             rules: [{
+    //                 type: 'email',
+    //                 prompt: '请填写正确的邮箱地址'
+    //             }]
+    //         }
+    //     }
+    // });
 
-    //新增评论
+    //新增留言
     $('#messagepost-btn').click(function () {
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
-            addComment();
+            addMessage();
         } else {
             console.log('校验失败');
         }
 
     });
 
-    //评论提交
-    function addComment() {
+    //留言提交
+    function addMessage() {
         $("#comment-container").load(/*[[@{/comments}]]*/"", {
             "blogId": $("[name='blog.blogId']").val(),
             "content": $("[name='content']").val()
@@ -258,38 +296,60 @@
         });
     }
 
-    //清除评论框信息
+    //清除留言框信息
     function clearContent() {
         $("[name='content']").val('');
-        $("[name='content']").attr("placeholder", "请输入评论信息...");
+        $("[name='content']").attr("placeholder", "想对站长说点什么...");
     }
 
     //展示回复框
     function showReplyForm(obj) {
         if ($(obj).text() == '回复') {
-            var commentId = $(obj).data('commentid');
-            var commentNickname = $(obj).data('commentnickname');
+            var messageId = $(obj).data('messageid');
+            var messageNickname = $(obj).data('messagenickname');
             var repliedUserId = $(obj).data('replieduserid');
+            var sessionUserId = $(obj).data('sessionuserid');
+            if (!sessionUserId) {
+                sessionUserId = '';
+            }
+            var sessionUserEmail = $(obj).data('sessionuseremail');
+            if (!sessionUserEmail) {
+                sessionUserEmail = '';
+            }
             //关闭其余的回复框
             $('#reply-form').remove();
             //恢复其余的回复标签
             $('.reply').text("回复");
             $(obj).parent().append(
-                "<div id='reply-form' class='ui form'>" +
-                "<input type='hidden' name='parentCommentId' value='" + commentId + "'>" +
+                "<div id='reply-form' class='ui teal form' style='max-width: 100%;'>" +
+                "<input type='hidden' name='parentMessageId' value='" + messageId + "'>" +
                 "<input type='hidden' name='repliedUserId' value='" + repliedUserId + "'>" +
                 "<div class='field'>" +
-                "<textarea style='width:700px; height:50px' name='replyContent' placeholder='想对作者说点什么...' ></textarea>" +
+                "<textarea style='width:700px; height:50px;max-width: 100%;' name='replyContent' " +
+                "placeholder='想对作者说点什么...' ></textarea>" +
                 "</div>" +
                 "<div class='fields'>" +
+                "<div class='field m-mobile-wide m-margin-bottom-small'>" +
+                "<div class='ui left icon input'>" +
+                "<i class='user icon'></i>" +
+                "<input type='text' name='replyUserNickname' placeholder='昵称(必填)'" +
+                "value='" + sessionUserId + "' >" +
+                "</div>" +
+                "</div>" +
+                "<div class='field m-mobile-wide m-margin-bottom-small'>" +
+                "<div class='ui left icon input'><i class='mail icon'></i>" +
+                "<input type='text' name='replyUserEmail' placeholder='邮箱(必填)'" +
+                "value='" + sessionUserEmail + "' >" +
+                "</div>" +
+                "</div>" +
                 "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
-                "<button id='replypost-btn' type='button' onclick='addReply()' class='ui teal button m-mobile-wide'>" +
+                "<button id='replypost-btn' type='button' class='ui teal button m-mobile-wide'>" +
                 "<i class='edit icon'></i>提交 " +
                 "</button>" +
                 "</div>" +
                 "</div>" +
                 "</div>");
-            $("[name='replyContent']").attr("placeholder", "@" + commentNickname).focus();
+            $("[name='replyContent']").attr("placeholder", "@" + messageNickname).focus();
             $(obj).text("取消回复")
         } else {
             $('#reply-form').remove();
@@ -299,7 +359,7 @@
 
     //查看回复
     function viewReply(obj) {
-        var replyNums = $(obj).data('commentreplynums');
+        var replyNums = $(obj).data('messagereplynums');
         var replyText = '查看回复(' + replyNums + ')';
         if ($(obj).text() == replyText) {
             $(obj).parent().parent().nextAll('#replyList').show();//显示
@@ -316,6 +376,7 @@
 
     //新增回复
     $('#replypost-btn').click(function () {
+        alert("hahah");
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
@@ -328,7 +389,7 @@
 
     //回复提交
     function addReply() {
-        $("#comment-container").load(/*[[@{/replys}]]*/"", {
+        $("#message-container").load(/*[[@{/replys}]]*/"", {
             "commentId": $("[name='parentCommentId']").val(),
             "blogId": $("[name='blog.blogId']").val(),
             "content": $("[name='replyContent']").val(),
