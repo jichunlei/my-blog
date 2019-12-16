@@ -245,36 +245,24 @@
         }
     });
 
-    //留言表单验证
-    // $('#reply-form').form({
-    //     fields: {
-    //         replyContent: {
-    //             identifier: 'replyContent',
-    //             rules: [{
-    //                 type: 'empty',
-    //                 prompt: '请输入留言内容'
-    //             }
-    //             ]
-    //         },
-    //         replyUserNickname: {
-    //             identifier: 'replyUserNickname',
-    //             rules: [{
-    //                 type: 'empty',
-    //                 prompt: '请输入你的大名'
-    //             }]
-    //         },
-    //         replyUserEmail: {
-    //             identifier: 'replyUserEmail',
-    //             rules: [{
-    //                 type: 'email',
-    //                 prompt: '请填写正确的邮箱地址'
-    //             }]
-    //         }
-    //     }
-    // });
+    $("#reply-form").validate({
+        rules:{
+            replyContent:"required",
+            replyUserNickname:"required",
+            replyUserEmail:"required"
+        },
+        messages:{
+            replyContent:"请输入内容",
+            replyUserNickname:"请输入昵称",
+            replyUserEmail:"请输入邮箱"
+        },
+        success: "valid"
+    });
 
     //新增留言
     $('#messagepost-btn').click(function () {
+        $('#reply-form').remove();
+        $('.reply').text("回复");
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
@@ -343,9 +331,9 @@
                 "</div>" +
                 "</div>" +
                 "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
-                "<button id='replypost-btn' type='button' class='ui teal button m-mobile-wide'>" +
+                "<input id='replypost-btn' type='submit' class='ui teal button m-mobile-wide'>" +
                 "<i class='edit icon'></i>提交 " +
-                "</button>" +
+                "</input>" +
                 "</div>" +
                 "</div>" +
                 "</div>");
@@ -375,17 +363,17 @@
     }
 
     //新增回复
-    $('#replypost-btn').click(function () {
-        alert("hahah");
-        var boo = $('.ui.form').form('validate form');
-        if (boo) {
-            console.log('校验成功');
-            addReply();
-        } else {
-            console.log('校验失败');
-        }
-
-    });
+    // $('#replypost-btn').click(function () {
+    //     alert("hahah");
+    //     var boo = $('.ui.form').form('validate form');
+    //     if (boo) {
+    //         console.log('校验成功');
+    //         addReply();
+    //     } else {
+    //         console.log('校验失败');
+    //     }
+    //
+    // });
 
     //回复提交
     function addReply() {

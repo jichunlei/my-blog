@@ -225,6 +225,7 @@ VALUES (2, '哈哈哈哈1', 2, 1, '2019-12-09 15:04:26', '2019-12-09 19:51:32', 
 -- ----------------------------
 -- Table structure for t_message
 -- ----------------------------
+DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message`
 (
   `message_id`            int(11)                          NOT NULL AUTO_INCREMENT COMMENT '主键',
