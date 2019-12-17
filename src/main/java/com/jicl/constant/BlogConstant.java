@@ -50,4 +50,9 @@ public interface BlogConstant {
      */
     String ARCHIVES_PAGE="archives";
 
+    /**
+     * 博客公告页面
+     */
+    String ANNOUNCEMENT_PAGE="announcement";
+
 }

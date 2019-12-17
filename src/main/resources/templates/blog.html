@@ -822,7 +822,7 @@ h5,h6{font-size:1em;}
                 "<div id='reply-form' class='ui form'>" +
                 "<input type='hidden' name='parentCommentId' value='" + commentId + "'>" +
                 "<input type='hidden' name='repliedUserId' value='" + repliedUserId + "'>" +
-                "<div class='field'>" +
+                "<div id='replyContent' class='field'>" +
                 "<textarea style='width:700px; height:50px' name='replyContent' placeholder='想对作者说点什么...' ></textarea>" +
                 "</div>" +
                 "<div class='fields'>" +
@@ -859,26 +859,24 @@ h5,h6{font-size:1em;}
     }
 
     //新增回复
-    $('#replypost-btn').click(function () {
-        var boo = $('.ui.form').form('validate form');
-        if (boo) {
+    function addReply() {
+        var boo=true;
+        if(!$("[name='replyContent']").val()){
+            document.getElementById("replyContent").setAttribute("class","field error");
+            boo=false;
+        }
+        if(boo){
             console.log('校验成功');
-            addReply();
-        } else {
+            $("#comment-container").load(/*[[@{/replys}]]*/"", {
+                "commentId": $("[name='parentCommentId']").val(),
+                "blogId": $("[name='blog.blogId']").val(),
+                "content": $("[name='replyContent']").val(),
+                "repliedUserId": $("[name='repliedUserId']").val(),
+                "replyType": "01"
+            });
+        }else{
             console.log('校验失败');
         }
-
-    });
-
-    //回复提交
-    function addReply() {
-        $("#comment-container").load(/*[[@{/replys}]]*/"", {
-            "commentId": $("[name='parentCommentId']").val(),
-            "blogId": $("[name='blog.blogId']").val(),
-            "content": $("[name='replyContent']").val(),
-            "repliedUserId": $("[name='repliedUserId']").val(),
-            "replyType": "01"
-        });
     }
 </script>
 </body>

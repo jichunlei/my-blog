@@ -325,6 +325,76 @@ public class AnnouncementExample {
             return (Criteria) this;
         }
 
+        public Criteria andAnncDescIsNull() {
+            addCriterion("annc_desc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescIsNotNull() {
+            addCriterion("annc_desc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescEqualTo(String value) {
+            addCriterion("annc_desc =", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescNotEqualTo(String value) {
+            addCriterion("annc_desc <>", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescGreaterThan(String value) {
+            addCriterion("annc_desc >", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescGreaterThanOrEqualTo(String value) {
+            addCriterion("annc_desc >=", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescLessThan(String value) {
+            addCriterion("annc_desc <", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescLessThanOrEqualTo(String value) {
+            addCriterion("annc_desc <=", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescLike(String value) {
+            addCriterion("annc_desc like", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescNotLike(String value) {
+            addCriterion("annc_desc not like", value, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescIn(List<String> values) {
+            addCriterion("annc_desc in", values, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescNotIn(List<String> values) {
+            addCriterion("annc_desc not in", values, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescBetween(String value1, String value2) {
+            addCriterion("annc_desc between", value1, value2, "anncDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnncDescNotBetween(String value1, String value2) {
+            addCriterion("annc_desc not between", value1, value2, "anncDesc");
+            return (Criteria) this;
+        }
+
         public Criteria andTopFlagIsNull() {
             addCriterion("top_flag is null");
             return (Criteria) this;

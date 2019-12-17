@@ -25,6 +25,7 @@ CREATE TABLE `t_announcement`
 (
   `annc_id`      int(11)                                                NOT NULL AUTO_INCREMENT COMMENT '公告id，主键',
   `annc_title`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '公告标题',
+  `annc_desc`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '公告描述',
   `annc_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin         NOT NULL COMMENT '公告内容',
   `top_flag`     bit(1)                                                 NOT NULL COMMENT '是否置顶',
   `create_time`  datetime(0)                                            NOT NULL COMMENT '创建时间',

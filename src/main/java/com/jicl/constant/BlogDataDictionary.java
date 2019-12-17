@@ -1,7 +1,7 @@
 package com.jicl.constant;
 
 /**
- * TODO
+ * 博客数据字典
  *
  * @author : xianzilei
  * @date : 2019/12/1 18:01

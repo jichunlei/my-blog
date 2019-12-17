@@ -10,7 +10,7 @@
 <body>
 
 <!--导航-->
-<nav th:replace="_fragments :: menu(4)"
+<nav th:replace="_fragments :: menu(5)"
      class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -35,13 +35,14 @@
 </nav>
 
 <!--中间内容-->
-<div class="m-container-small m-padded-tb-big">
+<div class="m-container m-padded-tb-big">
     <div class="ui container">
         <!--留言区域-->
         <div class="ui bottom attached segment">
-            <div id="comment-form" class="ui teal form">
+            <h2 class="ui dividing teal header">留言</h2>
+            <div id="message-form" class="ui teal form">
                 <!--留言板-->
-                <h2 class="ui dividing teal header">留言</h2>
+                <input type='hidden' name='sessionNickname' th:value="${session.user.nickname}">
                 <div class="field">
                     <textarea name="content" style="height:80px"
                               placeholder="想对站长说点什么..."></textarea>
@@ -134,7 +135,7 @@
                                         <div class="actions">
                                             <a class="reply" data-commentid="1"
                                                data-commentnickname="Matt"
-                                               th:attr="data-messageid=${reply.messageId},
+                                               th:attr="data-messageid=${message.messageId},
                                                data-messagenickname=${reply.messageNickname},
                                                data-replieduserid=${reply.messageUserId},
                                         data-sessionuserid=${session.user}!=null ? ${session.user.nickname},
@@ -146,53 +147,53 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!--分页组件-->
-            <div class="ui attached center aligned segment" th:if="${#arrays.length(page.list)}>10">
-                <div class="ui pagination menu">
-                    <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
-                       th:href="@{/messages(pageNum=${page.navigateFirstPage})}">
-                        首页
-                    </a>
-                    <a class="item" th:unless="${page.isFirstPage}"
-                       th:href="@{/messages(pageNum=${page.prePage})}">
-                        上一页
-                    </a>
-                    <a class="item">
-                        第<h3 class="ui orange header m-inline-block m-text-thin"
-                             th:text="${page.getPageNum()}">8</h3>页
-                    </a>
-                    <a class="item" th:unless="${page.isLastPage}"
-                       th:href="@{/messages(pageNum=${page.nextPage})}">
-                        下一页
-                    </a>
-                    <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
-                       th:href="@{/messages(pageNum=${page.navigateLastPage})}">
-                        尾页
-                    </a>
-                    <a class="item">
-                        共<h3 class="ui red header m-inline-block m-text-thin"
-                             th:text="${page.pages}">8</h3>页
-                    </a>
-                    <a class="item">
-                        共<h3 class="ui red header m-inline-block m-text-thin"
-                             th:text="${page.total}">8</h3>条
-                    </a>
-                    <form name="page" class="right item" action="#" th:action="@{/messages}"
-                          method="get" target="_blank">
-                        <div class="ui right labeled input">
-                            <div class="ui basic label">Go</div>
-                            <input type="text" name="pageNum" placeholder="页码..."
-                                   style="width: 80px;">
-                            <div class="ui basic label">页</div>
-                            <button class="ui icon button"><i onclick="document.forms['page'].submit()"
-                                                              class="right arrow icon"></i></button>
+                    <!--分页组件-->
+                    <div class="ui center aligned segment">
+                        <div class="ui pagination menu">
+                            <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+                               th:href="@{/toMessagePage(pageNum=${page.navigateFirstPage})}">
+                                首页
+                            </a>
+                            <a class="item" th:unless="${page.isFirstPage}"
+                               th:href="@{/toMessagePage(pageNum=${page.prePage})}">
+                                上一页
+                            </a>
+                            <a class="item">
+                                第<h3 class="ui orange header m-inline-block m-text-thin"
+                                     th:text="${page.getPageNum()}">8</h3>页
+                            </a>
+                            <a class="item" th:unless="${page.isLastPage}"
+                               th:href="@{/toMessagePage(pageNum=${page.nextPage})}">
+                                下一页
+                            </a>
+                            <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+                               th:href="@{/toMessagePage(pageNum=${page.navigateLastPage})}">
+                                尾页
+                            </a>
+                            <a class="item">
+                                共<h3 class="ui red header m-inline-block m-text-thin"
+                                     th:text="${page.pages}">8</h3>页
+                            </a>
+                            <a class="item">
+                                共<h3 class="ui red header m-inline-block m-text-thin"
+                                     th:text="${page.total}">8</h3>条
+                            </a>
+                            <form name="page" class="right item" action="#" th:action="@{/toMessagePage}"
+                                  method="get" target="_blank">
+                                <div class="ui right labeled input">
+                                    <div class="ui basic label">Go</div>
+                                    <input type="text" name="pageNum" placeholder="页码..."
+                                           style="width: 80px;">
+                                    <div class="ui basic label">页</div>
+                                    <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                                      class="right arrow icon"></i></button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                        <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+                        <input type="hidden" id="last" th:value="${page.pages}"/>
+                    </div>
                 </div>
-                <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
-                <input type="hidden" id="last" th:value="${page.pages}"/>
             </div>
         </div>
     </div>
@@ -245,20 +246,6 @@
         }
     });
 
-    $("#reply-form").validate({
-        rules:{
-            replyContent:"required",
-            replyUserNickname:"required",
-            replyUserEmail:"required"
-        },
-        messages:{
-            replyContent:"请输入内容",
-            replyUserNickname:"请输入昵称",
-            replyUserEmail:"请输入邮箱"
-        },
-        success: "valid"
-    });
-
     //新增留言
     $('#messagepost-btn').click(function () {
         $('#reply-form').remove();
@@ -275,17 +262,32 @@
 
     //留言提交
     function addMessage() {
-        $("#comment-container").load(/*[[@{/comments}]]*/"", {
-            "blogId": $("[name='blog.blogId']").val(),
-            "content": $("[name='content']").val()
-        }, function (responseTxt, statusTxt, xhr) {
-            $(window).scrollTo($('#comment-container'), 500);
-            clearContent();
+        $.ajax({
+            url: "/messages",    //请求的url地址
+            // dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {
+                "nickname": $("[name='nickname']").val(),
+                "email": $("[name='email']").val(),
+                "content": $("[name='content']").val()
+            },    //参数值
+            type: "post",   //请求方式
+            success: function () {
+                clearContent();
+                //请求成功时处理
+                $("#message-container").load(/*[[@{/getMessages/}]]*/"/getMessages");
+                $(window).scrollTo($('#message-container'), 500);
+            }
         });
     }
 
     //清除留言框信息
     function clearContent() {
+        var nickname= $("[name='sessionNickname']").val()
+        if (!nickname) {
+            $("[name='nickname']").val('');
+            $("[name='email']").val('');
+        }
         $("[name='content']").val('');
         $("[name='content']").attr("placeholder", "想对站长说点什么...");
     }
@@ -312,26 +314,27 @@
                 "<div id='reply-form' class='ui teal form' style='max-width: 100%;'>" +
                 "<input type='hidden' name='parentMessageId' value='" + messageId + "'>" +
                 "<input type='hidden' name='repliedUserId' value='" + repliedUserId + "'>" +
-                "<div class='field'>" +
+                "<input type='hidden' name='repliedUserNickname' value='" + messageNickname + "'>" +
+                "<div id='replyContent' class='field'>" +
                 "<textarea style='width:700px; height:50px;max-width: 100%;' name='replyContent' " +
                 "placeholder='想对作者说点什么...' ></textarea>" +
                 "</div>" +
                 "<div class='fields'>" +
-                "<div class='field m-mobile-wide m-margin-bottom-small'>" +
+                "<div id='replyUserNickname' class='field m-mobile-wide m-margin-bottom-small'>" +
                 "<div class='ui left icon input'>" +
                 "<i class='user icon'></i>" +
                 "<input type='text' name='replyUserNickname' placeholder='昵称(必填)'" +
                 "value='" + sessionUserId + "' >" +
                 "</div>" +
                 "</div>" +
-                "<div class='field m-mobile-wide m-margin-bottom-small'>" +
+                "<div id='replyUserEmail' class='field m-mobile-wide m-margin-bottom-small'>" +
                 "<div class='ui left icon input'><i class='mail icon'></i>" +
                 "<input type='text' name='replyUserEmail' placeholder='邮箱(必填)'" +
                 "value='" + sessionUserEmail + "' >" +
                 "</div>" +
                 "</div>" +
                 "<div class='field  m-margin-bottom-small m-mobile-wide'>" +
-                "<input id='replypost-btn' type='submit' class='ui teal button m-mobile-wide'>" +
+                "<div id='replypost-btn' type='button' onclick='addReply()' class='ui teal button m-mobile-wide'>" +
                 "<i class='edit icon'></i>提交 " +
                 "</input>" +
                 "</div>" +
@@ -340,6 +343,7 @@
             $("[name='replyContent']").attr("placeholder", "@" + messageNickname).focus();
             $(obj).text("取消回复")
         } else {
+            //显示留言框
             $('#reply-form').remove();
             $(obj).text("回复")
         }
@@ -363,26 +367,45 @@
     }
 
     //新增回复
-    // $('#replypost-btn').click(function () {
-    //     alert("hahah");
-    //     var boo = $('.ui.form').form('validate form');
-    //     if (boo) {
-    //         console.log('校验成功');
-    //         addReply();
-    //     } else {
-    //         console.log('校验失败');
-    //     }
-    //
-    // });
-
-    //回复提交
     function addReply() {
-        $("#message-container").load(/*[[@{/replys}]]*/"", {
-            "commentId": $("[name='parentCommentId']").val(),
-            "blogId": $("[name='blog.blogId']").val(),
-            "content": $("[name='replyContent']").val(),
-            "repliedUserId": $("[name='repliedUserId']").val()
-        });
+        var boo = true;
+        if (!$("[name='replyContent']").val()) {
+            document.getElementById("replyContent").setAttribute("class", "field error");
+            boo = false;
+        }
+        if (!$("[name='replyUserNickname']").val()) {
+            document.getElementById("replyUserNickname").setAttribute("class", "field m-mobile-wide m-margin-bottom-small error");
+            boo = false;
+        }
+        if (!$("[name='replyUserEmail']").val()) {
+            document.getElementById("replyUserEmail").setAttribute("class", "field m-mobile-wide m-margin-bottom-small error");
+            boo = false;
+        }
+        if (boo) {
+            console.log('校验成功');
+            $.ajax({
+                url: "/addMessageReply",    //请求的url地址
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: {
+                    "messageId": $("[name='parentMessageId']").val(),
+                    "email": $("[name='replyUserEmail']").val(),
+                    "content": $("[name='replyContent']").val(),
+                    "nickname": $("[name='replyUserNickname']").val(),
+                    "repliedUserId": $("[name='repliedUserId']").val(),
+                    "repliedUserNickname": $("[name='repliedUserNickname']").val()
+                },    //参数值
+                type: "post",   //请求方式
+                success: function () {
+                    //请求成功时处理
+                    $("#message-container").load(/*[[@{/getMessages/}]]*/"/getMessages");
+                    clearContent();
+                    $(window).scrollTo($('#message-container'), 500);
+                }
+            });
+        } else {
+            console.log('校验失败啦');
+            return false;
+        }
     }
 </script>
 </body>
