@@ -126,4 +126,24 @@ public interface BlogService {
      * @date 2019/12/12 13:56
      **/
     Long countBlog();
+
+    /**
+     * 功能描述: 新增博客
+     *
+     * @param blog 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/18 19:12
+     **/
+    void addBlog(Blog blog);
+
+    /**
+     * 功能描述: 更新博客信息
+     *
+     * @param blog 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/18 19:13
+     **/
+    void updateBlog(Blog blog);
 }

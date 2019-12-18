@@ -1,4 +1,4 @@
-package com.jicl.controller;
+package com.jicl.controller.user;
 
 import com.jicl.constant.BlogConstant;
 import com.jicl.dto.LoginDto;

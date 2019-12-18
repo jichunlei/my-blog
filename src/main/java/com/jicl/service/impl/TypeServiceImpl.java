@@ -1,6 +1,7 @@
 package com.jicl.service.impl;
 
 import com.jicl.entity.Type;
+import com.jicl.entity.TypeExample;
 import com.jicl.mapper.TypeMapper;
 import com.jicl.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,24 @@ public class TypeServiceImpl implements TypeService {
      **/
     @Override
     public Map<Integer, String> getAllTypes() {
-        List<Type> types = typeMapper.selectByExample(null);
+        TypeExample typeExample = new TypeExample();
+        typeExample.createCriteria().andDelFlagEqualTo(false);
+        List<Type> types = typeMapper.selectByExample(typeExample);
         return types.stream().collect(Collectors.toMap(Type::getTypeId, Type::getTypeName,
                 (key1, key2) -> key2));
+    }
+
+    /**
+     * 功能描述: 返回所有类型信息列表
+     *
+     * @return java.util.List<com.jicl.entity.Type>
+     * @author xianzilei
+     * @date 2019/12/18 9:37
+     **/
+    @Override
+    public List<Type> getAll() {
+        TypeExample typeExample = new TypeExample();
+        typeExample.createCriteria().andDelFlagEqualTo(false);
+        return typeMapper.selectByExample(typeExample);
     }
 }

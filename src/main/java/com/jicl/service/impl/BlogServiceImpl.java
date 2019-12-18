@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
+import com.jicl.entity.BlogTag;
 import com.jicl.entity.BlogTagExample;
 import com.jicl.exception.NotFoundException;
 import com.jicl.mapper.BlogExtendMapper;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -229,5 +231,76 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Long countBlog() {
         return blogMapper.countByExample(null);
+    }
+
+    /**
+     * 功能描述: 新增博客
+     *
+     * @param blog 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/18 19:13
+     **/
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void addBlog(Blog blog) {
+        //新增博客
+        String tagIdStr = blog.getTagIdStr();
+        blog.setBlogViews(0);
+        blog.setTagIdStr("," + tagIdStr);
+        blog.setBlogComments(0);
+        Date date = new Date();
+        blog.setCreateTime(date);
+        blog.setUpdateTime(date);
+        blog.setDelFlag(false);
+        int id = blogMapper.insertSelective(blog);
+        //新增博客标签对应关系
+        String[] tagIds = tagIdStr.split(",");
+        updateBlogTag(id, tagIds);
+    }
+
+    /**
+     * 功能描述: 更新博客
+     *
+     * @param blog 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/18 19:13
+     **/
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateBlog(Blog blog) {
+        //更新博客
+        String tagIdStr = blog.getTagIdStr();
+        String[] tagIds = tagIdStr.substring(1).split(",");
+        blog.setBlogViews(0);
+        blog.setBlogComments(0);
+        Date date = new Date();
+        blog.setUpdateTime(date);
+        blog.setDelFlag(false);
+        blogMapper.updateByPrimaryKeySelective(blog);
+        //更新博客标签对应关系
+        updateBlogTag(blog.getBlogId(), tagIds);
+    }
+
+    /**
+     * 功能描述: 更新博客标签对应关系
+     *
+     * @param blogId 1
+     * @param tagIds 2
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/18 19:48
+     **/
+    private void updateBlogTag(Integer blogId, String[] tagIds) {
+        BlogTagExample blogTagExample = new BlogTagExample();
+        blogTagExample.createCriteria().andBlogIdEqualTo(blogId);
+        blogTagMapper.deleteByExample(blogTagExample);
+        BlogTag blogTag = new BlogTag();
+        blogTag.setBlogId(blogId);
+        for (String tagId : tagIds) {
+            blogTag.setTagId(Integer.parseInt(tagId));
+            blogTagMapper.insertSelective(blogTag);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.jicl.service.impl;
 
 import com.jicl.entity.Tag;
+import com.jicl.entity.TagExample;
 import com.jicl.mapper.TagMapper;
 import com.jicl.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,16 @@ public class TagServiceImpl implements TagService {
      **/
     @Override
     public Map<Integer, String> getAllTags() {
-        List<Tag> tags = tagMapper.selectByExample(null);
+        TagExample tagExample = new TagExample();
+        tagExample.createCriteria().andDelFlagEqualTo(false);
+        List<Tag> tags = tagMapper.selectByExample(tagExample);
         return tags.stream().collect(Collectors.toMap(Tag::getTagId, Tag::getTagName, (k1, k2) -> k2));
+    }
+
+    @Override
+    public List<Tag> getAll() {
+        TagExample tagExample = new TagExample();
+        tagExample.createCriteria().andDelFlagEqualTo(false);
+        return tagMapper.selectByExample(tagExample);
     }
 }
