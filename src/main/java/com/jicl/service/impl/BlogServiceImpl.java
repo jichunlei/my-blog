@@ -245,9 +245,21 @@ public class BlogServiceImpl implements BlogService {
     @Transactional(rollbackFor = Exception.class)
     public void addBlog(Blog blog) {
         //新增博客
+        if (blog.getRecommend() == null) {
+            blog.setRecommend(false);
+        }
+        if (blog.getShareFlag() == null) {
+            blog.setShareFlag(false);
+        }
+        if (blog.getAppreciationFlag() == null) {
+            blog.setAppreciationFlag(false);
+        }
+        if (blog.getCommentabled() == null) {
+            blog.setCommentabled(false);
+        }
         String tagIdStr = blog.getTagIdStr();
         blog.setBlogViews(0);
-        blog.setTagIdStr("," + tagIdStr);
+        blog.setTagIdStr("," + tagIdStr + ",");
         blog.setBlogComments(0);
         Date date = new Date();
         blog.setCreateTime(date);
@@ -271,9 +283,22 @@ public class BlogServiceImpl implements BlogService {
     @Transactional(rollbackFor = Exception.class)
     public void updateBlog(Blog blog) {
         //更新博客
+        if (blog.getRecommend() == null) {
+            blog.setRecommend(false);
+        }
+        if (blog.getShareFlag() == null) {
+            blog.setShareFlag(false);
+        }
+        if (blog.getAppreciationFlag() == null) {
+            blog.setAppreciationFlag(false);
+        }
+        if (blog.getCommentabled() == null) {
+            blog.setCommentabled(false);
+        }
         String tagIdStr = blog.getTagIdStr();
         String[] tagIds = tagIdStr.substring(1).split(",");
         blog.setBlogViews(0);
+        blog.setTagIdStr(tagIdStr + ",");
         blog.setBlogComments(0);
         Date date = new Date();
         blog.setUpdateTime(date);
