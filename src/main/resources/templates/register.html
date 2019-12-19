@@ -26,37 +26,50 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="请输入用户名，2~12个字符">
+                                <input type="text" name="username" placeholder="请输入用户名，2~12个字符(必填)">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="请输入密码，6~16个字符">
+                                <input type="password" name="password" placeholder="请输入密码，6~16个字符(必填)">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
                                 <input type="password" name="confirmedPassword"
-                                       placeholder="请输入确认密码">
+                                       placeholder="请输入确认密码(必填)">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="nickname" placeholder="请输入昵称，6~16个字符">
+                                <input type="text" name="nickname" placeholder="请输入昵称，2~12个字符(必填)">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
-                                <i class="user icon"></i>
+                                <div class="ui fluid selection dropdown">
+                                    <input type="hidden" name="gender">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">请输入性别(必填)</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">男</div>
+                                        <div class="item" data-value="0">女</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
                                 <input type="text" name="email" placeholder="请输入邮箱">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
-                                <i class="user icon"></i>
+                                <i class="phone icon"></i>
                                 <input type="text" name="telephone" placeholder="请输入手机号">
                             </div>
                         </div>
@@ -79,6 +92,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <!--/*/</th:block>/*/-->
+<script>
+    $('.ui.radio.checkbox')
+        .checkbox()
+    ;
+</script>
+
 
 <script>
     $('.ui.form').form({
@@ -136,12 +155,21 @@
                     },
                     {
                         type: 'minLength[2]',
-                        prompt: '昵称长度应为2~10位'
+                        prompt: '昵称长度应为2~12位'
                     }
                     ,
                     {
                         type: 'maxLength[10]',
-                        prompt: '昵称长度应为2~10位'
+                        prompt: '昵称长度应为2~12位'
+                    }
+                ]
+            },
+            gender: {
+                identifier: 'gender',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入性别'
                     }
                 ]
             },
@@ -160,6 +188,7 @@
             },
             telephone: {
                 identifier: 'telephone',
+                optional: true,
                 rules: [
                     {
                         type: 'regExp',

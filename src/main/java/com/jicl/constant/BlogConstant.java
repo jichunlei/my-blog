@@ -8,7 +8,15 @@ package com.jicl.constant;
  */
 public interface BlogConstant {
 
-    String DEFAULT_HEAD_PORTRAIT="/images/avatar.png";
+    /**
+     * 男性头像
+     */
+    String DEFAULT_HEAD_MALE_PORTRAIT="/images/male.png";
+
+    /**
+     * 女性头像
+     */
+    String DEFAULT_HEAD_FEMALE_PORTRAIT="/images/female.png";
 
     /**
      * 首页

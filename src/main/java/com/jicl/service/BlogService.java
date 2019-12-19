@@ -112,20 +112,22 @@ public interface BlogService {
     /**
      * 功能描述: 博客归档
      *
+     * @param userId 1
      * @return java.util.Map<java.lang.String,java.util.List<com.jicl.entity.Blog>>
      * @author xianzilei
-     * @date 2019/12/12 13:43
+     * @date 2019/12/19 18:00
      **/
-    Map<String, List<Blog>> archiveBlog();
+    Map<String, List<Blog>> archiveBlog(Integer userId);
 
     /**
      * 功能描述: 查询博客总数
      *
+     * @param userId 1
      * @return java.lang.Long
      * @author xianzilei
-     * @date 2019/12/12 13:56
+     * @date 2019/12/19 19:08
      **/
-    Long countBlog();
+    Long countBlog(Integer userId);
 
     /**
      * 功能描述: 新增博客
@@ -146,4 +148,14 @@ public interface BlogService {
      * @date 2019/12/18 19:13
      **/
     void updateBlog(Blog blog);
+
+    /**
+     * 功能描述: 删除博客
+     *
+     * @param id 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/19 8:38
+     **/
+    void deleteBlog(Integer id);
 }

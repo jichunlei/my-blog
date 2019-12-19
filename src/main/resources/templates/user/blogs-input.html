@@ -102,7 +102,7 @@
                 <div class="field">
                     <div class="ui left labeled action input">
                         <label class="ui compact teal basic label">标签</label>
-                        <div class="ui fluid selection multiple search dropdown">
+                        <div class="ui fluid multiple selection dropdown">
                             <input type="hidden" name="tagIdStr" th:value="*{tagIdStr}" >
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
@@ -238,9 +238,11 @@
             $('.m-item').toggleClass('m-mobile-hide');
         }
     );
-    //显示注销
+
+    // 悬停显示下拉框
     $('.ui.dropdown').dropdown({
-        on: 'hover'
+        on: 'hover',
+        maxSelections: 5
     });
 
     //表单校验

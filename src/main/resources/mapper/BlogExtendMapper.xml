@@ -116,6 +116,10 @@
             date_format( update_time, '%Y' ) YEAR
         FROM
             t_blog
+        where del_flag='0'
+        <if test="userId!=null">
+        and user_id=#{userId}
+        </if>
         GROUP BY
             date_format( update_time, '%Y' )
         ORDER BY
@@ -128,5 +132,9 @@
         <include refid="com.jicl.mapper.BlogMapper.Base_Column_List" />
         from t_blog
         where date_format( update_time, '%Y' )=#{year}
+        and del_flag='0'
+        <if test="userId!=null">
+        and user_id=#{userId}
+        </if>
     </select>
 </mapper>

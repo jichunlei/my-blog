@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 注册功能数据传输类
@@ -25,6 +24,12 @@ public class RegisterDto implements Serializable {
      */
     @NotNull
     private String nickname;
+
+    /**
+     * 性别
+     */
+    @NotNull
+    private Boolean gender;
 
     /**
      *  登录密码

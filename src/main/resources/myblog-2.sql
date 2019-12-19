@@ -358,6 +358,7 @@ CREATE TABLE `t_user`
   `username`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NOT NULL COMMENT '用户登录名',
   `nickname`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NOT NULL COMMENT '昵称',
   `password`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NOT NULL COMMENT '登录密码',
+  `user_gender`     bit(1)                                                 NOT NULL COMMENT '用户性别：1-男，0-女',
   `user_role`       varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NOT NULL COMMENT '角色类型：1-超级管理员；2-普通管理员；3-VIP用户；4-普通用户',
   `user_status`     varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NOT NULL COMMENT '用户状态：0-封禁；1-正常',
   `telephone`       varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '联系方式',

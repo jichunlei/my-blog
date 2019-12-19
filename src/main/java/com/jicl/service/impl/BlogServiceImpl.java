@@ -207,16 +207,17 @@ public class BlogServiceImpl implements BlogService {
     /**
      * 功能描述: 博客归档
      *
+     * @param userId 1
      * @return java.util.Map<java.lang.String, java.util.List < com.jicl.entity.Blog>>
      * @author xianzilei
-     * @date 2019/12/12 13:55
+     * @date 2019/12/19 17:59
      **/
     @Override
-    public Map<String, List<Blog>> archiveBlog() {
-        List<String> years = blogExtendMapper.findGroupYear();
+    public Map<String, List<Blog>> archiveBlog(Integer userId) {
+        List<String> years = blogExtendMapper.findGroupYear(userId);
         Map<String, List<Blog>> map = new HashMap<>(years.size());
         for (String year : years) {
-            map.put(year, blogExtendMapper.findByYear(year));
+            map.put(year, blogExtendMapper.findByYear(year, userId));
         }
         return map;
     }
@@ -229,8 +230,13 @@ public class BlogServiceImpl implements BlogService {
      * @date 2019/12/12 13:57
      **/
     @Override
-    public Long countBlog() {
-        return blogMapper.countByExample(null);
+    public Long countBlog(Integer userId) {
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria criteria = blogExample.createCriteria().andDelFlagEqualTo(false);
+        if (userId != null) {
+            criteria.andUserIdEqualTo(userId);
+        }
+        return blogMapper.countByExample(blogExample);
     }
 
     /**
@@ -327,5 +333,22 @@ public class BlogServiceImpl implements BlogService {
             blogTag.setTagId(Integer.parseInt(tagId));
             blogTagMapper.insertSelective(blogTag);
         }
+    }
+
+    /**
+     * 功能描述: 删除博客
+     *
+     * @param id 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/19 8:39
+     **/
+    @Override
+    public void deleteBlog(Integer id) {
+        Blog blog = new Blog();
+        blog.setBlogId(id);
+        blog.setDelFlag(true);
+        blog.setDelTime(new Date());
+        blogMapper.updateByPrimaryKeySelective(blog);
     }
 }

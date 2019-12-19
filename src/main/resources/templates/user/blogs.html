@@ -67,12 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="clear-btn" class="ui compact button">clear</button>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui labeled action input">
-                        <div class="ui tag selection dropdown">
+                        <div class="ui type selection dropdown">
                             <input type="hidden" name="tagId">
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
@@ -82,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="clear-btn2" class="ui compact button">clear</button>
+                        <button id="clear-btn" class="ui compact button">clear</button>
                     </div>
                 </div>
                 <div class="field">
@@ -107,10 +102,11 @@
                 <tbody>
                 <tr th:each="blog,iterStat : ${page.list}">
                     <td th:text="${iterStat.count}">1</td>
-                    <td th:text="${blog.blogTitle}">刻意练习清单</td>
+                    <td><a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank" class="m-teal"
+                           th:text="${blog.blogTitle}">刻意练习清单</a></td>
                     <td th:text="${typeMap[__${blog.typeId}__]}">认知升级</td>
                     <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
-                    <td th:text="${blog.updateTime}">2017-10-02 09:45</td>
+                    <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
                     <td>
                         <a href="#" th:href="@{/user/blogs/{id}/input(id=${blog.blogId})}"
                            class="ui mini teal basic button">编辑</a>
@@ -154,7 +150,7 @@
                                     共<h3 class="ui red header m-inline-block m-text-thin"
                                          th:text="${page.total}">8</h3>条
                                 </a>
-                                <form name="page" class="right item" action="#" >
+                                <form name="page" class="right item" action="#">
                                     <div class="ui right labeled input">
                                         <div class="ui basic label">Go</div>
                                         <input type="text" name="skipPageNum" placeholder="输入页码..."

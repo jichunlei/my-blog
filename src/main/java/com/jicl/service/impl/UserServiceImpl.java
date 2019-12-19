@@ -12,6 +12,7 @@ import com.jicl.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -41,11 +42,14 @@ public class UserServiceImpl implements UserService {
         Date now = new Date();
         User user = User.builder().username(registerDto.getUsername())
                 .password(MD5Utils.code(registerDto.getPassword()))
-                .nickname(registerDto.getNickname()).email(registerDto.getEmail())
+                .nickname(registerDto.getNickname())
+                .userGender(registerDto.getGender())
+                .email(registerDto.getEmail())
                 .telephone(registerDto.getTelephone())
                 .userRole(BlogDataDictionary.USER_ROLE_GENERAL_USER)
                 .userStatus(BlogDataDictionary.USER_STATUS_NORMAL)
-                .headPortrait(BlogConstant.DEFAULT_HEAD_PORTRAIT)
+                .headPortrait(registerDto.getGender() ? BlogConstant.DEFAULT_HEAD_MALE_PORTRAIT :
+                        BlogConstant.DEFAULT_HEAD_FEMALE_PORTRAIT)
                 .lastLoginIp(remoteIp)
                 .registerTime(now)
                 .lastLoginTime(now)

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -81,7 +80,7 @@ public class IndexController {
      * @author xianzilei
      * @date 2019/12/4 8:47
      **/
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String search(String searchKey, @RequestParam(defaultValue = "1") Integer pageNum,
                          @RequestParam(defaultValue =
                                  "6") Integer pageSize, Model model) {

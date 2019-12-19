@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/toLoginPage")
-                .excludePathPatterns("/user/toRegisterPage");
+                .excludePathPatterns("/user/toRegisterPage")
+                .excludePathPatterns("/user/register");
     }
 }

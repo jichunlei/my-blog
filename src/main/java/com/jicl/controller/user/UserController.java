@@ -64,13 +64,15 @@ public class UserController {
      **/
     @GetMapping("/blogs")
     public String blogs(@RequestParam(defaultValue = "1") Integer pageNum,
-                        @RequestParam(defaultValue = "10") Integer pageSize, Model model) {
+                        @RequestParam(defaultValue = "10") Integer pageSize, Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
         List<Type> typeList = typeService.getAll();
         model.addAttribute("types", typeList);
         model.addAttribute("typeMap", typeList.stream().collect(Collectors.toMap(Type::getTypeId, Type::getTypeName,
                 (key1, key2) -> key2)));
         model.addAttribute("tags", tagService.getAll());
         BlogExample blogExample = new BlogExample();
+        blogExample.createCriteria().andUserIdEqualTo(user.getUserId());
         blogExample.setOrderByClause("update_time desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         return "user/blogs";
@@ -79,9 +81,11 @@ public class UserController {
     @PostMapping("/blogs/search")
     public String search(@RequestParam(defaultValue = "1") Integer pageNum,
                          @RequestParam(defaultValue = "10") Integer pageSize,
-                         String blogTitle, Integer typeId, Integer tagId, Model model) {
+                         String blogTitle, Integer typeId, Integer tagId, Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
         BlogExample blogExample = new BlogExample();
         BlogExample.Criteria criteria = blogExample.createCriteria();
+        criteria.andUserIdEqualTo(user.getUserId());
         if (StringUtils.isNotBlank(blogTitle)) {
             criteria.andBlogTitleLike("%" + blogTitle + "%");
         }
@@ -157,5 +161,38 @@ public class UserController {
             attributes.addFlashAttribute("message", "操作失败");
         }
         return "redirect:/user/blogs";
+    }
+
+    /**
+     * 功能描述: 删除博客
+     *
+     * @param id 1
+     * @param attributes 2
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/19 8:37
+     **/
+    @GetMapping("/blogs/{id}/delete")
+    public String delete(@PathVariable Integer id,RedirectAttributes attributes) {
+        blogService.deleteBlog(id);
+        attributes.addFlashAttribute("message", "删除成功");
+        return "redirect:/user/blogs";
+    }
+
+    /**
+     * 功能描述: 个人博客归档
+     *
+     * @param session 1
+     * @param model 2
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/19 17:55
+     **/
+    @GetMapping("/archives")
+    public String archives(HttpSession session,Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("archiveMap", blogService.archiveBlog(user.getUserId()));
+        model.addAttribute("blogCount", blogService.countBlog(user.getUserId()));
+        return "user/archives";
     }
 }
