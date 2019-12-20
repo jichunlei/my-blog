@@ -16,6 +16,7 @@ import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
 import com.jicl.util.MarkdownUtils;
 import com.jicl.vo.BlogVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -262,6 +263,9 @@ public class BlogServiceImpl implements BlogService {
         }
         if (blog.getCommentabled() == null) {
             blog.setCommentabled(false);
+        }
+        if(StringUtils.isBlank(blog.getBlogFlag())){
+            blog.setBlogFlag("原创");
         }
         String tagIdStr = blog.getTagIdStr();
         blog.setBlogViews(0);

@@ -42,7 +42,8 @@
             <h2 class="ui dividing teal header">留言</h2>
             <div id="message-form" class="ui teal form">
                 <!--留言板-->
-                <input type='hidden' name='sessionNickname' th:value="${session.user.nickname}">
+                <input type='hidden' name='sessionNickname' th:unless="${session.user==null}"
+                       th:value="${session.user.nickname}">
                 <div class="field">
                     <textarea name="content" style="height:80px"
                               placeholder="想对站长说点什么..."></textarea>

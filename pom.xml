@@ -18,8 +18,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <!--<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>-->
-        <!--<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>-->
         <mysql-connector.version>5.1.44</mysql-connector.version>
     </properties>
 
@@ -36,6 +34,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
         <!--markdown插件转化成html插件-->
