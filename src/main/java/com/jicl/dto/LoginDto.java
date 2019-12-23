@@ -22,4 +22,8 @@ public class LoginDto {
      * 跳转路径
      */
     private String path;
+    /**
+     * 用户角色
+     */
+    private String userRole;
 }

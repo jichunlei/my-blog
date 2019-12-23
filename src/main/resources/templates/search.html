@@ -131,8 +131,7 @@
                     共<h3 class="ui red header m-inline-block m-text-thin"
                          th:text="${page.total}">8</h3>条
                 </a>
-                <form name="page" class="right item" action="#" th:action="@{/search}"
-                      method="get" target="_blank">
+                <form name="page" class="right item" action="#" th:action="@{/search}" method="get">
                     <div class="ui right labeled input">
                         <div class="ui basic label">Go</div>
                         <input type="hidden" name="searchKey" th:value="${searchKey}">

@@ -255,16 +255,16 @@ public class BlogServiceImpl implements BlogService {
         if (blog.getRecommend() == null) {
             blog.setRecommend(false);
         }
-        if (blog.getShareFlag() == null) {
-            blog.setShareFlag(false);
-        }
         if (blog.getAppreciationFlag() == null) {
             blog.setAppreciationFlag(false);
         }
         if (blog.getCommentabled() == null) {
             blog.setCommentabled(false);
         }
-        if(StringUtils.isBlank(blog.getBlogFlag())){
+        if (blog.getShareFlag() == null) {
+            blog.setShareFlag(false);
+        }
+        if (StringUtils.isBlank(blog.getBlogFlag())) {
             blog.setBlogFlag("原创");
         }
         String tagIdStr = blog.getTagIdStr();
@@ -278,7 +278,7 @@ public class BlogServiceImpl implements BlogService {
         int id = blogMapper.insertSelective(blog);
         //新增博客标签对应关系
         String[] tagIds = tagIdStr.split(",");
-        updateBlogTag(id, tagIds);
+        updateBlogTag(id, tagIds, blog.getPublished());
     }
 
     /**
@@ -315,28 +315,53 @@ public class BlogServiceImpl implements BlogService {
         blog.setDelFlag(false);
         blogMapper.updateByPrimaryKeySelective(blog);
         //更新博客标签对应关系
-        updateBlogTag(blog.getBlogId(), tagIds);
+        updateBlogTag(blog.getBlogId(), tagIds, blog.getPublished());
     }
 
     /**
      * 功能描述: 更新博客标签对应关系
      *
-     * @param blogId 1
-     * @param tagIds 2
+     * @param blogId    1
+     * @param tagIds    2
+     * @param published
      * @return void
      * @author xianzilei
      * @date 2019/12/18 19:48
      **/
-    private void updateBlogTag(Integer blogId, String[] tagIds) {
+    private void updateBlogTag(Integer blogId, String[] tagIds, Boolean published) {
         BlogTagExample blogTagExample = new BlogTagExample();
         blogTagExample.createCriteria().andBlogIdEqualTo(blogId);
         blogTagMapper.deleteByExample(blogTagExample);
-        BlogTag blogTag = new BlogTag();
-        blogTag.setBlogId(blogId);
-        for (String tagId : tagIds) {
-            blogTag.setTagId(Integer.parseInt(tagId));
-            blogTagMapper.insertSelective(blogTag);
+        //只有发布才将标签信息写入关系表中
+        if (published) {
+            BlogTag blogTag = new BlogTag();
+            blogTag.setBlogId(blogId);
+            for (String tagId : tagIds) {
+                blogTag.setTagId(Integer.parseInt(tagId));
+                blogTagMapper.insertSelective(blogTag);
+            }
         }
+    }
+
+    /**
+     * 功能描述: 驳回博客
+     *
+     * @param id 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/23 16:30
+     **/
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void rejectBlog(Integer id) {
+        Blog blog = new Blog();
+        blog.setBlogId(id);
+        blog.setPublished(false);
+        blog.setUpdateTime(new Date());
+        blogMapper.updateByPrimaryKeySelective(blog);
+        BlogTagExample blogTagExample = new BlogTagExample();
+        blogTagExample.createCriteria().andBlogIdEqualTo(id);
+        blogTagMapper.deleteByExample(blogTagExample);
     }
 
     /**

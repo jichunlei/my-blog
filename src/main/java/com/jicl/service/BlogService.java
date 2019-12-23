@@ -158,4 +158,14 @@ public interface BlogService {
      * @date 2019/12/19 8:38
      **/
     void deleteBlog(Integer id);
+
+    /**
+     * 功能描述: 驳回博客
+     *
+     * @param id 1
+     * @return void
+     * @author xianzilei
+     * @date 2019/12/23 16:29
+     **/
+    void rejectBlog(Integer id);
 }

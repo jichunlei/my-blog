@@ -31,10 +31,10 @@ public class TypeShowController {
     /**
      * 功能描述: 类型页
      *
-     * @param pageNum 1
+     * @param pageNum  1
      * @param pageSize 2
-     * @param id 3
-     * @param model 4
+     * @param id       3
+     * @param model    4
      * @return java.lang.String
      * @author xianzilei
      * @date 2019/12/5 19:44
@@ -48,7 +48,7 @@ public class TypeShowController {
         }
         model.addAttribute("types", types);
         BlogExample blogExample = new BlogExample();
-        blogExample.createCriteria().andTypeIdEqualTo(id);
+        blogExample.createCriteria().andTypeIdEqualTo(id).andPublishedEqualTo(true);
         blogExample.setOrderByClause("blog_views desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         model.addAttribute("typeMap", typeService.getAllTypes());

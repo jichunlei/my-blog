@@ -46,6 +46,7 @@ public class IndexController {
                         @RequestParam(defaultValue =
                                 "6") Integer pageSize, Model model) {
         BlogExample blogExample = new BlogExample();
+        blogExample.createCriteria().andPublishedEqualTo(true);
         blogExample.setOrderByClause("blog_views desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
         model.addAttribute("types", blogService.getTopTypeList(6));
@@ -85,8 +86,9 @@ public class IndexController {
                          @RequestParam(defaultValue =
                                  "6") Integer pageSize, Model model) {
         BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria criteria = blogExample.createCriteria().andPublishedEqualTo(true);
         if (StringUtils.isNotBlank(searchKey)) {
-            blogExample.createCriteria().andBlogTitleLike("%" + searchKey + "%");
+            criteria.andBlogTitleLike("%" + searchKey + "%");
         }
         blogExample.setOrderByClause("blog_views desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));

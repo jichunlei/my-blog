@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="user/_fragments :: head(~{::title})">
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet"
@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--导航-->
-<nav th:replace="user/_fragments :: menu(2)"
+<nav th:replace="admin/_fragments :: menu(2)"
      class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -37,14 +37,6 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
-<div class="ui attached pointing menu">
-    <div class="ui container">
-        <div class="right menu">
-            <a href="#" th:href="@{/user/blogs/input}" class=" item">发布</a>
-            <a href="#" th:href="@{/user/blogs}" class="teal active item">列表</a>
-        </div>
-    </div>
-</div>
 
 <!--中间内容-->
 <div class="m-container m-padded-tb-big">
@@ -53,27 +45,27 @@
             <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="username" placeholder="用户名">
                 </div>
                 <div class="field">
                     <div class="ui labeled action input">
                         <div class="ui type selection dropdown">
-                            <input type="hidden" name="typeId">
+                            <input type="hidden" name="userRole">
                             <i class="dropdown icon"></i>
-                            <div class="default text">分类</div>
+                            <div class="default text">用户角色类型</div>
                             <div class="menu">
-                                <div th:each="type : ${types}" class="item" data-value="1"
-                                     th:data-value="${type.typeId}" th:text="${type.typeName}">错误日志
+                                <div th:each="userRoleItem : ${userRoleMap}" class="item" data-value="1"
+                                     th:data-value="${userRoleItem.key}" th:text="${userRoleItem.value}">管理员
                                 </div>
                             </div>
                         </div>
                         <div class="ui type selection dropdown">
-                            <input type="hidden" name="tagId">
+                            <input type="hidden" name="userStatus">
                             <i class="dropdown icon"></i>
-                            <div class="default text">标签</div>
+                            <div class="default text">用户状态</div>
                             <div class="menu">
-                                <div th:each="tag : ${tags}" class="item" data-value="1"
-                                     th:data-value="${tag.tagId}" th:text="${tag.tagName}">错误日志
+                                <div th:each="userStatusItem : ${userStatusMap}" class="item" data-value="1"
+                                     th:data-value="${userStatusItem.key}" th:text="${userStatusItem.value}">正常
                                 </div>
                             </div>
                         </div>
@@ -88,39 +80,50 @@
             </div>
         </div>
         <div id="table-container">
-            <table th:fragment="blogList" class="ui compact teal table">
+            <table th:fragment="userList" class="ui compact teal table">
                 <thead>
                 <tr>
                     <th>序号</th>
-                    <th>标题</th>
-                    <th>类型</th>
-                    <th>状态</th>
-                    <th>更新时间</th>
+                    <th>用户名</th>
+                    <th>昵称</th>
+                    <th>性别</th>
+                    <th>角色类型</th>
+                    <th>用户状态</th>
+                    <th>注册时间</th>
+                    <th>最后登录时间</th>
+                    <th>最后登录IP</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="blog,iterStat : ${page.list}">
+                <tr th:each="user,iterStat : ${page.list}">
                     <td th:text="${iterStat.count}">1</td>
-                    <td th:if="${blog.published}"><a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}"
-                            target="_blank" class="m-teal"
-                           th:text="${blog.blogTitle}">刻意练习清单</a></td>
-                    <td th:unless="${blog.published}" th:text="${blog.blogTitle}">刻意练习清单</td>
-                    <td th:text="${typeMap[__${blog.typeId}__]}">认知升级</td>
-                    <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
-                    <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
+                    <td th:text="${user.username}">张三</a></td>
+                    <td th:text="${user.nickname}">宝宝</a></td>
+                    <td th:text="${user.userGender}?'男':'女'">男</a></td>
+                    <td th:text="${userRoleMap['__${user.userRole}__']}">普通用户</a></td>
+                    <td th:text="${userStatusMap['__${user.userStatus}__']}">正常</td>
+                    <td th:text="${#dates.format(user.registerTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
+                    <td th:text="${#dates.format(user.lastLoginTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
+                    <td th:text="${user.lastLoginIp}">127.0.0.1</td>
                     <td>
-                        <a href="#" th:href="@{/user/blogs/{id}/input(id=${blog.blogId})}"
-                           class="ui mini teal basic button">编辑</a>
-                        <a href="#" th:href="@{/user/blogs/{id}/delete(id=${blog.blogId})}"
-                           onclick="javascript:return del();"
+                        <a href="#" th:if="${user.userStatus}=='1'"
+                           th:href="@{/admin/users/{id}/ban(id=${user.userId})}"
+                           onclick="javascript:return operate('封禁该用户');"
+                           class="ui mini orange basic button">封禁</a>
+                        <a href="#" th:if="${user.userStatus}=='0'"
+                           th:href="@{/admin/users/{id}/unBlock(id=${user.userId})}"
+                           onclick="javascript:return operate('解禁该用户');"
+                           class="ui mini teal basic button">解封</a>
+                        <a href="#" th:href="@{/admin/users/{id}/delete(id=${user.userId})}"
+                           onclick="javascript:return operate('删除该用户');"
                            class="ui mini red basic button">删除</a>
                     </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th colspan="7">
+                    <th colspan="10">
                         <!--分页组件-->
                         <div class="ui aligned segment">
                             <div class="ui pagination stackable menu">
@@ -159,14 +162,12 @@
                                                style="width: 130px;">
                                         <div class="ui basic label">页</div>
                                         <button class="ui icon button" onclick="skipQuery()"><i
-                                             class="right arrow icon"></i></button>
+                                                class="right arrow icon"></i></button>
                                     </div>
                                 </a>
                             </div>
                             <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
                             <input type="hidden" id="last" th:value="${page.pages}"/>
-                            <a href="#" th:href="@{/user/blogs/input}"
-                               class="ui right floated teal basic button">新增</a>
                         </div>
                     </th>
                 </tr>
@@ -184,7 +185,7 @@
 </div>
 
 <!--底部footer-->
-<footer th:replace="user/_fragments :: footer"
+<footer th:replace="admin/_fragments :: footer"
         class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
@@ -221,7 +222,7 @@
             by xianzilei.</p>
     </div>
 </footer>
-<!--/*/<th:block th:replace="user/_fragments :: script">/*/-->
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <!--/*/</th:block>/*/-->
@@ -269,7 +270,7 @@
 
     //跳转页面查询
     function skipQuery() {
-        var skipPageNum = $("[name='skipPageNum']").val()
+        var skipPageNum = $("[name='skipPageNum']").val();
         loaddata(skipPageNum);
     };
 
@@ -280,17 +281,17 @@
 
     //查询数据
     function loaddata(pageNum) {
-        $("#table-container").load(/*[[@{/user/blogs/search}]]*/"/user/blogs/search", {
-            blogTitle: $("[name='title']").val(),
-            typeId: $("[name='typeId']").val(),
-            tagId: $("[name='tagId']").val(),
+        $("#table-container").load(/*[[@{/admin/users/search}]]*/"/admin/users/search", {
+            username: $("[name='username']").val(),
+            userRole: $("[name='userRole']").val(),
+            userStatus: $("[name='userStatus']").val(),
             pageNum: pageNum
         });
     };
 
     //删除前的确认
-    function del() {
-        var msg = "您确定要删除吗？";
+    function operate(msg) {
+        var msg = "您确定要"+msg+"吗？";
         if (confirm(msg) == true) {
             return true;
         } else {

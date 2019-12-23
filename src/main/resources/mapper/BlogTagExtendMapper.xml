@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jicl.mapper.BlogTagExtendMapper">
-  <resultMap id="TopTagResultMap" extends="com.jicl.mapper.TagMapper.BaseResultMap" type="com.jicl.pojo.TopTag">
-  </resultMap>
+    <resultMap id="TopTagResultMap" extends="com.jicl.mapper.TagMapper.BaseResultMap" type="com.jicl.pojo.TopTag">
+    </resultMap>
 
-  <select id="getTopTagList" parameterType="java.lang.Integer" resultMap="TopTagResultMap">
-    SELECT
-        a.tag_id,
-        b.tag_name,
-        COUNT( a.blog_id ) blogNums
-    FROM
-        t_blog_tag a,
-        t_tag b
-    WHERE
-        a.tag_id = b.tag_id
-    GROUP BY
-        a.tag_id,
-        b.tag_name
-    ORDER BY
-        blogNums DESC,
-        a.tag_id ASC
-    LIMIT #{topSize,jdbcType=INTEGER}
-  </select>
+    <select id="getTopTagList" parameterType="java.lang.Integer" resultMap="TopTagResultMap">
+        SELECT a.tag_id,
+               b.tag_name,
+               COUNT(a.blog_id) blogNums
+        FROM t_blog_tag a,
+             t_tag b
+        WHERE a.tag_id = b.tag_id
+        GROUP BY a.tag_id,
+                 b.tag_name
+        ORDER BY blogNums DESC,
+                 a.tag_id ASC
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
 </mapper>

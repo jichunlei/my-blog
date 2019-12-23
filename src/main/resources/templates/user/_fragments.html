@@ -60,32 +60,32 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                <div id="newblog-container">
+                    <div class="ui inverted link list" th:fragment="newblogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank"
+                           class="item m-text-thin" th:each="blog : ${newblogs}"
+                           th:text="${blog.blogTitle}">用户故事（User Story）</a>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+                <h4 class="ui inverted header m-text-thin m-text-spaced">联系站长</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">Email：lirenmi@163.com</a>
-                    <a href="#" class="item m-text-thin">QQ：865729312</a>
+                    <a href="#" th:text="#{index.email}" class="item m-text-thin">Email：1739575190@qq.com</a>
+                    <a href="#" th:text="#{index.qq}" class="item m-text-thin">QQ：1739575190</a>
                 </div>
             </div>
             <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">
-                    这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+                <h4 class="ui inverted header m-text-thin m-text-spaced">小破站简介</h4>
+                <p id="htmer_time" style="color: #3e58fd;font-size: medium;font-weight: bolder">
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p id="htmer_time" style="color: #fd7286;font-size: large;font-weight: bolder">
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2016 - 2017 Lirenmi Designed
-            by Lirenmi</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2018-<span
+                th:text="${#dates.year(#dates.createNow())}">2020</span> Designed
+            by xianzilei. 备案号：京ICP备18046077号-2</p>
     </div>
-
 </footer>
 
 <th:block th:fragment="script">
@@ -93,6 +93,9 @@
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
     <script src="../../static/lib/editormd/editormd.min.js"
             th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script>
+        $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+    </script>
     <!--记录网站运行时间-->
     <script>
         function secondToDate(second) {
@@ -121,6 +124,7 @@
             }
             return time;
         }
+
         function setTime() {
             /*此处为网站的创建时间*/
             var create_time = Math.round(new Date(Date.UTC(2019, 11, 11, 18, 01, 01)).getTime() / 1000);
@@ -131,6 +135,7 @@
                 + '秒';
             document.getElementById("htmer_time").innerHTML = currentTimeHtml;
         }
+
         setInterval(setTime, 1000);
     </script>
 

@@ -2,10 +2,8 @@ package com.jicl.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
- * @Auther: xianzilei
- * @Date: 2019/11/21 21:47
- * @Description: 日志切面类
+ * @author : xianzilei
+ * @date : 2019/11/21 21:47
+ * @description : 日志切面类
  */
-//@Aspect
-//@Component
+@Aspect
+@Component
 @Slf4j
 public class LogAspect {
 
@@ -28,14 +26,15 @@ public class LogAspect {
 
     @Before("log()")
     public void doBefore(JoinPoint joinPoint) {
-        ServletRequestAttributes requestAttributes= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes requestAttributes =
+                (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         String url = request.getRequestURL().toString();
         String ip = request.getRemoteAddr();
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
         Object[] params = joinPoint.getArgs();
         RequestLog requestLog = new RequestLog(url, ip, classMethod, params);
-        log.info("Request：{}",requestLog);
+        log.info("Request：{}", requestLog);
     }
 
     @After("log()")
