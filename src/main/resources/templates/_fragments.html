@@ -37,7 +37,7 @@
             <a href="#" th:href="@{/toAnncPage}" class="m-item item m-mobile-hide"
                th:classappend="${n==6} ? 'active'"><i
                     class="mini bullhorn icon"></i>&nbsp;本站公告</a>
-            <div class="m-item item m-mobile-hide">
+            <div class="m-item item m-mobile-hide" th:unless="${n==6}">
                 <form name="search" action="#" th:action="@{/search}" method="get" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
                         <input type="text" name="searchKey" placeholder="输入标题关键字"

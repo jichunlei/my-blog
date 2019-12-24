@@ -39,4 +39,17 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         List<Announcement> list = announcementMapper.selectByExample(announcementExample);
         return PageInfo.of(list);
     }
+
+    /**
+     * 功能描述: 公告详情查看
+     *
+     * @param id 1
+     * @return com.jicl.entity.Announcement
+     * @author xianzilei
+     * @date 2019/12/24 8:36
+     **/
+    @Override
+    public Announcement getAnnc(Integer id) {
+        return announcementMapper.selectByPrimaryKey(id);
+    }
 }

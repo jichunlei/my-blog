@@ -61,6 +61,11 @@ public interface BlogConstant {
     /**
      * 博客公告页面
      */
-    String ANNOUNCEMENT_PAGE="announcement";
+    String ANNOUNCEMENT_PAGE="announcements";
+
+    /**
+     * 博客公告页面
+     */
+    String ANNOUNCEMENT_DETAIL="announcement";
 
 }

@@ -20,4 +20,14 @@ public interface AnnouncementService {
      * @date 2019/12/17 19:54
      **/
     PageInfo<Announcement> page(Integer pageNum, Integer pageSize);
+
+    /**
+     * 功能描述: 公告详情查看
+     *
+     * @param id 1
+     * @return com.jicl.entity.Announcement
+     * @author xianzilei
+     * @date 2019/12/24 8:36
+     **/
+    Announcement getAnnc(Integer id);
 }

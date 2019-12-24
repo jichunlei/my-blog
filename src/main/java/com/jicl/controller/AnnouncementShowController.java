@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date : 2019/12/17 19:47
  */
 @Controller
-public class AnnouncementController {
+public class AnnouncementShowController {
 
     @Autowired
     private AnnouncementService announcementService;
@@ -26,6 +27,21 @@ public class AnnouncementController {
                              Model model) {
         model.addAttribute("page", announcementService.page(pageNum, pageSize));
         return BlogConstant.ANNOUNCEMENT_PAGE;
+    }
+
+    /**
+     * 功能描述: 博客详情查看
+     *
+     * @param id    1
+     * @param model 2
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/9 10:04
+     **/
+    @GetMapping("/annc/{id}")
+    public String getAnnc(@PathVariable Integer id, Model model) {
+        model.addAttribute("annc", announcementService.getAnnc(id));
+        return BlogConstant.ANNOUNCEMENT_DETAIL;
     }
 
 }
