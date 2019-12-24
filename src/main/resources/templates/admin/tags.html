@@ -24,7 +24,7 @@
                 <div class="ui dropdown item">
                     <div class="text">
                         <img class="ui avatar image" src="https://unsplash.it/100/100?image=1005">
-                        计春磊
+                        贤子磊
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
@@ -59,20 +59,20 @@
         </div>
         <table class="ui compact teal table">
             <thead>
-            <tr>
+            <tr class="center aligned">
                 <th></th>
                 <th>名称</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="type,iterStat : ${page.list}">
+            <tr class="center aligned" th:each="tag,iterStat : ${page.list}">
                 <td th:text="${iterStat.count}">1</td>
-                <td th:text="${type.name}">刻意练习清单</td>
+                <td th:text="${tag.tagName}">刻意练习清单</td>
                 <td>
-                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${type.id})}"
+                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.tagId})}"
                        class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${type.id})}"
+                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.tagId})}"
                        onclick="javascript:return del();"
                        class="ui mini red basic button">删除</a>
                 </td>
@@ -81,14 +81,52 @@
             <tfoot>
             <tr>
                 <th colspan="6">
-                    <div class="ui mini pagination menu" th:if="${page.pages}>1">
-                        <a th:href="@{/admin/tags(page=${page.pageNum}-1)}" class="  item"
-                           th:unless="${page.isFirstPage}">上一页</a>
-                        <a th:href="@{/admin/tags(page=${page.pageNum}+1)}" class=" item"
-                           th:unless="${page.isLastPage}">下一页</a>
+                    <!--分页组件-->
+                    <div class="ui attached aligned segment">
+                        <div class="ui pagination stackable menu">
+                            <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
+                               th:href="@{/admin/tags(pageNum=${page.navigateFirstPage})}">
+                                首页
+                            </a>
+                            <a class="item" th:unless="${page.isFirstPage}"
+                               th:href="@{/admin/tags(pageNum=${page.prePage})}">
+                                上一页
+                            </a>
+                            <a class="item">
+                                第<h3 class="ui orange header m-inline-block m-text-thin"
+                                     th:text="${page.getPageNum()}">8</h3>页
+                            </a>
+                            <a class="item" th:unless="${page.isLastPage}"
+                               th:href="@{/admin/tags(pageNum=${page.nextPage})}">
+                                下一页
+                            </a>
+                            <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
+                               th:href="@{/admin/tags(pageNum=${page.navigateLastPage})}">
+                                尾页
+                            </a>
+                            <a class="item">
+                                共<h3 class="ui red header m-inline-block m-text-thin"
+                                     th:text="${page.pages}">8</h3>页
+                            </a>
+                            <a class="item">
+                                共<h3 class="ui red header m-inline-block m-text-thin"
+                                     th:text="${page.total}">8</h3>条
+                            </a>
+                            <form name="page" class="right item" action="#" th:action="@{/admin/tags}"
+                                  method="get">
+                                <div class="ui right labeled input">
+                                    <div class="ui basic label">Go</div>
+                                    <input type="text" name="pageNum" placeholder="页码..."
+                                           style="width: 80px;">
+                                    <div class="ui basic label">页</div>
+                                    <button class="ui icon button"><i onclick="document.forms['page'].submit()"
+                                                                      class="right arrow icon"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
+                        <input type="hidden" id="last" th:value="${page.pages}"/>
                     </div>
-                    <a href="#" th:href="@{/admin/tags/input}"
-                       class="ui mini right floated teal basic button">新增</a>
                 </th>
             </tr>
             </tfoot>

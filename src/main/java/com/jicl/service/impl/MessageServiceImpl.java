@@ -129,4 +129,21 @@ public class MessageServiceImpl implements MessageService {
         message.setDelFlag(false);
         messageMapper.insertSelective(message);
     }
+
+    /**
+     * 功能描述: 分页查询留言信息（不考虑分层）
+     *
+     * @param messageExample 1
+     * @param pageNum        2
+     * @param pageSize       3
+     * @return com.github.pagehelper.PageInfo<com.jicl.entity.Message>
+     * @author xianzilei
+     * @date 2019/12/24 16:11
+     **/
+    @Override
+    public PageInfo<Message> page(MessageExample messageExample, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Message> list = messageMapper.selectByExampleWithBLOBs(messageExample);
+        return PageInfo.of(list);
+    }
 }

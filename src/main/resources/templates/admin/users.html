@@ -6,7 +6,7 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
-    <title>管理后台页</title>
+    <title>用户管理</title>
 </head>
 <body>
 <!--导航-->
@@ -39,7 +39,7 @@
 </nav>
 
 <!--中间内容-->
-<div class="m-container m-padded-tb-big">
+<div class="m-container-large m-padded-tb-big">
     <div class="ui container">
         <div class="ui secondary segment form">
             <input type="hidden" name="page">
@@ -80,9 +80,9 @@
             </div>
         </div>
         <div id="table-container">
-            <table th:fragment="userList" class="ui compact teal table">
+            <table th:fragment="userList" class="ui compact teal striped celled table">
                 <thead>
-                <tr>
+                <tr class="center aligned">
                     <th>序号</th>
                     <th>用户名</th>
                     <th>昵称</th>
@@ -96,12 +96,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user,iterStat : ${page.list}">
+                <tr class="center aligned" th:each="user,iterStat : ${page.list}">
                     <td th:text="${iterStat.count}">1</td>
-                    <td th:text="${user.username}">张三</a></td>
-                    <td th:text="${user.nickname}">宝宝</a></td>
-                    <td th:text="${user.userGender}?'男':'女'">男</a></td>
-                    <td th:text="${userRoleMap['__${user.userRole}__']}">普通用户</a></td>
+                    <td th:text="${user.username}">张三</td>
+                    <td th:text="${user.nickname}">宝宝</td>
+                    <td th:text="${user.userGender}?'男':'女'">男</td>
+                    <td th:text="${userRoleMap['__${user.userRole}__']}">普通用户</td>
                     <td th:text="${userStatusMap['__${user.userStatus}__']}">正常</td>
                     <td th:text="${#dates.format(user.registerTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
                     <td th:text="${#dates.format(user.lastLoginTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
@@ -291,7 +291,7 @@
 
     //删除前的确认
     function operate(msg) {
-        var msg = "您确定要"+msg+"吗？";
+        var msg = "您确定要" + msg + "吗？";
         if (confirm(msg) == true) {
             return true;
         } else {

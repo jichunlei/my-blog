@@ -3,7 +3,7 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类新增</title>
+    <title>分类编辑页面</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
@@ -11,7 +11,7 @@
 <body>
 
 <!--导航-->
-<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">管理后台</h2>
@@ -49,21 +49,21 @@
 <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
         <form action="#" method="post" th:object="${type}"
-              th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})} " class="ui form">
-            <input type="hidden" name="id" th:value="*{id}">
+              th:action="@{/admin/types}" class="ui form">
+            <input type="hidden" name="typeId" th:value="*{typeId}">
             <div class=" field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名称</label>
-                    <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+                    <input type="text" name="typeName" placeholder="分类名称" th:value="*{typeName}">
                 </div>
             </div>
 
             <div class="ui error message"></div>
             <!--/*/
-            <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+            <div class="ui negative message" th:if="${#fields.hasErrors('typeName')}"  >
               <i class="close icon"></i>
               <div class="header">验证失败</div>
-              <p th:errors="*{name}">提交信息不符合规则</p>
+              <p th:errors="*{typeName}">提交信息不符合规则</p>
             </div>
              /*/-->
             <div class="ui right aligned container">
@@ -137,8 +137,8 @@
 
     $('.ui.form').form({
         fields: {
-            title: {
-                identifier: 'name',
+            typeName: {
+                identifier: 'typeName',
                 rules: [{
                     type: 'empty',
                     prompt: '请输入分类名称'

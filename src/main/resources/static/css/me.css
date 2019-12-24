@@ -113,13 +113,28 @@ body {
 
 
 /*-----container*/
-
+.m-container-huge {
+    max-width: 100em !important;
+    margin: auto !important;
+}
+.m-container-large {
+    max-width: 90em !important;
+    margin: auto !important;
+}
+.m-container-big {
+    max-width: 80em !important;
+    margin: auto !important;
+}
 .m-container {
     max-width: 72em !important;
     margin: auto !important;
 }
 .m-container-small {
     max-width: 60em !important;
+    margin: auto !important;
+}
+.m-container-mini {
+    max-width: 50em !important;
     margin: auto !important;
 }
 

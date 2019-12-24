@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @date : 2019/12/12 18:41
  */
 @Controller
-public class MessageController {
+public class MessageShowController {
 
     @Autowired
     private MessageService messageService;

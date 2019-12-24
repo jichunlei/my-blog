@@ -1,6 +1,8 @@
 package com.jicl.service;
 
 import com.github.pagehelper.PageInfo;
+import com.jicl.entity.Message;
+import com.jicl.entity.MessageExample;
 import com.jicl.entity.User;
 import com.jicl.pojo.MessageExtend;
 
@@ -50,4 +52,16 @@ public interface MessageService {
      * @date 2019/12/17 18:40
      **/
     void addMessageReply(String nickname, String email, String content, Integer messageId, Integer repliedUserId, String repliedUserNickname, User user);
+
+    /**
+     * 功能描述: 分页查询留言信息（不考虑分层）
+     *
+     * @param messageExample 1
+     * @param pageNum 2
+     * @param pageSize 3
+     * @return com.github.pagehelper.PageInfo<com.jicl.entity.Message>
+     * @author xianzilei
+     * @date 2019/12/24 16:11
+     **/
+    PageInfo<Message> page(MessageExample messageExample, Integer pageNum, Integer pageSize);
 }
