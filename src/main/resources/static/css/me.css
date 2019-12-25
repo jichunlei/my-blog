@@ -106,6 +106,12 @@ body {
     right: 0;
 }
 
+/*------td------*/
+.m-td-text{
+    text-align: left !important;
+    word-wrap: break-word;
+}
+
 /*------display------*/
 .m-inline-block {
     display: inline-block !important;

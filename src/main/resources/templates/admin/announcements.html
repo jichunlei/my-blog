@@ -6,11 +6,11 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
-    <title>留言管理</title>
+    <title>公告管理</title>
 </head>
 <body>
 <!--导航-->
-<nav th:replace="admin/_fragments :: menu(6)"
+<nav th:replace="admin/_fragments :: menu(7)"
      class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -37,6 +37,14 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/annc/input}" class=" item">新增公告</a>
+            <a href="#" th:href="@{/admin/toAnncPage}" class="teal active item">公告列表</a>
+        </div>
+    </div>
+</div>
 
 <!--中间内容-->
 <div class="m-container-huge m-padded-tb-big">
@@ -45,15 +53,26 @@
             <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
+                    <input type="text" name="anncTitle" placeholder="公告标题">
+                </div>
+                <div class="field">
                     <div class="ui labeled action input">
                         <div class="ui type selection dropdown">
-                            <input type="hidden" name="messageLevel">
+                            <input type="hidden" name="topFlag">
                             <i class="dropdown icon"></i>
-                            <div class="default text">留言等级</div>
+                            <div class="default text">是否置顶</div>
                             <div class="menu">
-                                <div th:each="messageLevelItem : ${messageLevelMap}" class="item" data-value="1"
-                                     th:data-value="${messageLevelItem.key}" th:text="${messageLevelItem.value}">留言
-                                </div>
+                                <div class="item" data-value="1">是</div>
+                                <div class="item" data-value="0">否</div>
+                            </div>
+                        </div>
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" name="published">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">是否发布</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">发布</div>
+                                <div class="item" data-value="0">草稿</div>
                             </div>
                         </div>
                         <button id="clear-btn" class="ui compact button">clear</button>
@@ -67,30 +86,36 @@
             </div>
         </div>
         <div id="table-container">
-            <table th:fragment="messageList" class="ui compact teal striped celled fixed table">
+            <table th:fragment="anncList" class="ui compact teal striped celled fixed table">
                 <thead>
                 <tr class="center aligned">
-                    <th>主键</th>
-                    <th>父留言id</th>
-                    <th>留言者昵称</th>
-                    <th>留言者邮箱</th>
-                    <th>留言等级</th>
-                    <th>留言时间</th>
-                    <th class="five wide">留言内容</th>
-                    <th>操作</th>
+                    <th>序号</th>
+                    <th class="two wide">公告标题</th>
+                    <th class="four wide">公告描述</th>
+                    <th>是否置顶</th>
+                    <th>是否发布</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th class="two wide">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="center aligned" th:each="message : ${page.list}">
-                    <td th:text="${message.messageId}">1</td>
-                    <td th:text="${message.parentMessageId}">张三</td>
-                    <td th:text="${message.messageNickname}">宝宝</td>
-                    <td th:text="${message.messageEmail}">邮箱</td>
-                    <td th:text="${messageLevelMap['__${message.messageLevel}__']}">留言</td>
-                    <td th:text="${#dates.format(message.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
-                    <td class="m-td-text" th:text="${message.messageContent}">Hello</td>
+                <tr class="center aligned" th:each="annc,iterStat : ${page.list}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:if="${annc.published}"><a href="#" th:href="@{/annc/{id}(id=${annc.anncId})}"
+                                                     target="_blank" class="m-teal"
+                                                     th:text="${annc.anncTitle}">刻意练习清单</a></td>
+                    <td th:unless="${annc.published}" th:text="${annc.anncTitle}">刻意练习清单</td>
+
+                    <td class="m-td-text" th:text="${annc.anncDesc}">Hello</td>
+                    <td th:text="${annc.topFlag}?'是':'否'">宝宝</td>
+                    <td th:text="${annc.published}?'发布':'草稿'">宝宝</td>
+                    <td th:text="${#dates.format(annc.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
+                    <td th:text="${#dates.format(annc.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
                     <td>
-                        <a href="#" th:href="@{/admin/messages/{id}/delete(id=${message.messageId})}"
+                        <a href="#" th:href="@{/admin/annc/{id}/input(id=${annc.anncId})}"
+                           class="ui mini blue basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/annc/{id}/delete(id=${annc.anncId})}"
                            onclick="javascript:return del();"
                            class="ui mini red basic button">删除</a>
                     </td>
@@ -256,8 +281,10 @@
 
     //查询数据
     function loadData(pageNum) {
-        $("#table-container").load(/*[[@{/admin/messages/search}]]*/"/admin/messages/search", {
-            messageLevel: $("[name='messageLevel']").val(),
+        $("#table-container").load(/*[[@{/admin/annc/search}]]*/"/admin/annc/search", {
+            anncTitle: $("[name='anncTitle']").val(),
+            topFlag: $("[name='topFlag']").val(),
+            published: $("[name='published']").val(),
             pageNum: pageNum
         });
     };

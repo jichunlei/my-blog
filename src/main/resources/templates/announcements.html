@@ -80,11 +80,11 @@
     <div class="ui attached center aligned segment" th:if="${page.pages>1}">
         <div class="ui pagination stackable menu">
             <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
-               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.navigateFirstPage})}">
+               th:href="@{/toAnncPage(pageNum=${page.navigateFirstPage})}">
                 首页
             </a>
             <a class="item" th:unless="${page.isFirstPage}"
-               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.prePage})}">
+               th:href="@{/toAnncPage(pageNum=${page.prePage})}">
                 上一页
             </a>
             <a class="item">
@@ -92,11 +92,11 @@
                      th:text="${page.getPageNum()}">8</h3>页
             </a>
             <a class="item" th:unless="${page.isLastPage}"
-               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.nextPage})}">
+               th:href="@{/toAnncPage(pageNum=${page.nextPage})}">
                 下一页
             </a>
             <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
-               th:href="@{'/tags/'+${activeTagId}(pageNum=${page.navigateLastPage})}">
+               th:href="@{/toAnncPage(pageNum=${page.navigateLastPage})}">
                 尾页
             </a>
             <a class="item">
@@ -107,8 +107,8 @@
                 共<h3 class="ui red header m-inline-block m-text-thin"
                      th:text="${page.total}">8</h3>条数据
             </a>
-            <form name="page" class="right item" action="#" th:action="@{'/tags/'+${activeTagId}}"
-                  method="get" target="_blank">
+            <form name="page" class="right item" action="#" th:action="@{/toAnncPage}"
+                  method="get">
                 <div class="ui right labeled input">
                     <div class="ui basic label">Go</div>
                     <input type="text" name="pageNum" placeholder="页码..." style="width: 80px;">

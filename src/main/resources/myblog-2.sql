@@ -28,6 +28,7 @@ CREATE TABLE `t_announcement`
   `annc_desc`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '公告描述',
   `annc_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin         NOT NULL COMMENT '公告内容',
   `top_flag`     bit(1)                                                 NOT NULL COMMENT '是否置顶',
+  `published`    bit(1)                                                 NOT NULL COMMENT '是否发布：0-草稿 1-发布',
   `create_time`  datetime(0)                                            NOT NULL COMMENT '创建时间',
   `update_time`  datetime(0)                                            NOT NULL COMMENT '更新时间',
   `del_flag`     bit(1)                                                 NOT NULL COMMENT '删除标志：1-删除 0-未删除',

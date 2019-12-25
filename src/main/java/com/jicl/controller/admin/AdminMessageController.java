@@ -71,11 +71,12 @@ public class AdminMessageController {
                          @RequestParam(defaultValue = "10") Integer pageSize,
                          String messageLevel, Model model) {
         MessageExample messageExample = new MessageExample();
-        MessageExample.Criteria criteria1 = messageExample.createCriteria().andDelFlagEqualTo(false);
+        MessageExample.Criteria criteria = messageExample.createCriteria().andDelFlagEqualTo(false);
         messageExample.setOrderByClause("create_time desc");
         if (StringUtils.isNotBlank(messageLevel)) {
-            criteria1.andMessageLevelEqualTo(messageLevel);
+            criteria.andMessageLevelEqualTo(messageLevel);
         }
+        model.addAttribute("messageLevelMap", messageLevelMap);
         model.addAttribute("page", messageService.page(messageExample, pageNum, pageSize));
         return "admin/messages:: messageList";
     }

@@ -60,6 +60,19 @@ public class AdminBlogController {
         return "admin/blogs";
     }
 
+    /**
+     * 功能描述: 博客搜索
+     *
+     * @param pageNum 1
+     * @param pageSize 2
+     * @param blogTitle 3
+     * @param typeId 4
+     * @param tagId 5
+     * @param model 6
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2019/12/25 12:09
+     **/
     @PostMapping("/blogs/search")
     public String search(@RequestParam(defaultValue = "1") Integer pageNum,
                          @RequestParam(defaultValue = "10") Integer pageSize,

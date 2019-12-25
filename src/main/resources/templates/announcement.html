@@ -492,8 +492,6 @@ h5,h6{font-size:1em;}
 <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
     <div class="ui vertical icon buttons ">
         <button type="button" class="ui toc teal button">目录</button>
-        <a href="#comment-form" class="ui teal button">评论</a>
-        <button class="ui wechat icon button"><i class="weixin icon"></i></button>
         <div id="toTop-button" class="ui icon button"><i class="chevron up icon"></i></div>
     </div>
 </div>
@@ -503,12 +501,6 @@ h5,h6{font-size:1em;}
     <ol class="js-toc">
 
     </ol>
-</div>
-
-<!--微信二维码-->
-<div id="qrcode" class="ui wechat-qr flowing popup transition hidden m-padded-mini"
-     style="width: 130px !important;">
-    <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 110px">-->
 </div>
 
 <!--底部footer（引用_fragments中的footer）-->
@@ -536,12 +528,6 @@ h5,h6{font-size:1em;}
         on: 'hover'
     });
 
-    // 点击赞赏按钮显示二维码
-    $('#payButton').popup({
-        popup: $('.payQR.popup'),
-        on: 'click',
-        position: 'bottom center'
-    });
     //tocbot初始化
     tocbot.init({
         // Where to render the table of contents.
@@ -556,24 +542,6 @@ h5,h6{font-size:1em;}
         popup: $('.toc-container.popup'),
         on: 'click',
         position: 'left center'
-    });
-
-    //显示微信二维码
-    $('.wechat').popup({
-        popup: $('.wechat-qr'),
-        position: 'left center'
-    });
-
-    //生成二维码插件
-    var serurl = /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
-    var url = /*[[@{/blog/{id}(id=${blog.blogId})}]]*/"";
-    var qrcode = new QRCode("qrcode", {
-        text: serurl + url,
-        width: 110,
-        height: 110,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
     });
 
     //平滑滚动
