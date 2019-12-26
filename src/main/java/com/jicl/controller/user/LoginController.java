@@ -59,7 +59,7 @@ public class LoginController {
         //用户名和密码校验
         User user = userService.checkUser(loginDto);
         if (user != null) {
-            userService.updateLoginInfo(user, request.getRemoteAddr());
+            userService.updateLoginInfo(user, request.getHeader("X-Real-IP"));
             user.setPassword(null);
             session.setAttribute("user", user);
             String path = StringUtils.isBlank(loginDto.getPath()) ? "/" : loginDto.getPath();

@@ -54,7 +54,7 @@ public class AdminUserController {
      * @author xianzilei
      * @date 2019/12/18 9:34
      **/
-    @RequestMapping("/index")
+    @RequestMapping(value = {"", "/index"})
     public String index() {
         return "admin/index";
     }

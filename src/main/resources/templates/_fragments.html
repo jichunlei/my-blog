@@ -12,6 +12,22 @@
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css"
           th:href="@{/lib/tocbot/tocbot.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <style>
+        html {
+            height: 96%;
+            overflow: auto;
+        }
+
+        body {
+            min-height: 96%;
+        }
+
+        footer {
+            position: absolute !important;;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 <!--导航-->
@@ -48,8 +64,10 @@
             </div>
             <div class="right m-item m-mobile-hide item" th:if="${session.user==null}">
                 <a href="#" th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}"
-                   class="m-item item">登录</a>·
-                <a href="#" th:href="@{/user/toRegisterPage}" class="m-item item">注册</a>
+                   style="display:inline-block; width:80px; text-align:center"
+                >登录</a>·
+                <a href="#" th:href="@{/user/toRegisterPage}"
+                   style="display:inline-block; width:80px; text-align:center">注册</a>
             </div>
             <div class="right m-item m-mobile-hide menu" th:unless=="${session.user==null}">
                 <div class="ui dropdown item">
@@ -73,12 +91,13 @@
 </nav>
 
 <!--底部footer-->
-<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb">
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-default">
     <div class="ui center aligned container">
-        <p id="htmer_time" style="color: #fd2329;font-size: small;font-weight: bolder">
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2018-<span
+        <p class="m-text-thin m-text-spaced m-opacity-tiny" style="font-size: small">
+            <span id="htmer_time" style="color: #17fd40;font-size: small;font-weight: bolder"></span>
+            | Copyright © 2018-<span
                 th:text="${#dates.year(#dates.createNow())}">2020</span> Designed
-            by xianzilei. 备案号：京ICP备18046077号-2</p>
+            by xianzilei | 备案号：京ICP备18046077号-2 </p>
     </div>
 </footer>
 
@@ -99,7 +118,7 @@
     </script>
     <script>
         $('.ui.dropdown').dropdown({
-            on : 'hover'
+            on: 'hover'
         });
     </script>
     <!--记录网站运行时间-->
@@ -130,6 +149,7 @@
             }
             return time;
         }
+
         function setTime() {
             /*此处为网站的创建时间*/
             var create_time = Math.round(new Date(Date.UTC(2019, 11, 11, 18, 01, 01)).getTime() / 1000);
@@ -140,6 +160,7 @@
                 + '秒';
             document.getElementById("htmer_time").innerHTML = currentTimeHtml;
         }
+
         setInterval(setTime, 1000);
     </script>
 </th:block>
