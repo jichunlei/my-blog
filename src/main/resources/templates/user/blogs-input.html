@@ -132,7 +132,7 @@
             </div>
             <!--复选框选填-->
             <div class="inline fields">
-                <div class="field" th:if="${session.user.userRole==3}">
+                <div class="field" th:if="${session.user.userRole=='3'}">
                     <div class="ui checkbox">
                         <input type="checkbox" id="recommend" name="recommend"
                                th:checked="*{recommend}" class="hidden">
@@ -146,7 +146,7 @@
                         <label for="shareStatement">转载声明</label>
                     </div>
                 </div>
-                <div class="field" th:if="${session.user.userRole==3}">
+                <div class="field" th:if="${session.user.userRole=='3'}">
                     <div class="ui checkbox">
                         <input type="checkbox" id="appreciation" name="appreciationFlag"
                                th:checked="*{appreciationFlag}" class="hidden">
