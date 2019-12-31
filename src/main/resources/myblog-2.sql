@@ -143,6 +143,7 @@ CREATE TABLE `t_message`
   `del_time`              datetime                         DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`message_id`) USING BTREE
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin
   ROW_FORMAT = DYNAMIC;
@@ -194,22 +195,6 @@ CREATE TABLE `t_tag`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of t_tag
--- ----------------------------
-INSERT INTO `t_tag`
-VALUES (1, '1111', '2019-12-09 19:50:56', '2019-12-09 19:51:32', b'0', NULL);
-INSERT INTO `t_tag`
-VALUES (2, '2222', '2019-12-09 19:51:00', '2019-12-09 19:51:35', b'0', NULL);
-INSERT INTO `t_tag`
-VALUES (3, '3333', '2019-12-09 19:51:03', '2019-12-09 19:51:38', b'0', NULL);
-INSERT INTO `t_tag`
-VALUES (4, '4444', '2019-12-09 19:51:05', '2019-12-09 19:51:40', b'0', NULL);
-INSERT INTO `t_tag`
-VALUES (5, '5555', '2019-12-09 19:51:07', '2019-12-09 19:51:43', b'0', NULL);
-INSERT INTO `t_tag`
-VALUES (6, '6666', '2019-12-09 19:51:10', '2019-12-09 19:51:46', b'0', NULL);
-
--- ----------------------------
 -- Table structure for t_type
 -- ----------------------------
 DROP TABLE IF EXISTS `t_type`;
@@ -227,20 +212,6 @@ CREATE TABLE `t_type`
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_bin
   ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_type
--- ----------------------------
-INSERT INTO `t_type`
-VALUES (1, '1111', '2019-12-09 19:37:49', '2019-12-09 19:38:02', b'0', NULL);
-INSERT INTO `t_type`
-VALUES (2, '2222', '2019-12-09 19:37:52', '2019-12-09 19:38:07', b'0', NULL);
-INSERT INTO `t_type`
-VALUES (3, '3333', '2019-12-09 19:37:54', '2019-12-09 19:38:09', b'0', NULL);
-INSERT INTO `t_type`
-VALUES (4, '4444', '2019-12-09 19:37:57', '2019-12-09 19:38:11', b'0', NULL);
-INSERT INTO `t_type`
-VALUES (5, '5555', '2019-12-09 19:37:59', '2019-12-09 19:38:14', b'0', NULL);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -275,13 +246,5 @@ CREATE TABLE `t_user`
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user`
-VALUES (1, 'xianzilei22', '贤子磊22', '9dd1cbdaec89487b1ba9583f8aa26198', '4', '1', '17854212902', '282991723@qq.com',
-        '/images/avatar.png', '2019-12-01 18:41:37', '2019-12-01 18:41:37', '0:0:0:0:0:0:0:1', '2019-12-01 18:41:37',
-        '2019-12-01 18:41:37', b'0', NULL);
-INSERT INTO `t_user`
-VALUES (2, 'xianzilei', '贤子磊', 'e10adc3949ba59abbe56e057f20f883e', '4', '1', '17854212902', '282991723@qq.com',
-        '/images/avatar.png', '2019-12-01 18:35:40', '2019-12-07 14:52:44', '0:0:0:0:0:0:0:1', '2019-12-01 18:35:40',
-        '2019-12-01 18:35:40', b'0', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

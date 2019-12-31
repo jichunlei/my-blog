@@ -55,7 +55,7 @@ public class AdminLoginController {
         loginDto.setUserRole(BlogDataDictionary.USER_ROLE_SUPER_ADMIN);
         User user = userService.checkUser(loginDto);
         if (user != null) {
-            userService.updateLoginInfo(user, request.getRemoteAddr());
+            userService.updateLoginInfo(user, request.getHeader("X-Real-IP"));
             user.setPassword(null);
             session.setAttribute("user", user);
             return "redirect:/admin/index";
