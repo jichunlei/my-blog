@@ -552,93 +552,91 @@ h5,h6{font-size:1em;}
     <div class="ui bottom attached segment" th:if="${blog.commentabled}">
         <!--评论框-->
         <div id="comment-form" class="ui teal form">
-            <div class="ui threaded comments" style="max-width: 100%;">
-                <h3 class="ui dividing header">评论</h3>
-                <input type="hidden" name="blog.blogId" th:value="${blog.blogId}">
-                <div class="field">
+            <h3 class="ui dividing header">评论</h3>
+            <input type="hidden" name="blog.blogId" th:value="${blog.blogId}">
+            <div class="field">
                     <textarea th:unless="${session.user==null}" name="content" style="height:80px"
                               placeholder="想对作者说点什么..."></textarea>
-                    <div th:if="${session.user==null}">您需要<a
-                            href="#"
-                            th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}">登录</a>后才可以评论
-                    </div>
-                </div>
-                <div class="fields">
-                    <div class="field  m-margin-bottom-small m-mobile-wide">
-                        <button id="commentpost-btn" type="button"
-                                class="ui teal button m-mobile-wide">
-                            <i class="edit icon"></i>发布
-                        </button>
-                    </div>
+                <div th:if="${session.user==null}">您需要<a
+                        href="#"
+                        th:href="@{/user/toLoginPage(path=${#httpServletRequest.getRequestURL()})}">登录</a>后才可以评论
                 </div>
             </div>
-            <!--历史评论列表-->
-            <div id="comment-container" class="ui teal segment">
-                <div th:fragment="commentList">
-                    <div class="ui threaded comments" style="max-width: 100%;">
-                        <div class="comment" th:each="comment : ${comments}">
-                            <a class="avatar">
-                                <img src="https://unsplash.it/100/100?image=1005"
-                                     th:src="@{${comment.headPortrait}}">
+            <div class="fields">
+                <div class="field  m-margin-bottom-small m-mobile-wide">
+                    <button id="commentpost-btn" type="button"
+                            class="ui teal button m-mobile-wide">
+                        <i class="edit icon"></i>发布
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--历史评论列表-->
+        <div id="comment-container" class="ui teal segment">
+            <div th:fragment="commentList">
+                <div class="ui threaded comments" style="max-width: 100%;">
+                    <div class="comment" th:each="comment : ${comments}">
+                        <a class="avatar">
+                            <img src="https://unsplash.it/100/100?image=1005"
+                                 th:src="@{${comment.headPortrait}}">
+                        </a>
+                        <div class="content">
+                            <a class="author">
+                                <span th:text="${comment.nickname}">Matt</span>
+                                <div class="ui mini basic teal left pointing label m-padded-mini"
+                                     th:if="${comment.userId}==${blogUserId}">博主
+                                </div>
                             </a>
-                            <div class="content">
-                                <a class="author">
-                                    <span th:text="${comment.nickname}">Matt</span>
-                                    <div class="ui mini basic teal left pointing label m-padded-mini"
-                                         th:if="${comment.userId}==${blogUserId}">博主
-                                    </div>
-                                </a>
-                                <div class="metadata">
+                            <div class="metadata">
                                 <span class="date"
                                       th:text="${#dates.format(comment.commentTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                </div>
-                                <div class="text" th:text="${comment.commentContent}">
-                                    How artistic!
-                                </div>
-                                <div class="actions">
-                                    <a class="reply" th:unless="${session.user==null}" data-commentid="1"
-                                       data-commentnickname="Matt"
-                                       th:attr="data-commentid=${comment.commentId},
+                            </div>
+                            <div class="text" th:text="${comment.commentContent}">
+                                How artistic!
+                            </div>
+                            <div class="actions">
+                                <a class="reply" th:unless="${session.user==null}" data-commentid="1"
+                                   data-commentnickname="Matt"
+                                   th:attr="data-commentid=${comment.commentId},
                                        data-commentnickname=${comment.nickname},
                                        data-replieduserid=${comment.userId}"
-                                       onclick="showReplyForm(this)">回复</a>
-                                    <a class="viewReply" th:unless="${comment.replyNums}==0"
-                                       th:attr="data-commentid=${comment.commentId},data-commentreplynums=${comment.replyNums}"
-                                       onclick="viewReply(this)"
-                                       th:text="|查看回复(${comment.replyNums})|">查看回复(8)</a>
-                                </div>
+                                   onclick="showReplyForm(this)">回复</a>
+                                <a class="viewReply" th:unless="${comment.replyNums}==0"
+                                   th:attr="data-commentid=${comment.commentId},data-commentreplynums=${comment.replyNums}"
+                                   onclick="viewReply(this)"
+                                   th:text="|查看回复(${comment.replyNums})|">查看回复(8)</a>
                             </div>
-                            <div id="replyList" style="display: none" class="comments"
-                                 th:if="${#arrays.length(comment.replyList)}>0">
-                                <div class="comment" th:each="reply : ${comment.replyList}">
-                                    <a class="avatar">
-                                        <img src="https://unsplash.it/100/100?image=1005"
-                                             th:src="@{${reply.headPortrait}}">
+                        </div>
+                        <div id="replyList" style="display: none" class="comments"
+                             th:if="${#arrays.length(comment.replyList)}>0">
+                            <div class="comment" th:each="reply : ${comment.replyList}">
+                                <a class="avatar">
+                                    <img src="https://unsplash.it/100/100?image=1005"
+                                         th:src="@{${reply.headPortrait}}">
+                                </a>
+                                <div class="content">
+                                    <a class="author">
+                                        <span th:text="${reply.nickname}">小红</span>
+                                        <div class="ui mini basic teal left pointing label m-padded-mini"
+                                             th:if="${reply.userId}==${blogUserId}">博主
+                                        </div>
+                                        &nbsp;<span th:text="|@ ${reply.repliedNickname}|"
+                                                    class="m-teal">@ 小白</span>
                                     </a>
-                                    <div class="content">
-                                        <a class="author">
-                                            <span th:text="${reply.nickname}">小红</span>
-                                            <div class="ui mini basic teal left pointing label m-padded-mini"
-                                                 th:if="${reply.userId}==${blogUserId}">博主
-                                            </div>
-                                            &nbsp;<span th:text="|@ ${reply.repliedNickname}|"
-                                                        class="m-teal">@ 小白</span>
-                                        </a>
-                                        <div class="metadata">
+                                    <div class="metadata">
                                         <span class="date"
                                               th:text="${#dates.format(reply.replyTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                        </div>
-                                        <div class="text" th:text="${reply.replyContent}">
-                                            How artistic!
-                                        </div>
-                                        <div class="actions">
-                                            <a class="reply" th:unless="${session.user==null}" data-commentid="1"
-                                               data-commentnickname="Matt"
-                                               th:attr="data-commentid=${reply.commentId},
+                                    </div>
+                                    <div class="text" th:text="${reply.replyContent}">
+                                        How artistic!
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply" th:unless="${session.user==null}" data-commentid="1"
+                                           data-commentnickname="Matt"
+                                           th:attr="data-commentid=${reply.commentId},
                                                data-commentnickname=${reply.nickname},
                                                data-replieduserid=${reply.userId}"
-                                               onclick="showReplyForm(this)">回复</a>
-                                        </div>
+                                           onclick="showReplyForm(this)">回复</a>
                                     </div>
                                 </div>
                             </div>
@@ -648,6 +646,7 @@ h5,h6{font-size:1em;}
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
@@ -857,12 +856,12 @@ h5,h6{font-size:1em;}
 
     //新增回复
     function addReply() {
-        var boo=true;
-        if(!$("[name='replyContent']").val()){
-            document.getElementById("replyContent").setAttribute("class","field error");
-            boo=false;
+        var boo = true;
+        if (!$("[name='replyContent']").val()) {
+            document.getElementById("replyContent").setAttribute("class", "field error");
+            boo = false;
         }
-        if(boo){
+        if (boo) {
             console.log('校验成功');
             $("#comment-container").load(/*[[@{/replys}]]*/"", {
                 "commentId": $("[name='parentCommentId']").val(),
@@ -871,7 +870,7 @@ h5,h6{font-size:1em;}
                 "repliedUserId": $("[name='repliedUserId']").val(),
                 "replyType": "01"
             });
-        }else{
+        } else {
             console.log('校验失败');
         }
     }

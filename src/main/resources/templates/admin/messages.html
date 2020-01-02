@@ -84,8 +84,8 @@
                 <tr class="center aligned" th:each="message : ${page.list}">
                     <td th:text="${message.messageId}">1</td>
                     <td th:text="${message.parentMessageId}">张三</td>
-                    <td th:text="${message.messageNickname}">宝宝</td>
-                    <td th:text="${message.messageEmail}">邮箱</td>
+                    <td class="m-td-text" th:text="${message.messageNickname}">宝宝</td>
+                    <td class="m-td-text" th:text="${message.messageEmail}">邮箱</td>
                     <td th:text="${messageLevelMap['__${message.messageLevel}__']}">留言</td>
                     <td th:text="${#dates.format(message.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
                     <td class="m-td-text" th:text="${message.messageContent}">Hello</td>
