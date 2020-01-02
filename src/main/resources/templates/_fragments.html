@@ -136,7 +136,7 @@
 
         function setTime() {
             /*此处为网站的创建时间*/
-            var create_time = Math.round(new Date(Date.UTC(2019, 11, 11, 18, 01, 01)).getTime() / 1000);
+            var create_time = Math.round(new Date(Date.UTC(2020, 0, 1, 0, 0, 0)).getTime() / 1000);
             var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
             currentTime = secondToDate((timestamp - create_time));
             currentTimeHtml = '本站已运行：' + currentTime[0] + '年' + currentTime[1] + '天'
