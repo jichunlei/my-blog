@@ -168,4 +168,13 @@ public interface BlogService {
      * @date 2019/12/23 16:29
      **/
     void rejectBlog(Integer id);
+
+    /**
+     * 功能描述: 同步博客信息至es中
+     *
+     * @return java.lang.Integer
+     * @author xianzilei
+     * @date 2020/1/7 11:40
+     **/
+    Integer syncBlogToEs();
 }

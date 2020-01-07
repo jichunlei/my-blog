@@ -6,6 +6,8 @@ import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.entity.BlogTag;
 import com.jicl.entity.BlogTagExample;
+import com.jicl.es.EsBlogDo;
+import com.jicl.es.EsBlogRepository;
 import com.jicl.exception.NotFoundException;
 import com.jicl.mapper.BlogExtendMapper;
 import com.jicl.mapper.BlogMapper;
@@ -17,14 +19,12 @@ import com.jicl.service.BlogService;
 import com.jicl.util.MarkdownUtils;
 import com.jicl.vo.BlogVo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 博客管理服务实现类
@@ -46,6 +46,9 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogTagMapper blogTagMapper;
+
+    @Autowired
+    private EsBlogRepository esBlogRepository;
 
     /**
      * 功能描述: 分页查询博客信息
@@ -375,9 +378,34 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Integer id) {
         Blog blog = new Blog();
+        Date date = new Date();
         blog.setBlogId(id);
         blog.setDelFlag(true);
-        blog.setDelTime(new Date());
+        blog.setDelTime(date);
+        blog.setUpdateTime(date);
         blogMapper.updateByPrimaryKeySelective(blog);
+    }
+
+    /**
+     * 功能描述: 同步博客信息至es中
+     *
+     * @return java.lang.Integer
+     * @author xianzilei
+     * @date 2020/1/7 11:40
+     **/
+    @Override
+    public Integer syncBlogToEs() {
+        Calendar beforeTime = Calendar.getInstance();
+        beforeTime.add(Calendar.MINUTE, -5);
+        Date beforeD = beforeTime.getTime();
+        BlogExample blogExample = new BlogExample();
+        blogExample.createCriteria().andUpdateTimeGreaterThanOrEqualTo(beforeD);
+        List<Blog> list = blogMapper.selectByExampleWithBLOBs(blogExample);
+        for (Blog blog : list) {
+            EsBlogDo temp = new EsBlogDo();
+            BeanUtils.copyProperties(blog, temp);
+            esBlogRepository.save(temp);
+        }
+        return list.size();
     }
 }
