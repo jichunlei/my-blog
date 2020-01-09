@@ -55,7 +55,7 @@ CREATE TABLE `t_blog`
   `type_id`            int(11)                                                DEFAULT NULL COMMENT '博客类型',
   `tag_id_str`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT
     '博客标签字符串，格式：,1,2,3,4,5,',
-  `first_picture_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '首图地址',
+  `first_picture_addr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '首图地址',
   `published`          bit(1)                                                 NOT NULL COMMENT '是否发布：0-草稿 1-发布',
   `blog_title`         varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '博客标题',
   `blog_content`       longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin     NOT NULL COMMENT '博客内容',
