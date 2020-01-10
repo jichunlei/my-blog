@@ -310,9 +310,7 @@ public class BlogServiceImpl implements BlogService {
         }
         String tagIdStr = blog.getTagIdStr();
         String[] tagIds = tagIdStr.substring(1).split(",");
-        blog.setBlogViews(0);
         blog.setTagIdStr(tagIdStr + ",");
-        blog.setBlogComments(0);
         Date date = new Date();
         blog.setUpdateTime(date);
         blog.setDelFlag(false);
