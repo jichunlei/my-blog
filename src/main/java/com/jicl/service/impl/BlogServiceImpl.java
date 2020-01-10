@@ -308,6 +308,9 @@ public class BlogServiceImpl implements BlogService {
         if (blog.getCommentabled() == null) {
             blog.setCommentabled(false);
         }
+        if(!blog.getTagIdStr().startsWith(",")){
+            blog.setTagIdStr(","+blog.getTagIdStr());
+        }
         String tagIdStr = blog.getTagIdStr();
         String[] tagIds = tagIdStr.substring(1).split(",");
         blog.setTagIdStr(tagIdStr + ",");
