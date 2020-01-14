@@ -502,7 +502,7 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
             <!--赞赏-->
-            <div th:if="${blog.appreciationFlag&&session.user!=null&&session.user.userRole==3}">
+            <div th:if="${blog.appreciationFlag}">
                 <div class="ui center aligned basic segment">
                     <button id="payButton" class="ui orange basic circular button">赞赏</button>
                 </div>
