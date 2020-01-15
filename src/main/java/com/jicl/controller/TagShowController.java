@@ -46,7 +46,7 @@ public class TagShowController {
      **/
     @GetMapping("/tags/{id}")
     public String tags(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
-            "6") Integer pageSize, @PathVariable Integer id, Model model) {
+            "10") Integer pageSize, @PathVariable Integer id, Model model) {
         List<TopTag> tags = blogService.getTopTagList(10000);
         if (id == -1) {
             id = tags.get(0).getTagId();

@@ -44,7 +44,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index(@RequestParam(defaultValue = "1") Integer pageNum,
                         @RequestParam(defaultValue =
-                                "6") Integer pageSize, Model model) {
+                                "10") Integer pageSize, Model model) {
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andPublishedEqualTo(true);
         blogExample.setOrderByClause("blog_views desc");
@@ -84,7 +84,7 @@ public class IndexController {
     @GetMapping("/search")
     public String search(String searchKey, @RequestParam(defaultValue = "1") Integer pageNum,
                          @RequestParam(defaultValue =
-                                 "6") Integer pageSize, Model model) {
+                                 "10") Integer pageSize, Model model) {
         BlogExample blogExample = new BlogExample();
         BlogExample.Criteria criteria = blogExample.createCriteria().andPublishedEqualTo(true);
         if (StringUtils.isNotBlank(searchKey)) {

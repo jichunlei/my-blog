@@ -41,7 +41,7 @@ public class TypeShowController {
      **/
     @GetMapping("/types/{id}")
     public String types(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
-            "6") Integer pageSize, @PathVariable Integer id, Model model) {
+            "10") Integer pageSize, @PathVariable Integer id, Model model) {
         List<TopType> types = blogService.getTopTypeList(10000);
         if (id == -1) {
             id = types.get(0).getTypeId();
