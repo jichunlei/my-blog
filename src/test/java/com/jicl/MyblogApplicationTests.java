@@ -1,13 +1,17 @@
 package com.jicl;
 
+import com.jicl.entity.Type;
 import com.jicl.es.EsBlogDo;
 import com.jicl.es.EsBlogRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,6 +21,21 @@ public class MyblogApplicationTests {
 
     @Autowired
     private EsBlogRepository esBlogRepository;
+
+    @Autowired
+    private ValueOperations<String, Serializable> valueOperations;
+
+    @Autowired
+    private HashOperations<String, String, Serializable> hashOperations;
+
+    @Autowired
+    private ListOperations<String, Serializable> listOperations;
+
+    @Autowired
+    private SetOperations<String, Serializable> setOperations;
+
+    @Autowired
+    private ZSetOperations<String, Serializable> zSetOperations;
 
     @Test
     public void testInsert() {
@@ -52,6 +71,30 @@ public class MyblogApplicationTests {
     public void testSelectById() {
         Optional<EsBlogDo> optionalEsBlogDo = esBlogRepository.findById(1);
         System.out.println(optionalEsBlogDo.get());
+    }
+
+    @Test
+    public void testRedis() {
+        Type type1 = new Type();
+        type1.setTypeName("测试1");
+        Type type2 = new Type();
+        type2.setTypeName("测试2");
+        valueOperations.set("k1",type1);
+        listOperations.leftPush("k2",type1);
+        listOperations.leftPush("k2",type2);
+        List<Serializable> list = listOperations.range("k2", 0, -1);
+        System.out.println(list);
+        hashOperations.put("k3","type1",type1);
+        Object o = hashOperations.get("k3", "type1");
+        System.out.println(o);
+        setOperations.add("k4",type1);
+        setOperations.add("k4",type1);
+        setOperations.add("k4",type2);
+        setOperations.add("k4",type2);
+        zSetOperations.add("k5",type1,1.0);
+        zSetOperations.add("k5",type1,1.1);
+        zSetOperations.add("k5",type2,1.2);
+        zSetOperations.add("k5",type2,1.3);
     }
 
 }
