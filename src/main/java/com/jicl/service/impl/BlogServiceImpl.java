@@ -421,7 +421,7 @@ public class BlogServiceImpl implements BlogService {
         for (Map.Entry<String, Serializable> entry : commentsMap.entrySet()) {
             Integer blogId = Integer.parseInt(entry.getKey());
             Integer blogComments = (Integer) entry.getValue();
-            Blog blog = blogMapper.selectByPrimaryKey(blogId);
+            Blog blog = blogExtendMapper.getBlogWithoutContent(blogId);
             if (!blog.getBlogComments().equals(blogComments)) {
                 Integer tempComments = blog.getBlogComments();
                 blog.setUpdateTime(new Date());
@@ -436,7 +436,7 @@ public class BlogServiceImpl implements BlogService {
         for (Map.Entry<String, Serializable> entry : viewsMap.entrySet()) {
             Integer blogId = Integer.parseInt(entry.getKey());
             Integer blogViews = (Integer) entry.getValue();
-            Blog blog = blogMapper.selectByPrimaryKey(blogId);
+            Blog blog = blogExtendMapper.getBlogWithoutContent(blogId);
             if (!blog.getBlogViews().equals(blogViews)) {
                 Integer tempViews = blog.getBlogViews();
                 blog.setUpdateTime(new Date());

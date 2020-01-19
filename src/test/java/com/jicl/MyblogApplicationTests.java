@@ -3,6 +3,7 @@ package com.jicl;
 import com.jicl.entity.Type;
 import com.jicl.es.EsBlogDo;
 import com.jicl.es.EsBlogRepository;
+import com.jicl.service.BlogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class MyblogApplicationTests {
 
     @Autowired
     private ZSetOperations<String, Serializable> zSetOperations;
+
+    @Autowired
+    private BlogService blogService;
 
     @Test
     public void testInsert() {
@@ -95,6 +99,11 @@ public class MyblogApplicationTests {
         zSetOperations.add("k5",type1,1.1);
         zSetOperations.add("k5",type2,1.2);
         zSetOperations.add("k5",type2,1.3);
+    }
+
+    @Test
+    public void test(){
+        blogService.syncBlogCommentsAndViews();
     }
 
 }

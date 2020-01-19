@@ -36,12 +36,12 @@ public class MyTask {
     }
 
     /**
-     * 功能描述: 同步博客浏览量和评论数信息（from Redis）：同步周期每天凌晨2:00
+     * 功能描述: 同步博客浏览量和评论数信息（from Redis）：同步周期每天凌晨1:00
      *
      * @author xianzilei
      * @date 2020/1/19 10:20
      **/
-    @Scheduled(cron = "0 0 15 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void syncBlogCommentsAndViews() {
         log.info("执行同步博客浏览量和评论数任务（from Redis）>>>>>>start");
         long start = System.currentTimeMillis();

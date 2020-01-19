@@ -143,4 +143,12 @@
         and user_id=#{userId}
         </if>
     </select>
+
+    <!--主键查询（不带博客正文内容）-->
+    <select id="getBlogWithoutContent" resultMap="com.jicl.mapper.BlogMapper.BaseResultMap">
+        select
+        <include refid="com.jicl.mapper.BlogMapper.Base_Column_List"/>
+        from t_blog
+        where blog_id=#{blogId}
+    </select>
 </mapper>

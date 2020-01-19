@@ -33,7 +33,7 @@ public interface BlogExtendMapper {
      * @author xianzilei
      * @data 2019/12/1 10:30
      **/
-    List<TopType> getTopTypeList(Integer topSize);
+    List<TopType> getTopTypeList(@Param("topSize")Integer topSize);
 
     /**
      * 功能描述: 查询指定数量的推荐的博客
@@ -43,7 +43,7 @@ public interface BlogExtendMapper {
      * @author xianzilei
      * @date 2019/12/1 10:44
      **/
-    List<Blog> getRecommendBlogs(Integer topSize);
+    List<Blog> getRecommendBlogs(@Param("topSize")Integer topSize);
 
     /**
      * 功能描述: 查询指定数量的最新的博客
@@ -53,7 +53,7 @@ public interface BlogExtendMapper {
      * @author xianzilei
      * @date 2019/12/2 21:32
      **/
-    List<Blog> getLastUpdateBlogTop(Integer topSize);
+    List<Blog> getLastUpdateBlogTop(@Param("topSize")Integer topSize);
 
     /**
      * 功能描述: 博客详情查看
@@ -63,7 +63,7 @@ public interface BlogExtendMapper {
      * @author xianzilei
      * @date 2019/12/9 17:58
      **/
-    BlogVo getBlogDeatil(Integer blogId);
+    BlogVo getBlogDeatil(@Param("blogId")Integer blogId);
 
     /**
      * 功能描述: 查询博客包含的年份
@@ -85,4 +85,14 @@ public interface BlogExtendMapper {
      * @date 2019/12/19 18:42
      **/
     List<Blog> findByYear(@Param("year") String year, @Param("userId") Integer userId);
+
+    /**
+     * 功能描述: 主键查询（不带博客正文内容）
+     *
+     * @param blogId 1
+     * @return com.jicl.entity.Blog
+     * @author xianzilei
+     * @date 2020/1/19 15:09
+     **/
+    Blog getBlogWithoutContent(@Param("blogId")Integer blogId);
 }
