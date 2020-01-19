@@ -51,8 +51,6 @@ public class CommentController {
         User user = (User) session.getAttribute("user");
         //新增评论
         commentService.addComments(blogId, content, user);
-        //更新博客的评论数
-        blogService.updateBlogComments(blogId);
         return "redirect:/comments/" + blogId;
     }
 }

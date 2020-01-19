@@ -27,7 +27,6 @@ public final class RedisKeyUtil {
      * 功能描述: 删除key
      *
      * @param key 1
-     * @return void
      * @author xianzilei
      * @date 2020/1/16 15:59
      **/
@@ -39,7 +38,6 @@ public final class RedisKeyUtil {
      * 功能描述: 批量删除key
      *
      * @param keys 1
-     * @return void
      * @author xianzilei
      * @date 2020/1/16 15:59
      **/
@@ -176,7 +174,6 @@ public final class RedisKeyUtil {
      *
      * @param oldKey 1
      * @param newKey 2
-     * @return void
      * @author xianzilei
      * @date 2020/1/16 16:04
      **/

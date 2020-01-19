@@ -1,6 +1,7 @@
 package com.jicl.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.jicl.constant.RedisConstant;
 import com.jicl.entity.Comment;
 import com.jicl.entity.User;
 import com.jicl.mapper.CommentExtendMapper;
@@ -9,8 +10,10 @@ import com.jicl.mapper.ReplyExtendMapper;
 import com.jicl.pojo.CommentExtend;
 import com.jicl.pojo.ReplyExtend;
 import com.jicl.service.CommentService;
+import com.jicl.util.RedisValueUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +35,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private ReplyExtendMapper replyExtendMapper;
+
+    @Autowired
+    private RedisValueUtil redisValueUtil;
 
     /**
      * 功能描述: 获取评论信息列表
@@ -61,11 +67,11 @@ public class CommentServiceImpl implements CommentService {
      * @param blogId  1
      * @param content 2
      * @param user    3
-     * @return void
      * @author xianzilei
      * @date 2019/12/11 19:25
      **/
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addComments(Integer blogId, String content, User user) {
         //新增评论信息
         Comment comment = new Comment();
@@ -75,8 +81,10 @@ public class CommentServiceImpl implements CommentService {
         Date date = new Date();
         comment.setCommentTime(date);
         comment.setCreateTime(date);
-        comment.setUpdateTime(date);
         comment.setDelFlag(false);
+        comment.setUpdateTime(date);
         commentMapper.insertSelective(comment);
+        //更新redis中博客评论数
+        redisValueUtil.hIncr(RedisConstant.COMMENT_KEY, blogId.toString());
     }
 }

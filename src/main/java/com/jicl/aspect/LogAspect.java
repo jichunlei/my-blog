@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
+ * 日志切面类
+ *
  * @author : xianzilei
- * @date : 2019/11/21 21:47
- * @description : 日志切面类
+ * @date : 2020/1/15 15:51
  */
 @Aspect
 @Component
@@ -34,24 +35,14 @@ public class LogAspect {
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
         Object[] params = joinPoint.getArgs();
         RequestLog requestLog = new RequestLog(url, ip, classMethod, params);
-        log.info("Request：{}", requestLog);
-    }
-
-    @After("log()")
-    public void doAfter() {
-        log.info("--------------doAfter--------------");
+        log.info("请求参数：{}", requestLog);
     }
 
     @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterReturn(Object result) {
-        log.info("Result:{}", result);
+        log.info("响应参数:{}", result);
     }
 
-    /**
-     * @Auther: xianzilei
-     * @Date: 2019/11/21 21:47
-     * @Description: 请求信息封装类
-     */
     private class RequestLog {
         //请求url
         private String url;

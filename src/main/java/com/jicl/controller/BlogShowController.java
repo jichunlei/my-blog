@@ -38,7 +38,7 @@ public class BlogShowController {
      **/
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Integer id, Model model) {
-        model.addAttribute("blog", blogService.getBlogDetail(id));
+        model.addAttribute("blog", blogService.viewBlogDetail(id));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("tagMap", tagService.getAllTags());
         return "blog";

@@ -9,6 +9,7 @@ import com.jicl.pojo.ReplyExtend;
 import com.jicl.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -48,15 +49,14 @@ public class ReplyServiceImpl implements ReplyService {
     /**
      * 功能描述: 新增回复信息
      *
-     * @param commentId     1
-     * @param blogId        2
-     * @param content       3
-     * @param user          4
-     * @param repliedUserId
-     * @param replyType
-     * @return void
+     * @param commentId 1
+     * @param blogId 2
+     * @param content 3
+     * @param user 4
+     * @param repliedUserId 5
+     * @param replyType 6
      * @author xianzilei
-     * @date 2019/12/11 19:48
+     * @date 2020/1/19 11:32
      **/
     @Override
     public void addReplys(Integer commentId, Integer blogId, String content, User user, Integer repliedUserId,

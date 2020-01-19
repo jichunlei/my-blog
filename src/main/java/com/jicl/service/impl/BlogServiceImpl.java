@@ -2,13 +2,13 @@ package com.jicl.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jicl.constant.RedisConstant;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.entity.BlogTag;
 import com.jicl.entity.BlogTagExample;
 import com.jicl.es.EsBlogDo;
 import com.jicl.es.EsBlogRepository;
-import com.jicl.exception.NotFoundException;
 import com.jicl.mapper.BlogExtendMapper;
 import com.jicl.mapper.BlogMapper;
 import com.jicl.mapper.BlogTagExtendMapper;
@@ -17,6 +17,7 @@ import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
 import com.jicl.service.BlogService;
 import com.jicl.util.MarkdownUtils;
+import com.jicl.util.RedisValueUtil;
 import com.jicl.vo.BlogVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -50,6 +51,9 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private EsBlogRepository esBlogRepository;
 
+    @Autowired
+    private RedisValueUtil redisValueUtil;
+
     /**
      * 功能描述: 分页查询博客信息
      *
@@ -69,6 +73,17 @@ public class BlogServiceImpl implements BlogService {
             BlogTagExample blogTagExample = new BlogTagExample();
             blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
             blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
+            //从缓存中取博客评论数和浏览数
+            if (redisValueUtil.hExists(RedisConstant.COMMENT_KEY,
+                    blogVo.getBlogId().toString())) {
+                blogVo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY,
+                        blogVo.getBlogId().toString()));
+            }
+            if (redisValueUtil.hExists(RedisConstant.COMMENT_KEY,
+                    blogVo.getBlogId().toString())) {
+                blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY,
+                        blogVo.getBlogId().toString()));
+            }
         }
         return PageInfo.of(list);
     }
@@ -147,7 +162,7 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BlogVo getBlogDetail(Integer blogId) {
+    public BlogVo viewBlogDetail(Integer blogId) {
         //查询博客详情
         BlogVo blogVo = blogExtendMapper.getBlogDeatil(blogId);
         //将markdown内容转换成html
@@ -156,24 +171,10 @@ public class BlogServiceImpl implements BlogService {
         BlogTagExample blogTagExample = new BlogTagExample();
         blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
         blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
-        UpdateBlogViews(blogId, blogVo.getBlogViews() + 1);
+        blogVo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY, blogId.toString()));
+        blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY, blogId.toString()));
+        redisValueUtil.hIncr(RedisConstant.VIEW_KEY, blogId.toString());
         return blogVo;
-    }
-
-    /**
-     * 功能描述: 更新博客访问量
-     *
-     * @param blogId          1
-     * @param updateBlogViews 2
-     * @return void
-     * @author xianzilei
-     * @date 2019/12/10 8:41
-     **/
-    private void UpdateBlogViews(Integer blogId, Integer updateBlogViews) {
-        Blog blog = new Blog();
-        blog.setBlogViews(updateBlogViews);
-        blog.setBlogId(blogId);
-        blogMapper.updateByPrimaryKeySelective(blog);
     }
 
     /**
@@ -190,22 +191,15 @@ public class BlogServiceImpl implements BlogService {
     }
 
     /**
-     * 功能描述: 根据博客的评论数
+     * 功能描述: 更新博客的评论数
      *
      * @param blogId 1
-     * @return void
      * @author xianzilei
      * @date 2019/12/11 16:26
      **/
     @Override
     public void updateBlogComments(Integer blogId) {
-        Blog blog = blogMapper.selectByPrimaryKey(blogId);
-        if (blog == null) {
-            throw new NotFoundException("博客信息不存在！");
-        }
-        blog.setBlogId(blogId);
-        blog.setBlogComments(blog.getBlogComments() + 1);
-        blogMapper.updateByPrimaryKeySelective(blog);
+        redisValueUtil.hIncr(RedisConstant.COMMENT_KEY, blogId.toString());
     }
 
     /**
@@ -247,7 +241,6 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 新增博客
      *
      * @param blog 1
-     * @return void
      * @author xianzilei
      * @date 2019/12/18 19:13
      **/
@@ -278,17 +271,18 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreateTime(date);
         blog.setUpdateTime(date);
         blog.setDelFlag(false);
-        int id = blogMapper.insertSelective(blog);
+        Integer id = blogMapper.insertSelective(blog);
         //新增博客标签对应关系
         String[] tagIds = tagIdStr.split(",");
         updateBlogTag(id, tagIds, blog.getPublished());
+        redisValueUtil.hPut(RedisConstant.COMMENT_KEY, id.toString(), 0);
+        redisValueUtil.hPut(RedisConstant.VIEW_KEY, id.toString(), 0);
     }
 
     /**
      * 功能描述: 更新博客
      *
      * @param blog 1
-     * @return void
      * @author xianzilei
      * @date 2019/12/18 19:13
      **/
@@ -308,8 +302,8 @@ public class BlogServiceImpl implements BlogService {
         if (blog.getCommentabled() == null) {
             blog.setCommentabled(false);
         }
-        if(!blog.getTagIdStr().startsWith(",")){
-            blog.setTagIdStr(","+blog.getTagIdStr());
+        if (!blog.getTagIdStr().startsWith(",")) {
+            blog.setTagIdStr("," + blog.getTagIdStr());
         }
         String tagIdStr = blog.getTagIdStr();
         String[] tagIds = tagIdStr.substring(1).split(",");
@@ -327,10 +321,9 @@ public class BlogServiceImpl implements BlogService {
      *
      * @param blogId    1
      * @param tagIds    2
-     * @param published
-     * @return void
+     * @param published 3
      * @author xianzilei
-     * @date 2019/12/18 19:48
+     * @date 2020/1/19 10:51
      **/
     private void updateBlogTag(Integer blogId, String[] tagIds, Boolean published) {
         BlogTagExample blogTagExample = new BlogTagExample();
@@ -372,7 +365,6 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 删除博客
      *
      * @param id 1
-     * @return void
      * @author xianzilei
      * @date 2019/12/19 8:39
      **/

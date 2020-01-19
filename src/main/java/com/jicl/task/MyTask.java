@@ -23,9 +23,8 @@ public class MyTask {
     /**
      * 功能描述: 同步博客信息至es中，同步周期（3分钟）
      *
-     * @return void
      * @author xianzilei
-     * @date 2020/1/7 8:56
+     * @date 2020/1/19 10:20
      **/
     @Scheduled(fixedDelay = 3 * ONE_MINUTE)
     public void syncBlogToEs() {
