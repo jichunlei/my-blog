@@ -41,7 +41,7 @@ public class MyTask {
      * @author xianzilei
      * @date 2020/1/19 10:20
      **/
-    @Scheduled(cron = "0 50 15 * * ?")
+    @Scheduled(cron = "0 0 15 * * ?")
     public void syncBlogCommentsAndViews() {
         log.info("执行同步博客浏览量和评论数任务（from Redis）>>>>>>start");
         long start = System.currentTimeMillis();
