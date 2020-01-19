@@ -21,7 +21,7 @@ public class MyTask {
     private BlogService blogService;
 
     /**
-     * 功能描述: 同步博客信息至es中，同步周期（3分钟）
+     * 功能描述: 同步博客信息至es中：同步周期（3分钟）
      *
      * @author xianzilei
      * @date 2020/1/19 10:20
@@ -34,4 +34,20 @@ public class MyTask {
         long end = System.currentTimeMillis();
         log.info("执行博客信息同步至ES中>>>>>>end，共更新数据：{}条，执行时间：{}s", count, ((float) (end - start)) / 1000);
     }
+
+    /**
+     * 功能描述: 同步博客浏览量和评论数信息（from Redis）：同步周期每天凌晨2:00
+     *
+     * @author xianzilei
+     * @date 2020/1/19 10:20
+     **/
+    @Scheduled(cron = "0 50 15 * * ?")
+    public void syncBlogCommentsAndViews() {
+        log.info("执行同步博客浏览量和评论数任务（from Redis）>>>>>>start");
+        long start = System.currentTimeMillis();
+        blogService.syncBlogCommentsAndViews();
+        long end = System.currentTimeMillis();
+        log.info("执行同步博客浏览量和评论数任务（from Redis）>>>>>>end，执行时间：{}s", ((float) (end - start)) / 1000);
+    }
+
 }

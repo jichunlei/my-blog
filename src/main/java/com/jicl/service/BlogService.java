@@ -177,4 +177,12 @@ public interface BlogService {
      * @date 2020/1/7 11:40
      **/
     Integer syncBlogToEs();
+
+    /**
+     * 功能描述: 同步博客评论数和浏览数
+     *
+     * @author xianzilei
+     * @date 2020/1/19 12:09
+     **/
+    void syncBlogCommentsAndViews();
 }

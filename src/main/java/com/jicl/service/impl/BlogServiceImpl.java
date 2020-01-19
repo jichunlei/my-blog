@@ -19,12 +19,14 @@ import com.jicl.service.BlogService;
 import com.jicl.util.MarkdownUtils;
 import com.jicl.util.RedisValueUtil;
 import com.jicl.vo.BlogVo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -33,6 +35,7 @@ import java.util.*;
  * @author : xianzilei
  * @date : 2019/11/30 10:29
  **/
+@Slf4j
 @Service
 public class BlogServiceImpl implements BlogService {
 
@@ -400,5 +403,49 @@ public class BlogServiceImpl implements BlogService {
             esBlogRepository.save(temp);
         }
         return list.size();
+    }
+
+    /**
+     * 功能描述: 同步博客评论数和浏览数
+     *
+     * @return java.lang.Integer
+     * @author xianzilei
+     * @date 2020/1/19 12:10
+     **/
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void syncBlogCommentsAndViews() {
+        Map<String, Serializable> commentsMap = redisValueUtil.hGetAll(RedisConstant.COMMENT_KEY);
+        Map<String, Serializable> viewsMap = redisValueUtil.hGetAll(RedisConstant.VIEW_KEY);
+        //循环处理评论信息（推荐使用entrySet循环，性能较优）
+        for (Map.Entry<String, Serializable> entry : commentsMap.entrySet()) {
+            Integer blogId = Integer.parseInt(entry.getKey());
+            Integer blogComments = (Integer) entry.getValue();
+            Blog blog = blogMapper.selectByPrimaryKey(blogId);
+            if (!blog.getBlogComments().equals(blogComments)) {
+                Integer tempComments = blog.getBlogComments();
+                blog.setUpdateTime(new Date());
+                blog.setBlogComments(blogComments);
+                blogMapper.updateByPrimaryKeySelective(blog);
+                log.info("更新博客编号[{}]的评论数完成，原值为：{}，更新后值为：{}", blogId, tempComments, blogComments);
+            } else {
+                log.info("博客编号[{}]的评论数未变化，无需更新，值为：{}", blogId, blogComments);
+            }
+        }
+        //循环处理浏览量信息（推荐使用entrySet循环，性能较优）
+        for (Map.Entry<String, Serializable> entry : viewsMap.entrySet()) {
+            Integer blogId = Integer.parseInt(entry.getKey());
+            Integer blogViews = (Integer) entry.getValue();
+            Blog blog = blogMapper.selectByPrimaryKey(blogId);
+            if (!blog.getBlogViews().equals(blogViews)) {
+                Integer tempViews = blog.getBlogViews();
+                blog.setUpdateTime(new Date());
+                blog.setBlogViews(blogViews);
+                blogMapper.updateByPrimaryKeySelective(blog);
+                log.info("更新博客编号[{}]的浏览数完成，原值为：{}，更新后值为：{}", blogId, tempViews, blogViews);
+            } else {
+                log.info("博客编号[{}]的浏览数未变化，无需更新，值为：{}", blogId, blogViews);
+            }
+        }
     }
 }
