@@ -3,11 +3,12 @@ package com.jicl;
 import com.jicl.entity.Type;
 import com.jicl.es.EsBlogDo;
 import com.jicl.es.EsBlogRepository;
-import com.jicl.service.BlogService;
+import com.jicl.es.EsBlogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -39,7 +40,7 @@ public class MyblogApplicationTests {
     private ZSetOperations<String, Serializable> zSetOperations;
 
     @Autowired
-    private BlogService blogService;
+    private EsBlogService esBlogService;
 
     @Test
     public void testInsert() {
@@ -103,7 +104,8 @@ public class MyblogApplicationTests {
 
     @Test
     public void test(){
-        blogService.syncBlogCommentsAndViews();
+        Page<EsBlogDo> result = esBlogService.search("Redis", 0, 10);
+        System.out.println(result);
     }
 
 }

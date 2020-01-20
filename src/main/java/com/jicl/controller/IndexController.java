@@ -2,10 +2,10 @@ package com.jicl.controller;
 
 import com.jicl.constant.BlogConstant;
 import com.jicl.entity.BlogExample;
+import com.jicl.es.EsBlogService;
 import com.jicl.service.BlogService;
 import com.jicl.service.TagService;
 import com.jicl.service.TypeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +30,9 @@ public class IndexController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private EsBlogService esBlogService;
 
     /**
      * 功能描述: 首页
@@ -83,15 +86,8 @@ public class IndexController {
      **/
     @GetMapping("/search")
     public String search(String searchKey, @RequestParam(defaultValue = "1") Integer pageNum,
-                         @RequestParam(defaultValue =
-                                 "10") Integer pageSize, Model model) {
-        BlogExample blogExample = new BlogExample();
-        BlogExample.Criteria criteria = blogExample.createCriteria().andPublishedEqualTo(true);
-        if (StringUtils.isNotBlank(searchKey)) {
-            criteria.andBlogTitleLike("%" + searchKey + "%");
-        }
-        blogExample.setOrderByClause("blog_views desc");
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+                         @RequestParam(defaultValue = "10") Integer pageSize, Model model) {
+        model.addAttribute("page", esBlogService.search(searchKey, pageNum - 1, pageSize));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("searchKey", searchKey);
         return BlogConstant.SEARCH_PAGE;

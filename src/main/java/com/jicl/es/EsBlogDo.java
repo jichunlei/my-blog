@@ -1,5 +1,6 @@
 package com.jicl.es;
 
+import com.jicl.entity.BlogTag;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -7,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 博客搜索类
@@ -126,4 +128,18 @@ public class EsBlogDo {
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String blogContent;
 
+    /**
+     * 博客作者昵称
+     */
+    private String nickname;
+
+    /**
+     * 博客作者头像
+     */
+    private String headPortrait;
+
+    /**
+     * 博客标签列表
+     */
+    private List<BlogTag> tags;
 }

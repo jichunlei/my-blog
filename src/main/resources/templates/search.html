@@ -41,11 +41,11 @@
         <div class="ui top attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <h3 class="ui teal header">搜索结果</h3>
+                    <h3 class="ui teal header">搜索关键字"<span th:text="${searchKey}" style="color: red"></span>"结果</h3>
                 </div>
                 <div class="right aligned column">
                     共 <h2 class="ui orange header m-inline-block m-text-thin"
-                          th:text="${page.total}"> 14 </h2> 篇
+                          th:text="${page.totalElements}"> 14 </h2> 篇
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
 
         <div class="ui top attached teal segment">
             <div class="ui padded vertical segment m-padded-tb-large"
-                 th:each="blog : ${page.list}">
+                 th:each="blog : ${page.content}">
                 <div class="ui middle aligned mobile reversed stackable grid">
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}"
@@ -103,33 +103,33 @@
         <!--分页组件-->
         <div class="ui attached center aligned segment">
             <div class="ui pagination stackable menu">
-                <a class="item" th:classappend="${page.isFirstPage} ? 'active teal'"
-                   th:href="@{/search(pageNum=${page.navigateFirstPage},searchKey=${searchKey})}">
+                <a class="item" th:classappend="${page.first} ? 'active teal'"
+                   th:href="@{/search(pageNum=0,searchKey=${searchKey})}">
                     首页
                 </a>
-                <a class="item" th:unless="${page.isFirstPage}"
-                   th:href="@{/search(pageNum=${page.prePage},searchKey=${searchKey})}">
+                <a class="item" th:unless="${page.first}"
+                   th:href="@{/search(pageNum=${page.number-1},searchKey=${searchKey})}">
                     上一页
                 </a>
                 <a class="item">
                     第<h3 class="ui orange header m-inline-block m-text-thin"
-                         th:text="${page.getPageNum()}">8</h3>页
+                         th:text="${page.number+1}">8</h3>页
                 </a>
-                <a class="item" th:unless="${page.isLastPage}"
-                   th:href="@{/search(pageNum=${page.nextPage},searchKey=${searchKey})}">
+                <a class="item" th:unless="${page.last}"
+                   th:href="@{/search(pageNum=${page.number+1},searchKey=${searchKey})}">
                     下一页
                 </a>
-                <a class="item" th:classappend="${page.isLastPage} ? 'active teal'"
-                   th:href="@{/search(pageNum=${page.navigateLastPage},searchKey=${searchKey})}">
+                <a class="item" th:classappend="${page.last} ? 'active teal'"
+                   th:href="@{/search(pageNum=${page.totalPages-1},searchKey=${searchKey})}">
                     尾页
                 </a>
                 <a class="item">
                     共<h3 class="ui red header m-inline-block m-text-thin"
-                         th:text="${page.pages}">8</h3>页
+                         th:text="${page.totalPages}">8</h3>页
                 </a>
                 <a class="item">
                     共<h3 class="ui red header m-inline-block m-text-thin"
-                         th:text="${page.total}">8</h3>条
+                         th:text="${page.totalElements}">8</h3>条
                 </a>
                 <form name="page" class="right item" action="#" th:action="@{/search}" method="get">
                     <div class="ui right labeled input">
@@ -143,8 +143,8 @@
                     </div>
                 </form>
             </div>
-            <input type="hidden" id="first" th:value="${page.getPageNum()}"/>
-            <input type="hidden" id="last" th:value="${page.pages}"/>
+            <input type="hidden" id="first" th:value="${page.number}"/>
+            <input type="hidden" id="last" th:value="${page.totalElements}"/>
         </div>
     </div>
 </div>
