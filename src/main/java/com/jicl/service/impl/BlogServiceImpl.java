@@ -79,13 +79,19 @@ public class BlogServiceImpl implements BlogService {
             //从缓存中取博客评论数和浏览数
             if (redisValueUtil.hExists(RedisConstant.COMMENT_KEY,
                     blogVo.getBlogId().toString())) {
-                blogVo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY,
-                        blogVo.getBlogId().toString()));
+                Integer blogComments = (Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY,
+                        blogVo.getBlogId().toString());
+                blogVo.setBlogComments(blogComments);
+                log.info("更新博客编号[{}]的评论数为redis最新评论数据：{}", blogVo.getBlogId(),
+                        blogComments);
             }
-            if (redisValueUtil.hExists(RedisConstant.COMMENT_KEY,
+            if (redisValueUtil.hExists(RedisConstant.VIEW_KEY,
                     blogVo.getBlogId().toString())) {
-                blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY,
-                        blogVo.getBlogId().toString()));
+                Integer blogViews = (Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY,
+                        blogVo.getBlogId().toString());
+                blogVo.setBlogViews(blogViews);
+                log.info("更新博客编号[{}]的浏览数为redis最新浏览数据：{}", blogVo.getBlogId(),
+                        blogViews);
             }
         }
         return PageInfo.of(list);
@@ -174,8 +180,10 @@ public class BlogServiceImpl implements BlogService {
         BlogTagExample blogTagExample = new BlogTagExample();
         blogTagExample.createCriteria().andBlogIdEqualTo(blogVo.getBlogId());
         blogVo.setTags(blogTagMapper.selectByExample(blogTagExample));
-        blogVo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY, blogId.toString()));
-        blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY, blogId.toString()));
+        blogVo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY,
+                blogId.toString()));
+        blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY,
+                blogId.toString()));
         redisValueUtil.hIncr(RedisConstant.VIEW_KEY, blogId.toString());
         return blogVo;
     }
@@ -209,7 +217,7 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 博客归档
      *
      * @param userId 1
-     * @return java.util.Map<java.lang.String, java.util.List < com.jicl.entity.Blog>>
+     * @return java.util.Map<java.lang.String               ,                               java.util.List                               <                               com.jicl.entity.Blog>>
      * @author xianzilei
      * @date 2019/12/19 17:59
      **/
