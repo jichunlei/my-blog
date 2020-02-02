@@ -74,7 +74,7 @@ public class UserController {
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andUserIdEqualTo(user.getUserId());
         blogExample.setOrderByClause("update_time desc");
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,null));
         return "user/blogs";
     }
 
@@ -110,7 +110,7 @@ public class UserController {
             criteria.andTagIdStrLike("%," + tagId + ",%");
         }
         blogExample.setOrderByClause("update_time desc");
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,null));
         model.addAttribute("typeMap", typeService.getAllTypes());
         return "user/blogs :: blogList";
     }

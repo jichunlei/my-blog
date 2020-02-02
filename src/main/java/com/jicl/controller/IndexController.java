@@ -2,6 +2,7 @@ package com.jicl.controller;
 
 import com.jicl.constant.BlogConstant;
 import com.jicl.entity.BlogExample;
+import com.jicl.entity.User;
 import com.jicl.es.EsBlogService;
 import com.jicl.service.BlogService;
 import com.jicl.service.TagService;
@@ -9,9 +10,9 @@ import com.jicl.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 首页控制器
@@ -47,11 +48,13 @@ public class IndexController {
     @RequestMapping("/")
     public String index(@RequestParam(defaultValue = "1") Integer pageNum,
                         @RequestParam(defaultValue =
-                                "10") Integer pageSize, Model model) {
+                                "10") Integer pageSize, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Integer userId = user == null ? null : user.getUserId();
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andPublishedEqualTo(true);
         blogExample.setOrderByClause("blog_views desc");
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize, userId));
         model.addAttribute("types", blogService.getTopTypeList(6));
         model.addAttribute("tags", blogService.getTopTagList(10));
         model.addAttribute("recommendBlogs", blogService.getRecommendBlogs(8));
@@ -86,10 +89,40 @@ public class IndexController {
      **/
     @GetMapping("/search")
     public String search(String searchKey, @RequestParam(defaultValue = "1") Integer pageNum,
-                         @RequestParam(defaultValue = "10") Integer pageSize, Model model) {
-        model.addAttribute("page", esBlogService.search(searchKey, pageNum - 1, pageSize));
+                         @RequestParam(defaultValue = "10") Integer pageSize, Model model,
+                         HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Integer userId = user == null ? null : user.getUserId();
+        model.addAttribute("page", esBlogService.search(searchKey,
+                pageNum - 1, pageSize, userId));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("searchKey", searchKey);
         return BlogConstant.SEARCH_PAGE;
+    }
+
+    /**
+     * 功能描述: 点赞/取消点赞
+     *
+     * @param blogId  1
+     * @param flag    2
+     * @param session 3
+     * @return java.lang.String
+     * @author xianzilei
+     * @date 2020/2/1 20:24
+     **/
+    @PostMapping("/thumbsUp")
+    @ResponseBody
+    public String thumbsUp(Integer blogId, Boolean flag, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "toLogin";
+        } else {
+            if (flag) {
+                blogService.addThumbsUp(blogId, user.getUserId());
+            } else {
+                blogService.cancelThumbsUp(blogId, user.getUserId());
+            }
+        }
+        return "success";
     }
 }

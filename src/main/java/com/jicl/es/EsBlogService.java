@@ -17,9 +17,10 @@ public interface EsBlogService {
      * @param keyword 1
      * @param pageNum 2
      * @param pageSize 3
-     * @return com.github.pagehelper.Page<com.jicl.es.EsBlogDo>
+     * @param userId 4
+     * @return org.springframework.data.domain.Page<com.jicl.es.EsBlogDo>
      * @author xianzilei
-     * @date 2020/1/20 8:41
+     * @date 2020/2/2 10:27
      **/
-    Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize);
+    Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize,Integer userId);
 }

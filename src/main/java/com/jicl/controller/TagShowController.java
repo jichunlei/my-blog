@@ -2,6 +2,7 @@ package com.jicl.controller;
 
 import com.jicl.constant.BlogConstant;
 import com.jicl.entity.BlogExample;
+import com.jicl.entity.User;
 import com.jicl.pojo.TopTag;
 import com.jicl.service.BlogService;
 import com.jicl.service.TagService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -46,7 +48,9 @@ public class TagShowController {
      **/
     @GetMapping("/tags/{id}")
     public String tags(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue =
-            "10") Integer pageSize, @PathVariable Integer id, Model model) {
+            "10") Integer pageSize, @PathVariable Integer id, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Integer userId = user == null ? null : user.getUserId();
         List<TopTag> tags = blogService.getTopTagList(10000);
         if (id == -1) {
             id = tags.get(0).getTagId();
@@ -55,7 +59,7 @@ public class TagShowController {
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andTagIdStrLike("%," + id + ",%").andPublishedEqualTo(true);
         blogExample.setOrderByClause("blog_views desc");
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,userId));
         model.addAttribute("activeTagId", id);
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("tagMap", tagService.getAllTags());

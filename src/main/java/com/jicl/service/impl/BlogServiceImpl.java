@@ -61,15 +61,16 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 分页查询博客信息
      *
      * @param blogExample 1
-     * @param pageNum     2
-     * @param pageSize    3
+     * @param pageNum 2
+     * @param pageSize 3
+     * @param userId 4
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
-     * @date 2019/12/4 22:10
+     * @date 2020/2/1 21:13
      **/
     @Override
     public PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum,
-                                 Integer pageSize) {
+                                 Integer pageSize,Integer userId) {
         PageHelper.startPage(pageNum, pageSize);
         List<BlogVo> list = blogExtendMapper.page(blogExample);
         for (BlogVo blogVo : list) {
@@ -92,6 +93,20 @@ public class BlogServiceImpl implements BlogService {
                 blogVo.setBlogViews(blogViews);
                 log.info("更新博客编号[{}]的浏览数为redis最新浏览数据：{}", blogVo.getBlogId(),
                         blogViews);
+            }
+            if (redisValueUtil.hExists(RedisConstant.LIKE_KEY,
+                    blogVo.getBlogId().toString())) {
+                HashSet<Integer> set =
+                        (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
+                        blogVo.getBlogId().toString());
+                blogVo.setBlogLikes(set.size());
+                if(userId==null){
+                    blogVo.setFlag(false);
+                }else{
+                    blogVo.setFlag(set.contains(userId));
+                }
+                log.info("更新博客编号[{}]的点赞数为redis最新点赞数据：{}", blogVo.getBlogId(),
+                        set.size());
             }
         }
         return PageInfo.of(list);
@@ -217,7 +232,7 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 博客归档
      *
      * @param userId 1
-     * @return java.util.Map<java.lang.String               ,                               java.util.List                               <                               com.jicl.entity.Blog>>
+     * @return java.util.Map<java.lang.String                                                                                                                               ,                                                                                                                                                                                                                                                               java.util.List                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                               com.jicl.entity.Blog>>
      * @author xianzilei
      * @date 2019/12/19 17:59
      **/
@@ -278,6 +293,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setBlogViews(0);
         blog.setTagIdStr("," + tagIdStr + ",");
         blog.setBlogComments(0);
+        blog.setBlogLikes(0);
         Date date = new Date();
         blog.setCreateTime(date);
         blog.setUpdateTime(date);
@@ -288,6 +304,7 @@ public class BlogServiceImpl implements BlogService {
         updateBlogTag(id, tagIds, blog.getPublished());
         redisValueUtil.hPut(RedisConstant.COMMENT_KEY, id.toString(), 0);
         redisValueUtil.hPut(RedisConstant.VIEW_KEY, id.toString(), 0);
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY, id.toString(), new HashSet<Integer>());
     }
 
     /**
@@ -422,9 +439,10 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void syncBlogCommentsAndViews() {
+    public void syncBlogInfoFromRedis() {
         Map<String, Serializable> commentsMap = redisValueUtil.hGetAll(RedisConstant.COMMENT_KEY);
         Map<String, Serializable> viewsMap = redisValueUtil.hGetAll(RedisConstant.VIEW_KEY);
+        Map<String, Serializable> likesMap = redisValueUtil.hGetAll(RedisConstant.LIKE_KEY);
         //循环处理评论信息（推荐使用entrySet循环，性能较优）
         for (Map.Entry<String, Serializable> entry : commentsMap.entrySet()) {
             Integer blogId = Integer.parseInt(entry.getKey());
@@ -455,5 +473,57 @@ public class BlogServiceImpl implements BlogService {
                 log.info("博客编号[{}]的浏览数未变化，无需更新，值为：{}", blogId, blogViews);
             }
         }
+        //循环处理点赞数信息（推荐使用entrySet循环，性能较优）
+        for (Map.Entry<String, Serializable> entry : likesMap.entrySet()) {
+            Integer blogId = Integer.parseInt(entry.getKey());
+            HashSet<Integer> blogLikesSet = (HashSet<Integer>) entry.getValue();
+            Integer blogLikes = blogLikesSet.size();
+            Blog blog = blogExtendMapper.getBlogWithoutContent(blogId);
+            if (!blog.getBlogLikes().equals(blogLikes)) {
+                Integer tempLikes = blog.getBlogViews();
+                blog.setUpdateTime(new Date());
+                blog.setBlogViews(blogLikes);
+                blogMapper.updateByPrimaryKeySelective(blog);
+                log.info("更新博客编号[{}]的点赞数完成，原值为：{}，更新后值为：{}", blogId, tempLikes, blogLikes);
+            } else {
+                log.info("博客编号[{}]的点赞数未变化，无需更新，值为：{}", blogId, blogLikes);
+            }
+        }
+    }
+
+    /**
+     * 功能描述: 点赞
+     *
+     * @param blogId 1
+     * @param userId 2
+     * @return void
+     * @author xianzilei
+     * @date 2020/2/1 20:14
+     **/
+    @Override
+    public void addThumbsUp(Integer blogId, Integer userId) {
+        HashSet<Integer> set = (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
+                blogId.toString());
+        set.add(userId);
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY, blogId.toString(), set);
+        log.info("博客编号[{}]新增点赞用户编号[{}]", blogId, userId);
+    }
+
+    /**
+     * 功能描述: 取消点赞
+     *
+     * @param blogId 1
+     * @param userId 2
+     * @return void
+     * @author xianzilei
+     * @date 2020/2/1 20:14
+     **/
+    @Override
+    public void cancelThumbsUp(Integer blogId, Integer userId) {
+        HashSet<Integer> set = (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
+                blogId.toString());
+        set.remove(userId);
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY, blogId.toString(), set);
+        log.info("博客编号[{}]删除点赞用户编号[{}]", blogId, userId);
     }
 }

@@ -3,7 +3,6 @@ package com.jicl.vo;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogTag;
 import lombok.Data;
-
 import java.util.List;
 
 
@@ -25,6 +24,11 @@ public class BlogVo extends Blog {
      * 博客作者头像
      */
     private String headPortrait;
+
+    /**
+     * 当前登录用户是否点赞过
+     */
+    private Boolean flag;
 
     /**
      * 博客标签列表

@@ -21,6 +21,7 @@
     <result column="appreciation_flag" jdbcType="BIT" property="appreciationFlag" />
     <result column="commentabled" jdbcType="BIT" property="commentabled" />
     <result column="blog_comments" jdbcType="INTEGER" property="blogComments" />
+    <result column="blog_likes" jdbcType="INTEGER" property="blogLikes" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
@@ -106,7 +107,7 @@
     -->
     blog_id, user_id, blog_flag, blog_desc, recommend, share_flag, type_id, tag_id_str, 
     first_picture_addr, published, blog_title, blog_views, appreciation_flag, commentabled, 
-    blog_comments, create_time, update_time, del_flag, del_time
+    blog_comments, blog_likes, create_time, update_time, del_flag, del_time
   </sql>
   <sql id="Blob_Column_List">
     <!--
@@ -195,16 +196,16 @@
       recommend, share_flag, type_id, 
       tag_id_str, first_picture_addr, published, 
       blog_title, blog_views, appreciation_flag, 
-      commentabled, blog_comments, create_time, 
-      update_time, del_flag, del_time, 
-      blog_content)
+      commentabled, blog_comments, blog_likes, 
+      create_time, update_time, del_flag, 
+      del_time, blog_content)
     values (#{userId,jdbcType=INTEGER}, #{blogFlag,jdbcType=VARCHAR}, #{blogDesc,jdbcType=VARCHAR}, 
       #{recommend,jdbcType=BIT}, #{shareFlag,jdbcType=BIT}, #{typeId,jdbcType=INTEGER}, 
       #{tagIdStr,jdbcType=VARCHAR}, #{firstPictureAddr,jdbcType=VARCHAR}, #{published,jdbcType=BIT}, 
       #{blogTitle,jdbcType=VARCHAR}, #{blogViews,jdbcType=INTEGER}, #{appreciationFlag,jdbcType=BIT}, 
-      #{commentabled,jdbcType=BIT}, #{blogComments,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT}, #{delTime,jdbcType=TIMESTAMP}, 
-      #{blogContent,jdbcType=LONGVARCHAR})
+      #{commentabled,jdbcType=BIT}, #{blogComments,jdbcType=INTEGER}, #{blogLikes,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=BIT}, 
+      #{delTime,jdbcType=TIMESTAMP}, #{blogContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jicl.entity.Blog">
     <!--
@@ -257,6 +258,9 @@
       </if>
       <if test="blogComments != null">
         blog_comments,
+      </if>
+      <if test="blogLikes != null">
+        blog_likes,
       </if>
       <if test="createTime != null">
         create_time,
@@ -316,6 +320,9 @@
       </if>
       <if test="blogComments != null">
         #{blogComments,jdbcType=INTEGER},
+      </if>
+      <if test="blogLikes != null">
+        #{blogLikes,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -396,6 +403,9 @@
       <if test="record.blogComments != null">
         blog_comments = #{record.blogComments,jdbcType=INTEGER},
       </if>
+      <if test="record.blogLikes != null">
+        blog_likes = #{record.blogLikes,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -437,6 +447,7 @@
       appreciation_flag = #{record.appreciationFlag,jdbcType=BIT},
       commentabled = #{record.commentabled,jdbcType=BIT},
       blog_comments = #{record.blogComments,jdbcType=INTEGER},
+      blog_likes = #{record.blogLikes,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       del_flag = #{record.delFlag,jdbcType=BIT},
@@ -467,6 +478,7 @@
       appreciation_flag = #{record.appreciationFlag,jdbcType=BIT},
       commentabled = #{record.commentabled,jdbcType=BIT},
       blog_comments = #{record.blogComments,jdbcType=INTEGER},
+      blog_likes = #{record.blogLikes,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       del_flag = #{record.delFlag,jdbcType=BIT},
@@ -524,6 +536,9 @@
       <if test="blogComments != null">
         blog_comments = #{blogComments,jdbcType=INTEGER},
       </if>
+      <if test="blogLikes != null">
+        blog_likes = #{blogLikes,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -562,6 +577,7 @@
       appreciation_flag = #{appreciationFlag,jdbcType=BIT},
       commentabled = #{commentabled,jdbcType=BIT},
       blog_comments = #{blogComments,jdbcType=INTEGER},
+      blog_likes = #{blogLikes,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       del_flag = #{delFlag,jdbcType=BIT},
@@ -589,6 +605,7 @@
       appreciation_flag = #{appreciationFlag,jdbcType=BIT},
       commentabled = #{commentabled,jdbcType=BIT},
       blog_comments = #{blogComments,jdbcType=INTEGER},
+      blog_likes = #{blogLikes,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       del_flag = #{delFlag,jdbcType=BIT},

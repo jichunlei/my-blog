@@ -22,13 +22,15 @@ public interface BlogService {
      * 功能描述: 分页查询博客信息
      *
      * @param blogExample 1
-     * @param pageNum     2
-     * @param pageSize    3
+     * @param pageNum 2
+     * @param pageSize 3
+     * @param userId 4
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
-     * @date 2019/12/4 22:10
+     * @date 2020/2/1 21:12
      **/
-    PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum, Integer pageSize);
+    PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum, Integer pageSize,
+                          Integer userId);
 
     /**
      * 功能描述: 获取所有博客信息
@@ -184,5 +186,27 @@ public interface BlogService {
      * @author xianzilei
      * @date 2020/1/19 12:09
      **/
-    void syncBlogCommentsAndViews();
+    void syncBlogInfoFromRedis();
+
+    /**
+     * 功能描述: 点赞
+     *
+     * @param blogId 1
+     * @param userId 2
+     * @return void
+     * @author xianzilei
+     * @date 2020/2/1 20:13
+     **/
+    void addThumbsUp(Integer blogId,Integer userId);
+
+    /**
+     * 功能描述: 取消点赞
+     *
+     * @param blogId 1
+     * @param userId 2
+     * @return void
+     * @author xianzilei
+     * @date 2020/2/1 20:13
+     **/
+    void cancelThumbsUp(Integer blogId,Integer userId);
 }

@@ -147,6 +147,41 @@
 
         setInterval(setTime, 1000);
     </script>
+    <script>
+        //点赞/取消点赞
+        function thumbsUp(blogId,obj) {
+            var title=$(obj).attr('title');
+            var flag=(title=="点赞");
+            $.ajax({
+                url: "/thumbsUp",    //请求的url地址
+                async: false,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: {
+                    "blogId": blogId,
+                    "flag":flag
+                },    //参数值
+                type: "post",   //请求方式
+                success: function (data) {
+                    if(data=="success"){
+                        if(flag==true){
+                            $(obj).find('i').attr('class','thumbs up teal icon');
+                            $(obj).attr('title','取消点赞');
+                            var text=$(obj).find('span').text()*1+1;
+                            $(obj).find('span').html(text);
+                        }else{
+                            $(obj).find('i').attr('class','thumbs up outline icon');
+                            $(obj).attr('title','点赞');
+                            var text=$(obj).find('span').text()*1-1;
+                            $(obj).find('span').html(text);
+                        }
+                    }else if(data=="toLogin"){
+                        alert("您需要登录才能点赞！");
+                    }else{
+                        alert("系统错误！")
+                    }
+                }
+            });
+        }
+    </script>
 </th:block>
 </body>
 </html>

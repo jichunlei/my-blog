@@ -16,4 +16,9 @@ public interface RedisConstant {
      * 博客浏览数key
      */
     String VIEW_KEY = "view";
+
+    /**
+     * 博客点赞数key
+     */
+    String LIKE_KEY = "like";
 }

@@ -63,6 +63,7 @@ CREATE TABLE `t_blog`
   `appreciation_flag`  bit(1)                                                 NOT NULL COMMENT '是否开启赞赏',
   `commentabled`       bit(1)                                                 NOT NULL COMMENT '是否开启评论',
   `blog_comments`      int(11)                                                NOT NULL COMMENT '博客评论次数',
+  `blog_likes`         int(11)                                                NOT NULL COMMENT '博客点赞次数',
   `create_time`        datetime(0)                                            NOT NULL COMMENT '创建时间',
   `update_time`        datetime(0)                                            NOT NULL COMMENT '更新时间',
   `del_flag`           bit(1)                                                 NOT NULL COMMENT '删除标识',

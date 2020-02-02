@@ -56,7 +56,7 @@ public class AdminBlogController {
         BlogExample blogExample = new BlogExample();
         blogExample.setOrderByClause("create_time desc");
         model.addAttribute("tags", tagService.getAll());
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,null));
         return "admin/blogs";
     }
 
@@ -90,7 +90,7 @@ public class AdminBlogController {
         }
         blogExample.setOrderByClause("create_time desc");
         model.addAttribute("typeMap", typeService.getAllTypes());
-        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize));
+        model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,null));
         return "admin/blogs :: blogList";
     }
 

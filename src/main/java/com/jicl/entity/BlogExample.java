@@ -1145,6 +1145,66 @@ public class BlogExample {
             return (Criteria) this;
         }
 
+        public Criteria andBlogLikesIsNull() {
+            addCriterion("blog_likes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesIsNotNull() {
+            addCriterion("blog_likes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesEqualTo(Integer value) {
+            addCriterion("blog_likes =", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesNotEqualTo(Integer value) {
+            addCriterion("blog_likes <>", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesGreaterThan(Integer value) {
+            addCriterion("blog_likes >", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesGreaterThanOrEqualTo(Integer value) {
+            addCriterion("blog_likes >=", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesLessThan(Integer value) {
+            addCriterion("blog_likes <", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesLessThanOrEqualTo(Integer value) {
+            addCriterion("blog_likes <=", value, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesIn(List<Integer> values) {
+            addCriterion("blog_likes in", values, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesNotIn(List<Integer> values) {
+            addCriterion("blog_likes not in", values, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesBetween(Integer value1, Integer value2) {
+            addCriterion("blog_likes between", value1, value2, "blogLikes");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogLikesNotBetween(Integer value1, Integer value2) {
+            addCriterion("blog_likes not between", value1, value2, "blogLikes");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

@@ -9,6 +9,7 @@ import com.jicl.es.EsBlogService;
 import com.jicl.mapper.BlogTagMapper;
 import com.jicl.mapper.UserMapper;
 import com.jicl.util.RedisValueUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -18,12 +19,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 /**
  * es服务实现
  *
  * @author : xianzilei
  * @date : 2020/1/19 16:35
  */
+@Slf4j
 @Service
 public class EsBlogServiceImpl implements EsBlogService {
 
@@ -40,7 +44,7 @@ public class EsBlogServiceImpl implements EsBlogService {
     private UserMapper userMapper;
 
     @Override
-    public Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize) {
+    public Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize,Integer userId) {
         //参数不合法调整
         if (pageNum < 0) {
             pageNum = 0;
@@ -71,6 +75,20 @@ public class EsBlogServiceImpl implements EsBlogService {
                     esBlogDo.getBlogId().toString())) {
                 esBlogDo.setBlogComments((Integer) redisValueUtil.hGet(RedisConstant.COMMENT_KEY,
                         esBlogDo.getBlogId().toString()));
+            }
+            if (redisValueUtil.hExists(RedisConstant.LIKE_KEY,
+                    esBlogDo.getBlogId().toString())) {
+                HashSet<Integer> set =
+                        (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
+                                esBlogDo.getBlogId().toString());
+                esBlogDo.setBlogLikes(set.size());
+                if(userId==null){
+                    esBlogDo.setFlag(false);
+                }else{
+                    esBlogDo.setFlag(set.contains(userId));
+                }
+                log.info("更新博客编号[{}]的点赞数为redis最新点赞数据：{}", esBlogDo.getBlogId(),
+                        set.size());
             }
         }
         return page;

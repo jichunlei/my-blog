@@ -1,9 +1,11 @@
 package com.jicl;
 
+import com.jicl.constant.RedisConstant;
 import com.jicl.entity.Type;
 import com.jicl.es.EsBlogDo;
 import com.jicl.es.EsBlogRepository;
 import com.jicl.es.EsBlogService;
+import com.jicl.util.RedisValueUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +44,9 @@ public class MyblogApplicationTests {
 
     @Autowired
     private EsBlogService esBlogService;
+
+    @Autowired
+    private RedisValueUtil redisValueUtil;
 
     @Test
     public void testInsert() {
@@ -104,8 +110,20 @@ public class MyblogApplicationTests {
 
     @Test
     public void test(){
-        Page<EsBlogDo> result = esBlogService.search("Redis", 0, 10);
+        Page<EsBlogDo> result = esBlogService.search("Redis", 0, 10,null);
         System.out.println(result);
+    }
+
+    @Test
+    public void test1(){
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"1",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"2",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"3",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"4",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"5",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"6",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"7",new HashSet<Integer>());
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY,"8",new HashSet<Integer>());
     }
 
 }

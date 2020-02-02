@@ -103,6 +103,11 @@ public class EsBlogDo {
     private Integer blogComments;
 
     /**
+     * 博客点赞次数
+     */
+    private Integer blogLikes;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -137,6 +142,11 @@ public class EsBlogDo {
      * 博客作者头像
      */
     private String headPortrait;
+
+    /**
+     * 当前登录用户是否点赞过
+     */
+    private Boolean flag;
 
     /**
      * 博客标签列表
