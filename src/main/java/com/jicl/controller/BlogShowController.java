@@ -1,5 +1,6 @@
 package com.jicl.controller;
 
+import com.jicl.entity.User;
 import com.jicl.service.BlogService;
 import com.jicl.service.TagService;
 import com.jicl.service.TypeService;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 博客展示控制层
@@ -30,15 +33,17 @@ public class BlogShowController {
     /**
      * 功能描述: 博客详情查看
      *
-     * @param id 1
+     * @param id    1
      * @param model 2
      * @return java.lang.String
      * @author xianzilei
      * @date 2019/12/9 10:04
      **/
     @GetMapping("/blog/{id}")
-    public String blog(@PathVariable Integer id, Model model) {
-        model.addAttribute("blog", blogService.viewBlogDetail(id));
+    public String blog(@PathVariable Integer id, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Integer userId = user == null ? null : user.getUserId();
+        model.addAttribute("blog", blogService.viewBlogDetail(id, userId));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("tagMap", tagService.getAllTags());
         return "blog";

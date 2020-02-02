@@ -61,16 +61,16 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 分页查询博客信息
      *
      * @param blogExample 1
-     * @param pageNum 2
-     * @param pageSize 3
-     * @param userId 4
+     * @param pageNum     2
+     * @param pageSize    3
+     * @param userId      4
      * @return com.github.pagehelper.PageInfo<com.jicl.vo.BlogVo>
      * @author xianzilei
      * @date 2020/2/1 21:13
      **/
     @Override
     public PageInfo<BlogVo> page(BlogExample blogExample, Integer pageNum,
-                                 Integer pageSize,Integer userId) {
+                                 Integer pageSize, Integer userId) {
         PageHelper.startPage(pageNum, pageSize);
         List<BlogVo> list = blogExtendMapper.page(blogExample);
         for (BlogVo blogVo : list) {
@@ -98,11 +98,11 @@ public class BlogServiceImpl implements BlogService {
                     blogVo.getBlogId().toString())) {
                 HashSet<Integer> set =
                         (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
-                        blogVo.getBlogId().toString());
+                                blogVo.getBlogId().toString());
                 blogVo.setBlogLikes(set.size());
-                if(userId==null){
+                if (userId == null) {
                     blogVo.setFlag(false);
-                }else{
+                } else {
                     blogVo.setFlag(set.contains(userId));
                 }
                 log.info("更新博客编号[{}]的点赞数为redis最新点赞数据：{}", blogVo.getBlogId(),
@@ -186,7 +186,7 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BlogVo viewBlogDetail(Integer blogId) {
+    public BlogVo viewBlogDetail(Integer blogId, Integer userId) {
         //查询博客详情
         BlogVo blogVo = blogExtendMapper.getBlogDeatil(blogId);
         //将markdown内容转换成html
@@ -199,6 +199,15 @@ public class BlogServiceImpl implements BlogService {
                 blogId.toString()));
         blogVo.setBlogViews((Integer) redisValueUtil.hGet(RedisConstant.VIEW_KEY,
                 blogId.toString()));
+        HashSet<Integer> set =
+                (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
+                        blogVo.getBlogId().toString());
+        blogVo.setBlogLikes(set.size());
+        if (userId == null) {
+            blogVo.setFlag(false);
+        } else {
+            blogVo.setFlag(set.contains(userId));
+        }
         redisValueUtil.hIncr(RedisConstant.VIEW_KEY, blogId.toString());
         return blogVo;
     }
@@ -232,7 +241,7 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 博客归档
      *
      * @param userId 1
-     * @return java.util.Map<java.lang.String                                                                                                                               ,                                                                                                                                                                                                                                                               java.util.List                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                               com.jicl.entity.Blog>>
+     * @return java.util.Map<java.lang.String                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               com.jicl.entity.Blog>>
      * @author xianzilei
      * @date 2019/12/19 17:59
      **/

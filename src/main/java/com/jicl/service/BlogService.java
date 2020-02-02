@@ -89,7 +89,7 @@ public interface BlogService {
      * @author xianzilei
      * @date 2019/12/9 17:53
      **/
-    BlogVo viewBlogDetail(Integer blogId);
+    BlogVo viewBlogDetail(Integer blogId,Integer userId);
 
     /**
      * 功能描述: 单条查询博客基本信息
