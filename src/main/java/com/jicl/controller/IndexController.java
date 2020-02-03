@@ -53,7 +53,7 @@ public class IndexController {
         Integer userId = user == null ? null : user.getUserId();
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andPublishedEqualTo(true);
-        blogExample.setOrderByClause("blog_views desc");
+        blogExample.setOrderByClause("create_time desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize, userId));
         model.addAttribute("types", blogService.getTopTypeList(6));
         model.addAttribute("tags", blogService.getTopTagList(10));

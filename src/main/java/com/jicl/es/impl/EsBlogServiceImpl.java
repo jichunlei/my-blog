@@ -57,7 +57,7 @@ public class EsBlogServiceImpl implements EsBlogService {
             query = QueryBuilders.boolQuery();
         }
         Page<EsBlogDo> page = esBlogRepository.search(query, PageRequest.of(pageNum, pageSize,
-                new Sort(Sort.Direction.DESC, "blogViews")));
+                new Sort(Sort.Direction.DESC, "createTime")));
         for (EsBlogDo esBlogDo : page) {
             BlogTagExample blogTagExample = new BlogTagExample();
             blogTagExample.createCriteria().andBlogIdEqualTo(esBlogDo.getBlogId());

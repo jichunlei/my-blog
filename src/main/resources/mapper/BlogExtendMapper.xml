@@ -117,7 +117,7 @@
     <!--查询博客包含的年份-->
     <select id="findGroupYear" resultType="java.lang.String">
         SELECT
-            date_format( update_time, '%Y' ) YEAR
+            date_format( create_time, '%Y' ) YEAR
         FROM
             t_blog
         where del_flag='0'
@@ -126,7 +126,7 @@
         and user_id=#{userId}
         </if>
         GROUP BY
-            date_format( update_time, '%Y' )
+            date_format( create_time, '%Y' )
         ORDER BY
             YEAR DESC
     </select>
@@ -136,7 +136,7 @@
         select
         <include refid="com.jicl.mapper.BlogMapper.Base_Column_List" />
         from t_blog
-        where date_format( update_time, '%Y' )=#{year}
+        where date_format( create_time, '%Y' )=#{year}
         and del_flag='0'
         and published='1'
         <if test="userId!=null">

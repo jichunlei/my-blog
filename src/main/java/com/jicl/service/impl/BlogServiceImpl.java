@@ -491,7 +491,7 @@ public class BlogServiceImpl implements BlogService {
             if (!blog.getBlogLikes().equals(blogLikes)) {
                 Integer tempLikes = blog.getBlogViews();
                 blog.setUpdateTime(new Date());
-                blog.setBlogViews(blogLikes);
+                blog.setBlogLikes(blogLikes);
                 blogMapper.updateByPrimaryKeySelective(blog);
                 log.info("更新博客编号[{}]的点赞数完成，原值为：{}，更新后值为：{}", blogId, tempLikes, blogLikes);
             } else {
