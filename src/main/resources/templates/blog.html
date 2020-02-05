@@ -49,29 +49,30 @@
                     <div class="content"><a href="#" th:text="${blog.nickname}"
                                             class="header">贤子磊</a></div>
                 </div>
-                <div class="item">
+                <div class="item" title="发布时间">
                     <i class="calendar icon"></i> <span
                         th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2019-10-01</span>
                 </div>
-                <div class="item">
+                <div class="item" title="浏览数">
                     <i class="eye icon"></i> <span th:text="${blog.blogViews}">2342</span>
                 </div>
-                <div class="item">
+                <a class="item" title="查看评论"
+                   th:href="@{/blog/{id}#comment-form(id=${blog.blogId})}">
                     <i class="comment icon"></i><span
                         th:text="${blog.blogComments}">50</span>
-                </div>
-                <div class="item" title="点赞"
+                </a>
+                <a class="item" title="点赞"
                      th:unless="${blog.flag}"
                      th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                     <i class="thumbs up outline icon"></i>
                     <span th:text="${blog.blogLikes}">15</span>
-                </div>
-                <div class="item" title="取消点赞"
+                </a>
+                <a class="item" title="取消点赞"
                      th:if="${blog.flag}"
                      th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                     <i class="thumbs up teal icon"></i>
                     <span th:text="${blog.blogLikes}">15</span>
-                </div>
+                </a>
             </div>
         </div>
         <!--图片区域-->

@@ -45,28 +45,29 @@
                                                 <div class="content"><a href="#" class="header"
                                                                         th:text="${blog.nickname}" >贤子磊</a></div>
                                             </div>
-                                            <div class="item">
+                                            <div class="item" title="发布时间">
                                                 <i class="calendar icon"></i><span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-01</span>
                                             </div>
-                                            <div class="item">
+                                            <div class="item" title="浏览数">
                                                 <i class="eye icon"></i><span th:text="${blog.blogViews}">2342</span>
                                             </div>
-                                            <div class="item">
+                                            <a class="item" title="查看评论" target="_blank"
+                                               th:href="@{/blog/{id}#comment-form(id=${blog.blogId})}">
                                                 <i class="comment icon"></i><span
                                                     th:text="${blog.blogComments}">50</span>
-                                            </div>
-                                            <div class="item" title="点赞"
+                                            </a>
+                                            <a class="item" title="点赞"
                                                  th:unless="${blog.flag}"
                                                  th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                                                 <i class="thumbs up outline icon"></i>
                                                 <span th:text="${blog.blogLikes}">15</span>
-                                            </div>
-                                            <div class="item" title="取消点赞"
+                                            </a>
+                                            <a class="item" title="取消点赞"
                                                  th:if="${blog.flag}"
                                                  th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                                                 <i class="thumbs up teal icon"></i>
                                                 <span th:text="${blog.blogLikes}">15</span>
-                                            </div>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="right aligned five wide column">
