@@ -71,7 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="right aligned five wide column">
-                                        <a href="#" target="_blank"
+                                        <a href="#" target="_blank" th:href="@{/types/{id}(id=${blog.typeId})}"
                                            class="ui teal basic label m-padded-tiny m-text-thin"
                                            th:text="${typeMap[__${blog.typeId}__]}">认知升级</a>
                                     </div>
