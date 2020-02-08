@@ -311,9 +311,11 @@ public class BlogServiceImpl implements BlogService {
         //新增博客标签对应关系
         String[] tagIds = tagIdStr.split(",");
         updateBlogTag(id, tagIds, blog.getPublished());
+        log.info("redis新增博客编号[{}]的基本信息>>>>>>start",id);
         redisValueUtil.hPut(RedisConstant.COMMENT_KEY, id.toString(), 0);
         redisValueUtil.hPut(RedisConstant.VIEW_KEY, id.toString(), 0);
         redisValueUtil.hPut(RedisConstant.LIKE_KEY, id.toString(), new HashSet<Integer>());
+        log.info("redis新增博客编号[{}]的基本信息>>>>>>end",id);
     }
 
     /**
