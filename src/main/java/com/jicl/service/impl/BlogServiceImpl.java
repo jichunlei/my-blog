@@ -307,15 +307,15 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreateTime(date);
         blog.setUpdateTime(date);
         blog.setDelFlag(false);
-        Integer id = blogMapper.insertSelective(blog);
+        blogMapper.insertSelective(blog);
         //新增博客标签对应关系
         String[] tagIds = tagIdStr.split(",");
-        updateBlogTag(id, tagIds, blog.getPublished());
-        log.info("redis新增博客编号[{}]的基本信息>>>>>>start",id);
-        redisValueUtil.hPut(RedisConstant.COMMENT_KEY, id.toString(), 0);
-        redisValueUtil.hPut(RedisConstant.VIEW_KEY, id.toString(), 0);
-        redisValueUtil.hPut(RedisConstant.LIKE_KEY, id.toString(), new HashSet<Integer>());
-        log.info("redis新增博客编号[{}]的基本信息>>>>>>end",id);
+        updateBlogTag(blog.getBlogId(), tagIds, blog.getPublished());
+        log.info("redis新增博客编号[{}]的基本信息>>>>>>start",blog.getBlogId());
+        redisValueUtil.hPut(RedisConstant.COMMENT_KEY, blog.getBlogId().toString(), 0);
+        redisValueUtil.hPut(RedisConstant.VIEW_KEY, blog.getBlogId().toString(), 0);
+        redisValueUtil.hPut(RedisConstant.LIKE_KEY, blog.getBlogId().toString(), new HashSet<Integer>());
+        log.info("redis新增博客编号[{}]的基本信息>>>>>>end",blog.getBlogId());
     }
 
     /**
