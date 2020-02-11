@@ -54,7 +54,7 @@ public class TypeShowController {
         model.addAttribute("types", types);
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andTypeIdEqualTo(id).andPublishedEqualTo(true);
-        blogExample.setOrderByClause("blog_views desc");
+        blogExample.setOrderByClause("create_time desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize, userId));
         model.addAttribute("typeMap", typeService.getAllTypes());
         model.addAttribute("activeTypeId", id);

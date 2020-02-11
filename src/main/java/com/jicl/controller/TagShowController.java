@@ -58,7 +58,7 @@ public class TagShowController {
         model.addAttribute("tags", tags);
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andTagIdStrLike("%," + id + ",%").andPublishedEqualTo(true);
-        blogExample.setOrderByClause("blog_views desc");
+        blogExample.setOrderByClause("create_time desc");
         model.addAttribute("page", blogService.page(blogExample, pageNum, pageSize,userId));
         model.addAttribute("activeTagId", id);
         model.addAttribute("typeMap", typeService.getAllTypes());
