@@ -428,7 +428,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Integer syncBlogToEs() {
         Calendar beforeTime = Calendar.getInstance();
-        beforeTime.add(Calendar.MINUTE, -5);
+        beforeTime.add(Calendar.MINUTE, -10);
         Date beforeD = beforeTime.getTime();
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andUpdateTimeGreaterThanOrEqualTo(beforeD);

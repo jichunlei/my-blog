@@ -11,7 +11,7 @@ import com.jicl.mapper.UserMapper;
 import com.jicl.util.RedisValueUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,17 +44,17 @@ public class EsBlogServiceImpl implements EsBlogService {
     private UserMapper userMapper;
 
     @Override
-    public Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize,Integer userId) {
+    public Page<EsBlogDo> search(String keyword, Integer pageNum, Integer pageSize,
+                                 Integer userId) {
         //参数不合法调整
         if (pageNum < 0) {
             pageNum = 0;
         }
-        QueryBuilder query = null;
+        BoolQueryBuilder query = QueryBuilders.boolQuery();
+        query.must(QueryBuilders.matchQuery("delFlag", false));
         if (StringUtils.isNotBlank(keyword)) {
             //组装模糊查询条件
-            query = QueryBuilders.fuzzyQuery("blogTitle", keyword);
-        } else {
-            query = QueryBuilders.boolQuery();
+            query.must(QueryBuilders.fuzzyQuery("blogTitle", keyword.toLowerCase()));
         }
         Page<EsBlogDo> page = esBlogRepository.search(query, PageRequest.of(pageNum, pageSize,
                 new Sort(Sort.Direction.DESC, "createTime")));
@@ -82,9 +82,9 @@ public class EsBlogServiceImpl implements EsBlogService {
                         (HashSet<Integer>) redisValueUtil.hGet(RedisConstant.LIKE_KEY,
                                 esBlogDo.getBlogId().toString());
                 esBlogDo.setBlogLikes(set.size());
-                if(userId==null){
+                if (userId == null) {
                     esBlogDo.setFlag(false);
-                }else{
+                } else {
                     esBlogDo.setFlag(set.contains(userId));
                 }
                 log.info("更新博客编号[{}]的点赞数为redis最新点赞数据：{}", esBlogDo.getBlogId(),

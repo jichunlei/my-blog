@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date : 2020/1/16 15:48
  */
 @Component
-public class RedisValueUtil {
+public final class RedisValueUtil {
 
     @Autowired
     private ValueOperations<String, Serializable> valueOperations;
