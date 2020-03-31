@@ -2,6 +2,7 @@ package com.jicl.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jicl.dto.MessageDto;
 import com.jicl.entity.Message;
 import com.jicl.entity.MessageExample;
 import com.jicl.entity.User;
@@ -99,9 +100,10 @@ public class MessageServiceImpl implements MessageService {
         message.setDelFlag(false);
         messageMapper.insertSelective(message);
         //组装数据发送到mq中，mq异步发送邮件到指定邮箱
-        StringBuffer msg = new StringBuffer();
-        msg.append(nickname).append("-").append(content);
-        mqUtil.sendMessageToMq(msg.toString());
+        MessageDto messageDto = new MessageDto();
+        messageDto.setName(nickname);
+        messageDto.setContent(content);
+        mqUtil.sendMessageToMq(messageDto);
     }
 
     /**
@@ -145,13 +147,13 @@ public class MessageServiceImpl implements MessageService {
             log.error("编号[{}]留言信息不存在！", messageId);
         }
         //组装数据发送到mq中，mq异步发送邮件到指定邮箱
-        StringBuffer msg = new StringBuffer();
-        msg.append(nickname).append("-").
-                append(content).append("-").
-                append(repliedUserNickname).append("-").
-                append(parentMessage.getMessageContent()).append("-").
-                append(parentMessage.getMessageEmail());
-        mqUtil.sendMessageReplyToMq(msg.toString());
+        MessageDto messageDto = new MessageDto();
+        messageDto.setName(nickname);
+        messageDto.setContent(content);
+        messageDto.setParentName(repliedUserNickname);
+        messageDto.setParentContent(parentMessage.getMessageContent());
+        messageDto.setEmail(parentMessage.getMessageEmail());
+        mqUtil.sendMessageReplyToMq(messageDto);
     }
 
     /**

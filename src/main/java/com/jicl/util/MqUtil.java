@@ -38,7 +38,7 @@ public class MqUtil {
     @Qualifier("replyQueue")
     private Queue replyQueue;
 
-    public void sendMessageToMq(String msg){
+    public void sendMessageToMq(Object msg){
         try {
             msgProducer.prodeceMsg(messageQueue,msg);
         } catch (JMSException e) {
@@ -46,7 +46,7 @@ public class MqUtil {
         }
     }
 
-    public void sendMessageReplyToMq(String msg){
+    public void sendMessageReplyToMq(Object msg){
         try {
             msgProducer.prodeceMsg(messageReplyQueue,msg);
         } catch (JMSException e) {

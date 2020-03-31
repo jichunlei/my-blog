@@ -3,6 +3,7 @@ package com.jicl.mq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -29,7 +30,7 @@ public class MsgProducer {
      * @author xianzilei
      * @date 2020/3/31 15:15
      **/
-    public void prodeceMsg(Queue queue, String message) throws JMSException {
+    public void prodeceMsg(Queue queue, Object message) throws JMSException {
         String queueName = queue.getQueueName();
         log.info("发送消息[{}]到队列[{}]中>>>>>>start", message, queueName);
         long start = System.currentTimeMillis();
