@@ -10,8 +10,11 @@ import com.jicl.mapper.MessageMapper;
 import com.jicl.mapper.ReplyExtendMapper;
 import com.jicl.pojo.MessageExtend;
 import com.jicl.service.MessageService;
+import com.jicl.util.MqUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
  * @author : xianzilei
  * @date : 2019/12/12 18:52
  */
+@Slf4j
 @Service
 public class MessageServiceImpl implements MessageService {
 
@@ -33,6 +37,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private MqUtil mqUtil;
 
     /**
      * 功能描述: 分页获取留言信箱列表
@@ -91,6 +98,10 @@ public class MessageServiceImpl implements MessageService {
         message.setUpdateTime(date);
         message.setDelFlag(false);
         messageMapper.insertSelective(message);
+        //组装数据发送到mq中，mq异步发送邮件到指定邮箱
+        StringBuffer msg = new StringBuffer();
+        msg.append(nickname).append("-").append(content);
+        mqUtil.sendMessageToMq(msg.toString());
     }
 
     /**
@@ -108,6 +119,7 @@ public class MessageServiceImpl implements MessageService {
      * @date 2019/12/17 18:40
      **/
     @Override
+    @Transactional
     public void addMessageReply(String nickname, String email, String content, Integer messageId,
                                 Integer repliedUserId, String repliedUserNickname, User user) {
         Message message = new Message();
@@ -128,6 +140,18 @@ public class MessageServiceImpl implements MessageService {
         message.setUpdateTime(date);
         message.setDelFlag(false);
         messageMapper.insertSelective(message);
+        Message parentMessage = messageMapper.selectByPrimaryKey(messageId);
+        if (parentMessage == null) {
+            log.error("编号[{}]留言信息不存在！", messageId);
+        }
+        //组装数据发送到mq中，mq异步发送邮件到指定邮箱
+        StringBuffer msg = new StringBuffer();
+        msg.append(nickname).append("-").
+                append(content).append("-").
+                append(repliedUserNickname).append("-").
+                append(parentMessage.getMessageContent()).append("-").
+                append(parentMessage.getMessageEmail());
+        mqUtil.sendMessageReplyToMq(msg.toString());
     }
 
     /**
@@ -141,7 +165,8 @@ public class MessageServiceImpl implements MessageService {
      * @date 2019/12/24 16:11
      **/
     @Override
-    public PageInfo<Message> page(MessageExample messageExample, Integer pageNum, Integer pageSize) {
+    public PageInfo<Message> page(MessageExample messageExample, Integer pageNum,
+                                  Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Message> list = messageMapper.selectByExampleWithBLOBs(messageExample);
         return PageInfo.of(list);
