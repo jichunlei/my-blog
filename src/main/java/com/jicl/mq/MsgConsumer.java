@@ -63,7 +63,7 @@ public class MsgConsumer {
                 .append("<p style='text-align:left'>留言者：" + name + "</p>")
                 .append("<p style='text-align:left'>留言内容：" + content + "</p>")
                 .append("<hr>")
-                .append("<p style='text-align:right'>此为系统邮件，请勿回复</p>")
+                .append("<p align='right' style='color: red;font-size:15px;'>此为系统邮件，请勿回复</p>")
                 .append("<hr>")
                 .append("<a href='http://xianzilei.cn/toMessagePage'>点此跳转博客留言板页面</a>");
         mailMessageInfo.setContent(sb.toString());
@@ -109,7 +109,7 @@ public class MsgConsumer {
                 .append("<p style='text-align:left'>留言者：" + name + "</p>")
                 .append("<p style='text-align:left'>留言内容：" + content + "</p>")
                 .append("<hr>")
-                .append("<p style='text-align:right'>此为系统邮件，请勿回复</p>")
+                .append("<p align='right' style='color: red;font-size:15px;'>此为系统邮件，请勿回复</p>")
                 .append("<hr>")
                 .append("<a href='http://xianzilei.cn/toMessagePage'>点此跳转博客留言板页面</a>");
         mailMessageInfo.setContent(sb.toString());
