@@ -51,7 +51,8 @@ public class EsBlogServiceImpl implements EsBlogService {
             pageNum = 0;
         }
         BoolQueryBuilder query = QueryBuilders.boolQuery();
-        query.must(QueryBuilders.matchQuery("delFlag", false));
+        query.must(QueryBuilders.matchQuery("delFlag", false))
+                .must(QueryBuilders.matchQuery("published", true));
         if (StringUtils.isNotBlank(keyword)) {
             //组装模糊查询条件
             query.must(QueryBuilders.fuzzyQuery("blogTitle", keyword.toLowerCase()));

@@ -125,7 +125,7 @@
                     首页
                 </a>
                 <a class="item" th:unless="${page.first}"
-                   th:href="@{/search(pageNum=${page.number-1},searchKey=${searchKey})}">
+                   th:href="@{/search(pageNum=${page.number},searchKey=${searchKey})}">
                     上一页
                 </a>
                 <a class="item">
@@ -133,11 +133,11 @@
                          th:text="${page.number+1}">8</h3>页
                 </a>
                 <a class="item" th:unless="${page.last}"
-                   th:href="@{/search(pageNum=${page.number+1},searchKey=${searchKey})}">
+                   th:href="@{/search(pageNum=${page.number+2},searchKey=${searchKey})}">
                     下一页
                 </a>
                 <a class="item" th:classappend="${page.last} ? 'active teal'"
-                   th:href="@{/search(pageNum=${page.totalPages-1},searchKey=${searchKey})}">
+                   th:href="@{/search(pageNum=${page.totalPages},searchKey=${searchKey})}">
                     尾页
                 </a>
                 <a class="item">
