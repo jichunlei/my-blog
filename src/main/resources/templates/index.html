@@ -176,13 +176,25 @@
                         </a>
                     </div>
                 </div>
-                <!--最新推荐-->
+                <!--热门推荐-->
                 <div class="ui segments m-margin-top-large">
                     <div class="ui secondary segment">
-                        <i class="bookmark icon"></i>最新推荐
+                        <i class="hotjar icon"></i>热门推荐
                     </div>
                     <div class="ui segment" th:each="blog : ${recommendBlogs}">
                         <a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank" class="m-black m-text-thin" th:text="${blog.blogTitle}">用户故事（User Story）</a>
+                    </div>
+                </div>
+                <!--活跃排行-->
+                <div class="ui segments m-margin-top-large">
+                    <div class="ui secondary segment">
+                        <i class="bookmark icon"></i>活跃排行
+                    </div>
+                    <div class="ui segment" th:each="user : ${recommendUsers}">
+                        <img src="https://unsplash.it/100/100?image=1005"
+                             th:src="@{${user.headPortrait}}" alt=""
+                             class="ui avatar image">
+                        <a href="#" class="header" th:text="${userss.nickname}" >贤子磊</a>
                     </div>
                 </div>
                 <!--二维码-->
