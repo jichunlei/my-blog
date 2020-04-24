@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 博客管理服务实现类
@@ -135,7 +136,8 @@ public class BlogServiceImpl implements BlogService {
      **/
     @Override
     public List<TopType> getTopTypeList(Integer topSize) {
-        return blogExtendMapper.getTopTypeList(topSize);
+        List<TopType> topTypeList = blogExtendMapper.getTopTypeList(topSize);
+        return topTypeList.stream().filter(s -> s.getBlogNums() > 0).collect(Collectors.toList());
     }
 
     /**
@@ -242,7 +244,7 @@ public class BlogServiceImpl implements BlogService {
      * 功能描述: 博客归档
      *
      * @param userId 1
-     * @return java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.util.List                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               com.jicl.entity.Blog>>
+     * @return java.util.Map<java.lang.String, java.util.List < com.jicl.entity.Blog>>
      * @author xianzilei
      * @date 2019/12/19 17:59
      **/
