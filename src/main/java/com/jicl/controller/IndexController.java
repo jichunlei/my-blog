@@ -58,6 +58,7 @@ public class IndexController {
         model.addAttribute("types", blogService.getTopTypeList(6));
         model.addAttribute("tags", blogService.getTopTagList(10));
         model.addAttribute("recommendBlogs", blogService.getRecommendBlogs(8));
+        model.addAttribute("recommendUsers", blogService.getTopUserList(8));
         model.addAttribute("typeMap", typeService.getAllTypes());
         return BlogConstant.INDEX_PAGE;
     }

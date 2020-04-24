@@ -5,6 +5,7 @@ import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
+import com.jicl.pojo.TopUser;
 import com.jicl.vo.BlogVo;
 
 import java.util.List;
@@ -209,4 +210,14 @@ public interface BlogService {
      * @date 2020/2/1 20:13
      **/
     void cancelThumbsUp(Integer blogId,Integer userId);
+
+    /**
+     * 功能描述: 获取指定数量用户排行榜
+     *
+     * @param topSize 1
+     * @return java.util.List<com.jicl.pojo.TopType>
+     * @author xianzilei
+     * @date 2020/4/24 15:49
+     **/
+    List<TopUser> getTopUserList(Integer topSize);
 }

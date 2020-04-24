@@ -62,14 +62,14 @@
                         th:text="${blog.blogComments}">50</span>
                 </a>
                 <a class="item" title="点赞"
-                     th:unless="${blog.flag}"
-                     th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
+                   th:unless="${blog.flag}"
+                   th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                     <i class="thumbs up outline icon"></i>
                     <span th:text="${blog.blogLikes}">15</span>
                 </a>
                 <a class="item" title="取消点赞"
-                     th:if="${blog.flag}"
-                     th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
+                   th:if="${blog.flag}"
+                   th:onclick="|javascript:thumbsUp('${blog.blogId}',this)|">
                     <i class="thumbs up teal icon"></i>
                     <span th:text="${blog.blogLikes}">15</span>
                 </a>
@@ -580,7 +580,7 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
             <div class="fields">
-                <div class="field  m-margin-bottom-small m-mobile-wide">
+                <div class="field  m-margin-bottom-small m-mobile-wide" th:unless="${session.user==null}">
                     <button id="commentpost-btn" type="button"
                             class="ui teal button m-mobile-wide">
                         <i class="edit icon"></i>发布
@@ -589,7 +589,7 @@ h5,h6{font-size:1em;}
             </div>
         </div>
         <!--历史评论列表-->
-        <div id="comment-container" class="ui teal segment">
+        <div id="comment-container" class="ui teal segment" th:unless="${blog.blogComments==0}">
             <div th:fragment="commentList">
                 <div class="ui threaded comments" style="max-width: 100%;">
                     <div class="comment" th:each="comment : ${comments}">

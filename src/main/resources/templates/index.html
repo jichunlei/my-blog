@@ -179,7 +179,7 @@
                 <!--热门推荐-->
                 <div class="ui segments m-margin-top-large">
                     <div class="ui secondary segment">
-                        <i class="hotjar icon"></i>热门推荐
+                        <i class="fire icon"></i>热门推荐
                     </div>
                     <div class="ui segment" th:each="blog : ${recommendBlogs}">
                         <a href="#" th:href="@{/blog/{id}(id=${blog.blogId})}" target="_blank" class="m-black m-text-thin" th:text="${blog.blogTitle}">用户故事（User Story）</a>
@@ -194,7 +194,7 @@
                         <img src="https://unsplash.it/100/100?image=1005"
                              th:src="@{${user.headPortrait}}" alt=""
                              class="ui avatar image">
-                        <a href="#" class="header" th:text="${userss.nickname}" >贤子磊</a>
+                        <a href="#" class="header" th:text="${user.nickname}" >贤子磊</a>
                     </div>
                 </div>
                 <!--二维码-->

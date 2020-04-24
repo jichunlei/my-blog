@@ -15,6 +15,7 @@ import com.jicl.mapper.BlogTagExtendMapper;
 import com.jicl.mapper.BlogTagMapper;
 import com.jicl.pojo.TopTag;
 import com.jicl.pojo.TopType;
+import com.jicl.pojo.TopUser;
 import com.jicl.service.BlogService;
 import com.jicl.util.MarkdownUtils;
 import com.jicl.util.RedisValueUtil;
@@ -538,5 +539,18 @@ public class BlogServiceImpl implements BlogService {
         set.remove(userId);
         redisValueUtil.hPut(RedisConstant.LIKE_KEY, blogId.toString(), set);
         log.info("博客编号[{}]删除点赞用户编号[{}]", blogId, userId);
+    }
+
+    /**
+     * 功能描述: 获取指定数量用户排行榜
+     *
+     * @param topSize 1
+     * @return java.util.List<com.jicl.pojo.TopType>
+     * @author xianzilei
+     * @date 2020/4/24 15:50
+     **/
+    @Override
+    public List<TopUser> getTopUserList(Integer topSize) {
+        return blogExtendMapper.getTopUserList(topSize);
     }
 }

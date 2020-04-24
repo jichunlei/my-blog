@@ -151,4 +151,26 @@
         from t_blog
         where blog_id=#{blogId}
     </select>
+
+    <!--获取指定数量用户排行榜-->
+    <select id="getTopUserList" resultType="com.jicl.pojo.TopUser">
+        SELECT
+            b.user_id userId,
+            b.nickname nickname,
+            b.head_portrait headPortrait,
+            COUNT( 1 ) blogNums
+        FROM
+            t_blog a,
+            t_user b
+        WHERE
+            a.user_id = b.user_id
+          AND a.del_flag = 0
+          AND a.published = 1
+        GROUP BY
+            b.user_id,
+            b.head_portrait
+        ORDER BY
+            blogNums DESC
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
 </mapper>

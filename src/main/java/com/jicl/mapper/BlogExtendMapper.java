@@ -3,6 +3,7 @@ package com.jicl.mapper;
 import com.jicl.entity.Blog;
 import com.jicl.entity.BlogExample;
 import com.jicl.pojo.TopType;
+import com.jicl.pojo.TopUser;
 import com.jicl.vo.BlogVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -95,4 +96,14 @@ public interface BlogExtendMapper {
      * @date 2020/1/19 15:09
      **/
     Blog getBlogWithoutContent(@Param("blogId")Integer blogId);
+
+    /**
+     * 功能描述: 获取指定数量用户排行榜
+     *
+     * @param topSize 1
+     * @return java.util.List<com.jicl.pojo.TopUser>
+     * @author xianzilei
+     * @date 2020/4/24 15:51
+     **/
+    List<TopUser> getTopUserList(Integer topSize);
 }
