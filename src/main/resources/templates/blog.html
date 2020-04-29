@@ -589,7 +589,7 @@ h5,h6{font-size:1em;}
             </div>
         </div>
         <!--历史评论列表-->
-        <div id="comment-container" class="ui teal segment" th:unless="${blog.blogComments==0}">
+        <div id="comment-container" class="ui teal segment">
             <div th:fragment="commentList">
                 <div class="ui threaded comments" style="max-width: 100%;">
                     <div class="comment" th:each="comment : ${comments}">
