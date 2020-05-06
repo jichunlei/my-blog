@@ -9,8 +9,13 @@
                b.tag_name,
                COUNT(a.blog_id) blogNums
         FROM t_blog_tag a,
-             t_tag b
-        WHERE a.tag_id = b.tag_id
+             t_tag b,
+             t_blog c
+        WHERE
+            a.tag_id = b.tag_id
+            AND a.blog_id = c.blog_id
+            AND c.published = 1
+            AND c.del_flag = 0
         GROUP BY a.tag_id,
                  b.tag_name
         ORDER BY blogNums DESC,
